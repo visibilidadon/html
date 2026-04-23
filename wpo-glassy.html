@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informe WPO — Glassy Europe</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --good:    #0cce6b;
+      --needs:   #ffa400;
+      --bad:     #ff4e42;
+      --blue:    #1a73e8;
+      --dark:    #1e2235;
+      --mid:     #3c4260;
+      --light:   #f4f6fb;
+      --border:  #dde1ed;
+      --text:    #2d3044;
+      --muted:   #6b7080;
+      --red-bg:  #fff0ef;
+      --ora-bg:  #fff8ec;
+      --grn-bg:  #edfaf3;
+      --code-bg: #1e2235;
+    }
+    html { scroll-behavior: smooth; font-size: 15px; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+
+    /* ── Layout ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1e2235 0%, #2d3a6e 100%);
+      color: #fff; padding: 48px 0 40px;
+    }
+    header .container { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .brand-logo {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: linear-gradient(135deg,#4f8ef7,#1a73e8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.5px; }
+    header p  { color: rgba(255,255,255,.7); font-size: .95rem; margin-top: 4px; }
+    .badge-date {
+      margin-left: auto; background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 14px; border-radius: 20px; font-size: .82rem; white-space: nowrap;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: #fff; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    nav .container { display: flex; gap: 0; overflow-x: auto; }
+    nav a {
+      padding: 14px 18px; text-decoration: none; color: var(--muted);
+      font-size: .85rem; font-weight: 500; white-space: nowrap;
+      border-bottom: 3px solid transparent; transition: all .2s;
+    }
+    nav a:hover { color: var(--blue); border-color: var(--blue); }
+
+    /* ── Sections ── */
+    section { padding: 48px 0; }
+    section:nth-child(even) { background: #fff; }
+    h2 {
+      font-size: 1.5rem; font-weight: 700; color: var(--dark);
+      margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+    }
+    h2 .icon { font-size: 1.3rem; }
+    .section-desc { color: var(--muted); font-size: .93rem; margin-bottom: 28px; }
+
+    h3 { font-size: 1.1rem; font-weight: 600; color: var(--dark); margin: 28px 0 12px; }
+
+    /* ── Score Gauges ── */
+    .scores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .score-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .score-card .page-label { font-size: .8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+    .score-card .page-url   { font-size: .75rem; color: var(--muted); margin-bottom: 20px; word-break: break-all; }
+
+    .gauge { position: relative; width: 110px; height: 55px; margin: 0 auto 8px; }
+    .gauge svg { width: 110px; height: 55px; }
+    .gauge-bg   { fill: none; stroke: #eee; stroke-width: 10; }
+    .gauge-fill { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset .6s ease; }
+    .gauge-num  {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      font-size: 1.5rem; font-weight: 800; line-height: 1;
+    }
+
+    .gauge-bad  .gauge-fill { stroke: var(--bad); }
+    .gauge-bad  .gauge-num  { color: var(--bad); }
+    .gauge-needs .gauge-fill { stroke: var(--needs); }
+    .gauge-needs .gauge-num  { color: var(--needs); }
+    .gauge-good .gauge-fill  { stroke: var(--good); }
+    .gauge-good .gauge-num   { color: var(--good); }
+
+    .score-sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+    .score-sub {
+      background: var(--light); border-radius: 8px; padding: 8px 6px; text-align: center;
+    }
+    .score-sub .label { font-size: .7rem; color: var(--muted); font-weight: 500; }
+    .score-sub .value { font-size: .95rem; font-weight: 700; color: var(--dark); }
+
+    /* ── CrUX Table ── */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    thead { background: var(--dark); color: #fff; }
+    thead th { padding: 12px 16px; text-align: left; font-weight: 600; white-space: nowrap; }
+    tbody tr:nth-child(odd) { background: #fff; }
+    tbody tr:nth-child(even) { background: var(--light); }
+    tbody td { padding: 11px 16px; border-top: 1px solid var(--border); vertical-align: middle; }
+    tbody tr:hover { background: #eef2ff; }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+    }
+    .chip-good   { background: var(--grn-bg); color: #0a8a4b; }
+    .chip-needs  { background: var(--ora-bg); color: #b06000; }
+    .chip-bad    { background: var(--red-bg); color: #c0392b; }
+    .chip::before { content: '●'; font-size: 8px; }
+
+    /* ── GSC Status ── */
+    .gsc-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 28px; }
+    .gsc-card {
+      border-radius: 14px; padding: 20px 24px; text-align: center;
+      border: 2px solid transparent;
+    }
+    .gsc-card.bad    { background: var(--red-bg); border-color: #ffcdd2; }
+    .gsc-card.needs  { background: var(--ora-bg); border-color: #ffe0b2; }
+    .gsc-card.good   { background: var(--grn-bg); border-color: #c8e6c9; }
+    .gsc-card .num   { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+    .gsc-card.bad  .num  { color: var(--bad);  }
+    .gsc-card.needs .num { color: var(--needs); }
+    .gsc-card.good  .num { color: var(--good);  }
+    .gsc-card .lbl   { font-size: .82rem; color: var(--muted); font-weight: 500; margin-top: 4px; }
+
+    /* ── CLS Visual ── */
+    .cls-bar-wrap { margin: 20px 0; }
+    .cls-bar-label { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-bottom: 6px; }
+    .cls-bar-track { background: #eee; border-radius: 20px; height: 14px; position: relative; overflow: hidden; }
+    .cls-bar-fill  { height: 100%; border-radius: 20px; transition: width .8s ease; }
+    .cls-marker    {
+      position: absolute; top: 0; height: 100%; width: 2px; background: #1a73e8;
+    }
+    .cls-marker-label {
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+      font-size: .7rem; color: var(--blue); font-weight: 600; white-space: nowrap;
+    }
+
+    /* ── Issues ── */
+    .issues-list { display: flex; flex-direction: column; gap: 16px; }
+    .issue-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.04);
+    }
+    .issue-header {
+      display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px;
+      cursor: pointer;
+    }
+    .issue-header:hover { background: var(--light); }
+    .issue-num {
+      width: 30px; height: 30px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
+      font-size: .85rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .priority-critical .issue-num { background: var(--red-bg);  color: var(--bad);  }
+    .priority-important .issue-num { background: var(--ora-bg); color: #b06000; }
+    .priority-minor .issue-num    { background: #e8f4fd;       color: #1a73e8; }
+
+    .priority-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 9px; border-radius: 12px; font-size: .73rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .4px; margin-left: 8px;
+    }
+    .badge-critical  { background: var(--red-bg);  color: var(--bad);  }
+    .badge-important { background: var(--ora-bg); color: #b06000; }
+    .badge-minor     { background: #e8f4fd;       color: #1a73e8; }
+
+    .issue-title { font-weight: 600; font-size: .97rem; }
+    .issue-pages { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+    .issue-impact { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .issue-impact .metric { font-size: .75rem; color: var(--muted); }
+    .issue-impact .saving { font-size: .88rem; font-weight: 700; }
+    .saving-bad   { color: var(--bad);  }
+    .saving-needs { color: var(--needs); }
+
+    .issue-body { padding: 0 20px 20px 62px; border-top: 1px solid var(--border); background: var(--light); }
+    .issue-body p { font-size: .88rem; color: var(--muted); margin: 14px 0 8px; }
+    .issue-body ul { padding-left: 18px; font-size: .87rem; }
+    .issue-body ul li { margin-bottom: 5px; }
+
+    /* ── Code blocks ── */
+    pre {
+      background: var(--code-bg); color: #e8eaf6; border-radius: 10px;
+      padding: 16px 18px; overflow-x: auto; font-family: 'Consolas','Fira Code',monospace;
+      font-size: .82rem; line-height: 1.6; margin: 10px 0;
+    }
+    code.inline {
+      background: #e8eaf6; color: #c62828; padding: 1px 6px; border-radius: 4px;
+      font-size: .85rem; font-family: 'Consolas','Fira Code',monospace;
+    }
+    .pre-label {
+      display: inline-block; background: #3c4260; color: #90caf9;
+      font-size: .72rem; font-weight: 600; padding: 3px 10px; border-radius: 5px 5px 0 0;
+      margin-bottom: -1px; font-family: 'Consolas',monospace; text-transform: uppercase;
+    }
+    .comment { color: #78909c; }
+    .kw      { color: #f48fb1; }
+    .str     { color: #a5d6a7; }
+    .attr    { color: #90caf9; }
+    .val     { color: #ffe082; }
+
+    /* ── Action Plan ── */
+    .phases { display: grid; gap: 16px; }
+    .phase-card {
+      border-radius: 14px; border: 1px solid var(--border); overflow: hidden;
+      background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.04);
+    }
+    .phase-header {
+      display: flex; align-items: center; gap: 14px; padding: 16px 20px;
+    }
+    .phase-1 .phase-header { background: linear-gradient(90deg,#fff0ef,#fff); border-bottom: 2px solid var(--bad); }
+    .phase-2 .phase-header { background: linear-gradient(90deg,#fff8ec,#fff); border-bottom: 2px solid var(--needs); }
+    .phase-3 .phase-header { background: linear-gradient(90deg,#edfaf3,#fff); border-bottom: 2px solid var(--good); }
+    .phase-4 .phase-header { background: linear-gradient(90deg,#e8f4fd,#fff); border-bottom: 2px solid var(--blue); }
+    .phase-num {
+      width: 40px; height: 40px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .phase-1 .phase-num { background: var(--red-bg);  color: var(--bad);  }
+    .phase-2 .phase-num { background: var(--ora-bg); color: #b06000; }
+    .phase-3 .phase-num { background: var(--grn-bg); color: #0a8a4b; }
+    .phase-4 .phase-num { background: #e8f4fd;       color: var(--blue); }
+    .phase-title { font-weight: 700; font-size: 1rem; }
+    .phase-timeline { font-size: .8rem; color: var(--muted); }
+    .phase-body { padding: 16px 20px; }
+    .phase-body ol { padding-left: 20px; }
+    .phase-body ol li { margin-bottom: 8px; font-size: .9rem; }
+
+    /* ── Impact table ── */
+    .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; }
+    .impact-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px; text-align: center;
+    }
+    .impact-card .metric-name { font-size: .78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+    .impact-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 4px 0; font-size: .9rem; }
+    .impact-before { color: var(--bad);  font-weight: 700; }
+    .impact-after  { color: var(--good); font-weight: 700; }
+    .arrow { color: var(--muted); font-size: .8rem; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.6);
+      text-align: center; padding: 28px; font-size: .82rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── Utilities ── */
+    .tag {
+      display: inline-block; padding: 2px 8px; border-radius: 5px;
+      font-size: .75rem; font-weight: 600; background: #e8eaf6; color: var(--mid); margin: 2px;
+    }
+    .callout {
+      border-left: 4px solid; border-radius: 0 10px 10px 0;
+      padding: 14px 18px; margin: 16px 0; font-size: .88rem;
+    }
+    .callout-warn { border-color: var(--needs); background: var(--ora-bg); }
+    .callout-info { border-color: var(--blue);  background: #e8f4fd; }
+    .callout-bad  { border-color: var(--bad);   background: var(--red-bg); }
+    .callout-good { border-color: var(--good);  background: var(--grn-bg); }
+
+    @media (max-width: 640px) {
+      h2 { font-size: 1.25rem; }
+      .gsc-summary { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ HEADER -->
+<header>
+  <div class="container">
+    <div class="brand-logo">🚀</div>
+    <div>
+      <h1>Informe WPO — Glassy Europe</h1>
+      <p>Auditoría de rendimiento web · Core Web Vitals · PageSpeed Insights</p>
+    </div>
+    <div class="badge-date">📅 Análisis: Abril 2026</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ NAV -->
+<nav>
+  <div class="container">
+    <a href="#resumen">Resumen</a>
+    <a href="#crux">CrUX Field Data</a>
+    <a href="#gsc">GSC Status</a>
+    <a href="#home-page">HOME</a>
+    <a href="#collection-page">Collection</a>
+    <a href="#product-page">Product</a>
+    <a href="#issues">Problemas</a>
+    <a href="#plan">Plan de acción</a>
+    <a href="#impacto">Impacto esperado</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ RESUMEN EJECUTIVO -->
+<section id="resumen">
+  <div class="container">
+    <h2><span class="icon">📊</span> Resumen Ejecutivo</h2>
+    <p class="section-desc">Puntuaciones Lighthouse (mobile) y estado CWV para las tres tipologías de página analizadas.</p>
+
+    <div class="scores-grid">
+
+      <!-- HOME -->
+      <div class="score-card">
+        <div class="page-label">HOME</div>
+        <div class="page-url">glassyeurope.com/</div>
+        <div class="gauge gauge-needs">
+          <svg viewBox="0 0 110 55">
+            <path class="gauge-bg" d="M10,55 A45,45 0 0,1 100,55" />
+            <path class="gauge-fill"
+              stroke-dasharray="141.3"
+              stroke-dashoffset="63.6"
+              d="M10,55 A45,45 0 0,1 100,55" />
+          </svg>
+          <div class="gauge-num">55</div>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Rendimiento (mobile)</div>
+        <div class="score-sub-grid">
+          <div class="score-sub"><div class="label">Accesibilidad</div><div class="value" style="color:#1a73e8">82</div></div>
+          <div class="score-sub"><div class="label">Best Practices</div><div class="value" style="color:var(--bad)">54</div></div>
+          <div class="score-sub"><div class="label">SEO</div><div class="value" style="color:var(--good)">100</div></div>
+          <div class="score-sub"><div class="label">CWV Status</div><div class="value" style="color:var(--needs)">⚠️ CLS</div></div>
+        </div>
+      </div>
+
+      <!-- COLLECTION -->
+      <div class="score-card">
+        <div class="page-label">COLLECTION</div>
+        <div class="page-url">collections/fundas-camper-mediana</div>
+        <div class="gauge gauge-needs">
+          <svg viewBox="0 0 110 55">
+            <path class="gauge-bg" d="M10,55 A45,45 0 0,1 100,55" />
+            <path class="gauge-fill"
+              stroke-dasharray="141.3"
+              stroke-dashoffset="99"
+              d="M10,55 A45,45 0 0,1 100,55" />
+          </svg>
+          <div class="gauge-num">~30</div>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Lab timed-out · Estimado</div>
+        <div class="score-sub-grid">
+          <div class="score-sub"><div class="label">LCP</div><div class="value" style="color:var(--good)">0.9s ✅</div></div>
+          <div class="score-sub"><div class="label">INP</div><div class="value" style="color:var(--good)">116ms ✅</div></div>
+          <div class="score-sub"><div class="label">CLS</div><div class="value" style="color:var(--good)">0 ✅</div></div>
+          <div class="score-sub"><div class="label">CWV Status</div><div class="value" style="color:var(--good)">✅ OK</div></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT -->
+      <div class="score-card">
+        <div class="page-label">PRODUCT</div>
+        <div class="page-url">products/funda-asiento-impermeable-2</div>
+        <div class="gauge gauge-bad">
+          <svg viewBox="0 0 110 55">
+            <path class="gauge-bg" d="M10,55 A45,45 0 0,1 100,55" />
+            <path class="gauge-fill"
+              stroke-dasharray="141.3"
+              stroke-dashoffset="92.9"
+              d="M10,55 A45,45 0 0,1 100,55" />
+          </svg>
+          <div class="gauge-num">45</div>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Rendimiento (desktop)</div>
+        <div class="score-sub-grid">
+          <div class="score-sub"><div class="label">Accesibilidad</div><div class="value" style="color:var(--good)">86</div></div>
+          <div class="score-sub"><div class="label">Best Practices</div><div class="value" style="color:var(--needs)">73</div></div>
+          <div class="score-sub"><div class="label">SEO</div><div class="value" style="color:var(--good)">100</div></div>
+          <div class="score-sub"><div class="label">CWV Status</div><div class="value" style="color:var(--good)">✅ OK</div></div>
+        </div>
+      </div>
+
+    </div><!-- /scores-grid -->
+
+    <div class="callout callout-bad" style="margin-top:28px">
+      <strong>⚠️ Alerta principal:</strong> El único fallo en Core Web Vitals activo es el <strong>CLS = 0.21</strong> en la HOME (umbral máximo: 0.1). Esto afecta a <strong>19 URLs</strong> en GSC (HOME + variantes de idioma). La puntuación global de rendimiento Lighthouse es baja en HOME (55) y Producto (45), lo que indica trabajo de optimización significativo pendiente.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ CRUX FIELD DATA -->
+<section id="crux">
+  <div class="container">
+    <h2><span class="icon">📡</span> CrUX Field Data (Datos Reales de Usuarios)</h2>
+    <p class="section-desc">Métricas p75 recopiladas por Chrome UX Report (CrUX) — reflejan la experiencia real de los usuarios, no condiciones de laboratorio.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Página</th>
+            <th>LCP <small>(≤2.5s)</small></th>
+            <th>INP <small>(≤200ms)</small></th>
+            <th>CLS <small>(≤0.1)</small></th>
+            <th>FCP <small>(≤1.8s)</small></th>
+            <th>TTFB <small>(≤0.8s)</small></th>
+            <th>Estado CWV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HOME</strong><br><small style="color:var(--muted)">glassyeurope.com/</small></td>
+            <td><span class="chip chip-good">1.8s</span></td>
+            <td><span class="chip chip-good">140ms</span></td>
+            <td><span class="chip chip-bad">0.21</span></td>
+            <td><span class="chip chip-good">1.3s</span></td>
+            <td><span class="chip chip-good">0.6s</span></td>
+            <td><span class="chip chip-bad">❌ Falla</span></td>
+          </tr>
+          <tr>
+            <td><strong>COLLECTION</strong><br><small style="color:var(--muted)">fundas-camper-mediana</small></td>
+            <td><span class="chip chip-good">0.9s</span></td>
+            <td><span class="chip chip-good">116ms</span></td>
+            <td><span class="chip chip-good">0.0</span></td>
+            <td><span class="chip chip-good">0.8s</span></td>
+            <td><span class="chip chip-good">0.2s</span></td>
+            <td><span class="chip chip-good">✅ Superado</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRODUCT</strong><br><small style="color:var(--muted)">funda-asiento-impermeable-2</small></td>
+            <td><span class="chip chip-good">1.3s</span></td>
+            <td><span class="chip chip-good">179ms</span></td>
+            <td><span class="chip chip-good">0.06</span></td>
+            <td><span class="chip chip-good">1.2s</span></td>
+            <td><span class="chip chip-good">0.6s</span></td>
+            <td><span class="chip chip-good">✅ Superado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Análisis de CLS en HOME — Distribución de valores</h3>
+
+    <!-- CLS Bar HOME -->
+    <div class="cls-bar-wrap">
+      <div class="cls-bar-label"><span>glassyeurope.com/</span><span>CLS p75 = 0.21 ❌</span></div>
+      <div class="cls-bar-track">
+        <div class="cls-bar-fill" style="width:21%;background:linear-gradient(90deg,var(--good) 0%,var(--needs) 48%,var(--bad) 100%)"></div>
+        <div class="cls-marker" style="left:10%">
+          <span class="cls-marker-label">Umbral 0.1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLS Bar Collection -->
+    <div class="cls-bar-wrap">
+      <div class="cls-bar-label"><span>fundas-camper-mediana</span><span>CLS p75 = 0.0 ✅</span></div>
+      <div class="cls-bar-track">
+        <div class="cls-bar-fill" style="width:0.5%;background:var(--good)"></div>
+        <div class="cls-marker" style="left:10%">
+          <span class="cls-marker-label">Umbral 0.1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLS Bar Product -->
+    <div class="cls-bar-wrap">
+      <div class="cls-bar-label"><span>funda-asiento-impermeable-2</span><span>CLS p75 = 0.06 ✅</span></div>
+      <div class="cls-bar-track">
+        <div class="cls-bar-fill" style="width:6%;background:var(--needs)"></div>
+        <div class="cls-marker" style="left:10%">
+          <span class="cls-marker-label">Umbral 0.1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-info" style="margin-top:20px">
+      <strong>💡 Nota sobre TTFB:</strong> Los excelentes valores de TTFB (0.2s–0.6s) confirman que el servidor de Shopify y la CDN funcionan correctamente. Los problemas de rendimiento son 100% del lado del cliente (recursos, scripts, layout shifts).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ GSC STATUS -->
+<section id="gsc">
+  <div class="container">
+    <h2><span class="icon">🔍</span> Google Search Console — Core Web Vitals</h2>
+    <p class="section-desc">Estado actual en la propiedad <code class="inline">sc-domain:glassyeurope.com</code> · Dispositivo: Móvil</p>
+
+    <div class="gsc-summary">
+      <div class="gsc-card bad">
+        <div class="num">0</div>
+        <div class="lbl">URLs con problemas graves</div>
+      </div>
+      <div class="gsc-card needs">
+        <div class="num">19</div>
+        <div class="lbl">URLs que necesitan mejora</div>
+      </div>
+      <div class="gsc-card good">
+        <div class="num">455</div>
+        <div class="lbl">URLs buenas</div>
+      </div>
+    </div>
+
+    <h3>Desglose de problemas detectados en GSC</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tipo de problema</th><th>URLs afectadas</th><th>Umbral</th><th>Métrica observada</th><th>Impacto SEO</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🟠 CLS &gt; 0.1 (móvil)</td>
+            <td><strong>19 URLs</strong></td>
+            <td>≤ 0.1</td>
+            <td><span class="chip chip-bad">0.20–0.21</span></td>
+            <td>Penalización en ranking</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">📊 INP &gt; 200ms (tendencia)</td>
+            <td>Vigilar</td>
+            <td>≤ 200ms</td>
+            <td><span class="chip chip-good">140–179ms</span></td>
+            <td>Actualmente OK</td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted)">📊 LCP &gt; 2.5s (tendencia)</td>
+            <td>Vigilar</td>
+            <td>≤ 2.5s</td>
+            <td><span class="chip chip-good">0.9–1.8s</span></td>
+            <td>Actualmente OK</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>URLs afectadas por CLS &gt; 0.1</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>URL</th><th>CLS p75</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>glassyeurope.com/</td><td><span class="chip chip-bad">0.21</span></td><td>Necesita mejora</td></tr>
+          <tr><td>glassyeurope.com/en</td><td><span class="chip chip-bad">0.21</span></td><td>Necesita mejora</td></tr>
+          <tr><td>glassyeurope.com/fr</td><td><span class="chip chip-bad">0.20</span></td><td>Necesita mejora</td></tr>
+          <tr><td>glassyeurope.com/[+16 variantes de idioma/subdominio]</td><td><span class="chip chip-needs">~0.20</span></td><td>Necesita mejora</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <strong>⚠️ Acción requerida en GSC:</strong> Una vez implementadas las correcciones de CLS, deberás pulsar <strong>"Validar Corrección"</strong> en el informe de GSC para iniciar la re-evaluación. Google puede tardar hasta 28 días en actualizar el estado.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ HOME PAGE ANALYSIS -->
+<section id="home-page">
+  <div class="container">
+    <h2><span class="icon">🏠</span> Análisis: Página HOME</h2>
+    <p class="section-desc"><code class="inline">https://glassyeurope.com/</code> · Lighthouse Performance: <strong style="color:var(--needs)">55/100</strong></p>
+
+    <h3>Métricas de laboratorio (Lighthouse)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Métrica</th><th>Valor medido</th><th>Umbral bueno</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>First Contentful Paint (FCP)</td><td>2.2s</td><td>≤ 1.8s</td><td><span class="chip chip-needs">⚠️ Mejorable</span></td></tr>
+          <tr><td>Largest Contentful Paint (LCP)</td><td>5.9s</td><td>≤ 2.5s</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Total Blocking Time (TBT)</td><td>580ms</td><td>≤ 200ms</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Cumulative Layout Shift (CLS)</td><td>0.21</td><td>≤ 0.1</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Speed Index</td><td>5.1s</td><td>≤ 3.4s</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Time to Interactive (TTI)</td><td>9.4s</td><td>≤ 3.8s</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:16px">
+      <strong>🔬 Nota laboratorio vs. campo:</strong> Las métricas de laboratorio Lighthouse simulan una red 4G lenta con CPU throttling ×4. Los datos CrUX reales son mejores (LCP 1.8s) porque los usuarios reales tienen mejores conexiones y cachés calientes. Aun así, el CLS 0.21 coincide entre laboratorio y campo, confirmando que es un problema real.
+    </div>
+
+    <h3>Principales hallazgos HOME</h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Problema</th><th>Impacto</th><th>Magnitud</th></tr></thead>
+        <tbody>
+          <tr><td>🎞️ GIFs animados sin optimizar</td><td>LCP, Speed Index</td><td><span class="chip chip-bad">5+ MB transferidos</span></td></tr>
+          <tr><td>📦 JavaScript no utilizado</td><td>TBT, TTI</td><td><span class="chip chip-bad">945 KiB</span></td></tr>
+          <tr><td>🎨 CSS no utilizado</td><td>FCP, Render-blocking</td><td><span class="chip chip-needs">167 KiB</span></td></tr>
+          <tr><td>📐 CLS por popup MailerLite</td><td>CLS</td><td><span class="chip chip-bad">+0.15 contribución</span></td></tr>
+          <tr><td>🔤 Fuentes sin font-display:swap</td><td>CLS, FCP</td><td><span class="chip chip-needs">FOUT/FOIT</span></td></tr>
+          <tr><td>🎯 Nodos DOM excesivos</td><td>TTI, TBT</td><td><span class="chip chip-bad">5.503 nodos</span></td></tr>
+          <tr><td>📊 4 contenedores GTM simultáneos</td><td>TBT, INP</td><td><span class="chip chip-needs">Carga scripts extra</span></td></tr>
+          <tr><td>🔁 Bootstrap cargado dos veces</td><td>TBT, transferencia</td><td><span class="chip chip-needs">~30 KiB duplicado</span></td></tr>
+          <tr><td>🎥 Animaciones no-composite en hotspots</td><td>CLS, FPS</td><td><span class="chip chip-needs">Layout thrashing</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ COLLECTION PAGE ANALYSIS -->
+<section id="collection-page">
+  <div class="container">
+    <h2><span class="icon">🗂️</span> Análisis: Página Collection</h2>
+    <p class="section-desc"><code class="inline">https://glassyeurope.com/collections/fundas-camper-mediana</code> · CWV: <strong style="color:var(--good)">✅ Superado</strong></p>
+
+    <div class="callout callout-warn">
+      <strong>⚠️ Lighthouse se agotó (timeout):</strong> La herramienta PageSpeed Insights no pudo completar el análisis de laboratorio para esta URL porque la página es demasiado pesada para el entorno de simulación. Esto en sí mismo es un indicador de rendimiento negativo significativo — páginas que no completan el análisis en condiciones de red simulada 4G presentarán problemas graves para usuarios con conexiones lentas.
+    </div>
+
+    <h3>Métricas CrUX disponibles (datos reales)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Métrica</th><th>Valor p75</th><th>Umbral</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>LCP</td><td>0.9s</td><td>≤ 2.5s</td><td><span class="chip chip-good">✅ Bueno</span></td></tr>
+          <tr><td>INP</td><td>116ms</td><td>≤ 200ms</td><td><span class="chip chip-good">✅ Bueno</span></td></tr>
+          <tr><td>CLS</td><td>0.0</td><td>≤ 0.1</td><td><span class="chip chip-good">✅ Bueno</span></td></tr>
+          <tr><td>FCP</td><td>0.8s</td><td>≤ 1.8s</td><td><span class="chip chip-good">✅ Bueno</span></td></tr>
+          <tr><td>TTFB</td><td>0.2s</td><td>≤ 0.8s</td><td><span class="chip chip-good">✅ Excelente</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Diagnóstico estimado (basado en timeout + patrones comunes Shopify)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Área sospechosa</th><th>Diagnóstico</th><th>Prioridad</th></tr></thead>
+        <tbody>
+          <tr><td>Imágenes de producto</td><td>Probable carga sin lazy-loading o sin WebP/AVIF optimizado</td><td><span class="chip chip-needs">⚠️ Importante</span></td></tr>
+          <tr><td>Filtros / facets JS</td><td>Scripts de filtrado pesados que bloquean el thread principal</td><td><span class="chip chip-needs">⚠️ Importante</span></td></tr>
+          <tr><td>Paginación / infinite scroll</td><td>Puede cargar demasiados recursos en el DOM inicial</td><td><span class="chip chip-needs">⚠️ Importante</span></td></tr>
+          <tr><td>Scripts de terceros heredados</td><td>Los mismos GTM/analytics de HOME se cargarán aquí</td><td><span class="chip chip-needs">⚠️ Importante</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-info">
+      <strong>💡 Recomendación:</strong> Ejecutar un análisis de rendimiento dedicado con Chrome DevTools Performance Profiler (menú DevTools → Performance → Record) directamente en la página de colección para obtener datos de laboratorio precisos y un flame chart detallado del thread principal.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ PRODUCT PAGE ANALYSIS -->
+<section id="product-page">
+  <div class="container">
+    <h2><span class="icon">🛍️</span> Análisis: Página de Producto</h2>
+    <p class="section-desc"><code class="inline">https://glassyeurope.com/products/funda-asiento-impermeable-2</code> · Lighthouse Performance: <strong style="color:var(--bad)">45/100</strong></p>
+
+    <h3>Métricas de laboratorio (Lighthouse desktop)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Métrica</th><th>Valor medido</th><th>Umbral bueno</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>First Contentful Paint (FCP)</td><td>1.8s</td><td>≤ 1.8s</td><td><span class="chip chip-needs">⚠️ Límite</span></td></tr>
+          <tr><td>Largest Contentful Paint (LCP)</td><td>4.2s</td><td>≤ 2.5s</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Total Blocking Time (TBT)</td><td>420ms</td><td>≤ 200ms</td><td><span class="chip chip-bad">❌ Falla</span></td></tr>
+          <tr><td>Cumulative Layout Shift (CLS)</td><td>0.06</td><td>≤ 0.1</td><td><span class="chip chip-good">✅ Bueno</span></td></tr>
+          <tr><td>Speed Index</td><td>3.8s</td><td>≤ 3.4s</td><td><span class="chip chip-needs">⚠️ Mejorable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Principales hallazgos Producto</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Problema</th><th>Impacto</th><th>Magnitud</th></tr></thead>
+        <tbody>
+          <tr><td>🎬 Vídeo MP4 de producto sin optimizar</td><td>LCP, transferencia</td><td><span class="chip chip-bad">9.9 MB</span></td></tr>
+          <tr><td>▶️ Embed YouTube sin facade pattern</td><td>TBT, LCP</td><td><span class="chip chip-bad">+400ms bloqueo</span></td></tr>
+          <tr><td>📦 JavaScript no utilizado</td><td>TBT, TTI</td><td><span class="chip chip-bad">500 KiB</span></td></tr>
+          <tr><td>🎨 CSS no utilizado</td><td>FCP</td><td><span class="chip chip-needs">58 KiB</span></td></tr>
+          <tr><td>🖼️ Imagen LCP sin fetchpriority</td><td>LCP</td><td><span class="chip chip-needs">Retraso 200–400ms</span></td></tr>
+          <tr><td>📊 Scripts analítica (GTM ×4)</td><td>TBT</td><td><span class="chip chip-needs">Heredado de HOME</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ISSUES & SOLUTIONS -->
+<section id="issues">
+  <div class="container">
+    <h2><span class="icon">🔧</span> Problemas Detectados y Soluciones</h2>
+    <p class="section-desc">17 problemas ordenados por prioridad e impacto en Core Web Vitals.</p>
+
+    <div class="issues-list">
+
+      <!-- ── ISSUE 1 ── -->
+      <div class="issue-card priority-critical">
+        <div class="issue-header">
+          <div class="issue-num">1</div>
+          <div>
+            <div class="issue-title">CLS por popup MailerLite — iframe inyectado sin dimensiones reservadas <span class="priority-badge badge-critical">🔴 Crítico</span></div>
+            <div class="issue-pages">📄 Afecta: HOME · GSC: 19 URLs fallando · CWV fallo activo</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora CLS estimada</div>
+            <div class="saving saving-bad">−0.15</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> MailerLite inyecta un iframe popup que desplaza el contenido de la página al cargarse después del primer paint. El popup no tiene dimensiones reservadas en el DOM inicial, causando un layout shift masivo.</p>
+          <p><strong>Solución 1 — Retrasar el popup 3s (Shopify · theme.liquid):</strong></p>
+          <div class="pre-label">liquid / theme.liquid</div>
+          <pre><span class="comment">{%- comment -%} Retrasar MailerLite popup para no impactar CLS {%- endcomment -%}</span>
+<span class="kw">&lt;script&gt;</span>
+  <span class="comment">// Cargar MailerLite sólo después de que el usuario interactúe</span>
+  <span class="attr">function</span> <span class="val">loadMailerLite</span>() {
+    <span class="kw">var</span> s = document.createElement(<span class="str">'script'</span>);
+    s.src = <span class="str">'https://assets.mailerlite.com/js/universal.js'</span>;
+    s.async = <span class="kw">true</span>;
+    document.head.appendChild(s);
+  }
+  <span class="comment">// Disparar tras 3s o en primer scroll/click (lo que ocurra antes)</span>
+  <span class="kw">var</span> timer = setTimeout(loadMailerLite, <span class="val">3000</span>);
+  [<span class="str">'scroll'</span>, <span class="str">'touchstart'</span>, <span class="str">'keydown'</span>].forEach(<span class="kw">function</span>(e) {
+    window.addEventListener(e, <span class="kw">function</span>() {
+      clearTimeout(timer);
+      loadMailerLite();
+    }, { once: <span class="kw">true</span>, passive: <span class="kw">true</span> });
+  });
+<span class="kw">&lt;/script&gt;</span></pre>
+          <p><strong>Solución 2 — Reservar espacio con CSS (evita layout shift si carga antes):</strong></p>
+          <div class="pre-label">CSS</div>
+          <pre><span class="comment">/* Reservar espacio para el contenedor MailerLite */</span>
+<span class="attr">.ml-form-embed</span>, <span class="attr">[data-ml-form]</span> {
+  <span class="kw">min-height</span>: <span class="val">1px</span>;
+  <span class="kw">contain</span>: <span class="val">layout</span>;
+}
+<span class="comment">/* Evitar CLS en overlays/modals: usar position:fixed en lugar de modificar el flow */</span>
+<span class="attr">.ml-form-overlay</span> {
+  <span class="kw">position</span>: <span class="val">fixed</span> !important;
+  <span class="kw">top</span>: <span class="val">0</span>; <span class="kw">left</span>: <span class="val">0</span>;
+  <span class="kw">width</span>: <span class="val">100%</span>; <span class="kw">height</span>: <span class="val">100%</span>;
+  <span class="kw">z-index</span>: <span class="val">9999</span>;
+}</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 2 ── -->
+      <div class="issue-card priority-critical">
+        <div class="issue-header">
+          <div class="issue-num">2</div>
+          <div>
+            <div class="issue-title">Fuentes web sin <code class="inline">font-display: swap</code> — FOIT causa CLS y FCP <span class="priority-badge badge-critical">🔴 Crítico</span></div>
+            <div class="issue-pages">📄 Afecta: HOME, Collection, Product</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora CLS estimada</div>
+            <div class="saving saving-bad">−0.05</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Las fuentes web se cargan sin <code class="inline">font-display: swap</code>, provocando FOIT (Flash of Invisible Text) que desaparece y reaparece, generando layout shifts y retrasando el FCP.</p>
+          <div class="pre-label">CSS · fonts.css o en theme.liquid</div>
+          <pre><span class="comment">/* Añadir font-display:swap a TODAS las declaraciones @font-face */</span>
+<span class="kw">@font-face</span> {
+  <span class="attr">font-family</span>: <span class="str">'NombreFuente'</span>;
+  <span class="attr">src</span>: url(<span class="str">'fuente.woff2'</span>) format(<span class="str">'woff2'</span>);
+  <span class="attr">font-display</span>: <span class="val">swap</span>;  <span class="comment">/* ← AÑADIR ESTA LÍNEA */</span>
+  <span class="attr">font-weight</span>: <span class="val">400</span>;
+  <span class="attr">font-style</span>: <span class="val">normal</span>;
+}
+
+<span class="comment">/* Si usas Google Fonts, añade &display=swap al URL */</span>
+<span class="comment">&lt;!-- ANTES --&gt;</span>
+<span class="comment">&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700" rel="stylesheet"&gt;</span>
+<span class="comment">&lt;!-- DESPUÉS --&gt;</span>
+&lt;<span class="kw">link</span> <span class="attr">href</span>=<span class="str">"https://fonts.googleapis.com/css2?family=Inter:wght@400;700<span class="val">&amp;display=swap</span>"</span>
+      <span class="attr">rel</span>=<span class="str">"stylesheet"</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 3 ── -->
+      <div class="issue-card priority-critical">
+        <div class="issue-header">
+          <div class="issue-num">3</div>
+          <div>
+            <div class="issue-title">GIFs animados de 5+ MB en HOME — deben convertirse a vídeo <span class="priority-badge badge-critical">🔴 Crítico</span></div>
+            <div class="issue-pages">📄 Afecta: HOME · Speed Index, LCP</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Ahorro transferencia</div>
+            <div class="saving saving-bad">~4.5 MB</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Los GIFs son el formato más ineficiente para animaciones. Un GIF de 5 MB puede reducirse a 300–500 KB en formato WebM/MP4.</p>
+          <p><strong>Solución — Convertir GIF a vídeo con ffmpeg:</strong></p>
+          <div class="pre-label">Terminal (ffmpeg)</div>
+          <pre><span class="comment"># Convertir GIF a WebM (mejor compresión, ~90% menos peso)</span>
+ffmpeg -i animacion.gif -c:v libvpx-vp9 -b:v 0 -crf 33 -pass 1 -an -f webm /dev/null
+ffmpeg -i animacion.gif -c:v libvpx-vp9 -b:v 0 -crf 33 -pass 2 -an animacion.webm
+
+<span class="comment"># Convertir GIF a MP4 (fallback)</span>
+ffmpeg -i animacion.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" animacion.mp4</pre>
+          <p><strong>Implementación en Liquid (Shopify):</strong></p>
+          <div class="pre-label">liquid / section .liquid</div>
+          <pre>&lt;<span class="kw">video</span> <span class="attr">autoplay</span> <span class="attr">loop</span> <span class="attr">muted</span> <span class="attr">playsinline</span>
+       <span class="attr">width</span>=<span class="str">"600"</span> <span class="attr">height</span>=<span class="str">"400"</span>
+       <span class="attr">aria-label</span>=<span class="str">"Descripción de la animación"</span>&gt;
+  &lt;<span class="kw">source</span> <span class="attr">src</span>=<span class="str">"{{ 'animacion.webm' | asset_url }}"</span> <span class="attr">type</span>=<span class="str">"video/webm"</span>&gt;
+  &lt;<span class="kw">source</span> <span class="attr">src</span>=<span class="str">"{{ 'animacion.mp4' | asset_url }}"</span> <span class="attr">type</span>=<span class="str">"video/mp4"</span>&gt;
+&lt;/<span class="kw">video</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 4 ── -->
+      <div class="issue-card priority-critical">
+        <div class="issue-header">
+          <div class="issue-num">4</div>
+          <div>
+            <div class="issue-title">Vídeo MP4 de producto de 9.9 MB sin comprimir ni lazy-load <span class="priority-badge badge-critical">🔴 Crítico</span></div>
+            <div class="issue-pages">📄 Afecta: Product · LCP, transferencia</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Ahorro estimado</div>
+            <div class="saving saving-bad">~8 MB</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> El vídeo de demostración de producto se descarga completamente en la carga inicial aunque no sea visible. 9.9 MB es inaceptable para móviles.</p>
+          <div class="pre-label">Terminal (ffmpeg) — Comprimir vídeo producto</div>
+          <pre><span class="comment"># Comprimir vídeo a H.264 optimizado para web (target ~1-2MB)</span>
+ffmpeg -i producto-original.mp4 \
+  -c:v libx264 -crf 28 -preset slow \
+  -vf "scale=1280:-2" \
+  -c:a aac -b:a 128k \
+  -movflags +faststart \
+  producto-optimizado.mp4</pre>
+          <div class="pre-label">liquid — Lazy load del vídeo</div>
+          <pre>&lt;<span class="kw">video</span> <span class="attr">id</span>=<span class="str">"product-video"</span>
+       <span class="attr">width</span>=<span class="str">"1280"</span> <span class="attr">height</span>=<span class="str">"720"</span>
+       <span class="attr">controls</span> <span class="attr">preload</span>=<span class="str">"none"</span>
+       <span class="attr">poster</span>=<span class="str">"{{ product.featured_image | img_url: '1280x720' }}"</span>&gt;
+  &lt;<span class="kw">source</span> <span class="attr">data-src</span>=<span class="str">"{{ 'producto-optimizado.mp4' | asset_url }}"</span>
+          <span class="attr">type</span>=<span class="str">"video/mp4"</span>&gt;
+&lt;/<span class="kw">video</span>&gt;
+&lt;<span class="kw">script</span>&gt;
+  <span class="comment">// Cargar vídeo solo cuando el usuario haga click en play</span>
+  document.getElementById(<span class="str">'product-video'</span>)
+    .addEventListener(<span class="str">'click'</span>, <span class="kw">function</span>() {
+      <span class="kw">this</span>.querySelectorAll(<span class="str">'[data-src]'</span>).forEach(<span class="kw">function</span>(s) {
+        s.src = s.dataset.src;
+      });
+      <span class="kw">this</span>.load();
+      <span class="kw">this</span>.play();
+    }, { once: <span class="kw">true</span> });
+&lt;/<span class="kw">script</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 5 ── -->
+      <div class="issue-card priority-critical">
+        <div class="issue-header">
+          <div class="issue-num">5</div>
+          <div>
+            <div class="issue-title">YouTube embed sin facade pattern — bloquea 400ms en carga inicial <span class="priority-badge badge-critical">🔴 Crítico</span></div>
+            <div class="issue-pages">📄 Afecta: Product · TBT, LCP</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora TBT</div>
+            <div class="saving saving-bad">−400ms</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> El iframe de YouTube se carga en el momento inicial, descargando múltiples scripts de tracking de Google que bloquean el main thread por ~400ms antes de que el usuario haya interactuado con el vídeo.</p>
+          <div class="pre-label">liquid — YouTube Lite Facade</div>
+          <pre><span class="comment">{%- comment -%} Sustituir el iframe iframe de YouTube por una imagen de previsualización {%- endcomment -%}</span>
+
+&lt;<span class="kw">div</span> <span class="attr">class</span>=<span class="str">"yt-facade"</span>
+     <span class="attr">data-videoid</span>=<span class="str">"TU_VIDEO_ID"</span>
+     <span class="attr">style</span>=<span class="str">"position:relative;cursor:pointer;aspect-ratio:16/9;"</span>&gt;
+  &lt;<span class="kw">img</span>
+    <span class="attr">src</span>=<span class="str">"https://i.ytimg.com/vi/TU_VIDEO_ID/hqdefault.jpg"</span>
+    <span class="attr">alt</span>=<span class="str">"Ver vídeo del producto"</span>
+    <span class="attr">loading</span>=<span class="str">"lazy"</span>
+    <span class="attr">width</span>=<span class="str">"640"</span> <span class="attr">height</span>=<span class="str">"360"</span>
+    <span class="attr">style</span>=<span class="str">"width:100%;height:100%;object-fit:cover;"</span>&gt;
+  &lt;<span class="kw">button</span> <span class="attr">style</span>=<span class="str">"position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:rgba(255,0,0,.85);border:none;border-radius:50%;
+    width:64px;height:64px;cursor:pointer;font-size:28px;"</span>
+    <span class="attr">aria-label</span>=<span class="str">"Reproducir vídeo"</span>&gt;▶&lt;/<span class="kw">button</span>&gt;
+&lt;/<span class="kw">div</span>&gt;
+&lt;<span class="kw">script</span>&gt;
+  document.querySelectorAll(<span class="str">'.yt-facade'</span>).forEach(<span class="kw">function</span>(el) {
+    el.addEventListener(<span class="str">'click'</span>, <span class="kw">function</span>() {
+      <span class="kw">var</span> id = el.dataset.videoid;
+      el.innerHTML = <span class="str">'&lt;iframe width="100%" height="100%" '</span> +
+        <span class="str">'src="https://www.youtube.com/embed/'</span> + id +
+        <span class="str">'?autoplay=1" frameborder="0" allow="autoplay" allowfullscreen&gt;&lt;/iframe&gt;'</span>;
+    });
+  });
+&lt;/<span class="kw">script</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 6 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">6</div>
+          <div>
+            <div class="issue-title">945 KiB de JavaScript no utilizado en HOME <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: HOME (945 KiB), Product (500 KiB)</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora TBT</div>
+            <div class="saving saving-needs">−200ms est.</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Casi 1 MB de JavaScript se descarga y parsea aunque no se usa en la carga inicial. Los principales culpables son apps de Shopify que cargan todo su bundle sin code-splitting.</p>
+          <ul>
+            <li>Auditar con Chrome DevTools → Coverage (Ctrl+Shift+P → "Coverage") para ver qué scripts tienen más código sin usar</li>
+            <li>Revisar apps instaladas en Shopify Admin → buscar apps que carguen scripts globales innecesarios en todas las páginas</li>
+            <li>Mover scripts no críticos a <code class="inline">&lt;script defer&gt;</code> o cargarlos on-demand</li>
+          </ul>
+          <div class="pre-label">liquid · theme.liquid — Cargar scripts no críticos de forma diferida</div>
+          <pre><span class="comment">&lt;!-- ANTES: script cargado síncronamente --&gt;</span>
+<span class="comment">&lt;script src="{{ 'app-bundle.js' | asset_url }}"&gt;&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- DESPUÉS: diferido hasta después del parseo HTML --&gt;</span>
+&lt;<span class="kw">script</span> <span class="attr">src</span>=<span class="str">"{{ 'app-bundle.js' | asset_url }}"</span> <span class="attr">defer</span>&gt;&lt;/<span class="kw">script</span>&gt;
+
+<span class="comment">&lt;!-- O cargarlo solo en páginas que lo necesitan --&gt;</span>
+{% <span class="kw">if</span> template == <span class="str">'product'</span> %}
+  &lt;<span class="kw">script</span> <span class="attr">src</span>=<span class="str">"{{ 'product-specific.js' | asset_url }}"</span> <span class="attr">defer</span>&gt;&lt;/<span class="kw">script</span>&gt;
+{% <span class="kw">endif</span> %}</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 7 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">7</div>
+          <div>
+            <div class="issue-title">4 contenedores GTM cargando simultáneamente <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: HOME, Collection, Product</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora TBT</div>
+            <div class="saving saving-needs">−100ms est.</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Se detectan 4 contenedores GTM (GTM-XXXXXXX) cargando simultáneamente. Cada contenedor GTM añade overhead de red y ejecución de scripts. Es probable que algunos sean residuos de cuentas de analytics antiguas o implementaciones duplicadas.</p>
+          <ul>
+            <li>Auditar en GTM → Revisar qué tags están activos en cada contenedor</li>
+            <li>Consolidar en un único contenedor GTM siempre que sea posible</li>
+            <li>Eliminar contenedores de cuentas antiguas o sin uso activo</li>
+            <li>Revisar si algún contenedor duplica tags que ya existen en otro (GA4, pixels de Meta/TikTok, etc.)</li>
+          </ul>
+          <div class="pre-label">liquid · theme.liquid — GTM con carga diferida</div>
+          <pre><span class="comment">{%- comment -%} Retrasar GTM hasta interacción del usuario (ahorra ~100ms TBT) {%- endcomment -%}</span>
+&lt;<span class="kw">script</span>&gt;
+  (<span class="kw">function</span>() {
+    <span class="kw">var</span> loaded = <span class="kw">false</span>;
+    <span class="attr">function</span> <span class="val">loadGTM</span>() {
+      <span class="kw">if</span> (loaded) <span class="kw">return</span>;
+      loaded = <span class="kw">true</span>;
+      <span class="comment">// Pegar aquí el snippet estándar de GTM</span>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+      })(window,document,<span class="str">'script'</span>,<span class="str">'dataLayer'</span>,<span class="str">'GTM-XXXXXXX'</span>);
+    }
+    [<span class="str">'scroll'</span>,<span class="str">'mousemove'</span>,<span class="str">'touchstart'</span>,<span class="str">'keydown'</span>].forEach(<span class="kw">function</span>(e) {
+      window.addEventListener(e, loadGTM, { once: <span class="kw">true</span>, passive: <span class="kw">true</span> });
+    });
+    setTimeout(loadGTM, <span class="val">4000</span>); <span class="comment">// fallback si no hay interacción</span>
+  })();
+&lt;/<span class="kw">script</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 8 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">8</div>
+          <div>
+            <div class="issue-title">Bootstrap cargado dos veces — duplicado por MailerLite <span class="priority-badge badge-important">🟠 Importante</span>
+</div>
+            <div class="issue-pages">📄 Afecta: HOME · CSS/JS redundante</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Ahorro transferencia</div>
+            <div class="saving saving-needs">~30 KiB</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> MailerLite carga su propia copia de Bootstrap CSS/JS aunque el tema ya incluye Bootstrap. Esto duplica ~30 KiB de CSS y ~40 KiB de JS que el navegador debe descargar, parsear y ejecutar dos veces.</p>
+          <ul>
+            <li>En MailerLite → Configuración del formulario → Opciones avanzadas: desactivar "Incluir Bootstrap"</li>
+            <li>Si no es posible desactivarlo desde MailerLite, inyectar CSS override para evitar conflictos visuales</li>
+            <li>Verificar con Chrome DevTools → Network → filtrar por "bootstrap" para confirmar duplicado</li>
+          </ul>
+          <div class="pre-label">CSS — Override para evitar conflictos si no puedes desactivar Bootstrap en MailerLite</div>
+          <pre><span class="comment">/* Sobreescribir Bootstrap de MailerLite para que use las variables del tema */</span>
+<span class="attr">.ml-form-embedWrapper</span> {
+  <span class="kw">all</span>: <span class="val">revert</span>;  <span class="comment">/* Resetear estilos heredados del Bootstrap de MailerLite */</span>
+}
+<span class="comment">/* Bloquear carga duplicada si tienes control sobre el &lt;head&gt; */</span>
+<span class="comment">/* Usar Resource Hints para indicar que Bootstrap ya está cargado */</span></pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 9 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">9</div>
+          <div>
+            <div class="issue-title">Animaciones hotspot con propiedades no-composite (top/left) — CLS y jank <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: HOME · CLS, FPS, layout thrashing</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora CLS</div>
+            <div class="saving saving-needs">−0.03 est.</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Los botones hotspot interactivos de la HOME usan animaciones CSS que modifican propiedades <code class="inline">top</code>, <code class="inline">left</code>, <code class="inline">width</code> o <code class="inline">margin</code>. Estas propiedades fuerzan al navegador a recalcular el layout en cada frame, causando "layout thrashing" y contribuyendo al CLS.</p>
+          <div class="pre-label">CSS — Migrar animaciones a propiedades composite</div>
+          <pre><span class="comment">/* ❌ ANTES: propiedades que fuerzan layout recalculation */</span>
+<span class="attr">.hotspot-btn</span> {
+  <span class="kw">animation</span>: pulse-old <span class="val">2s infinite</span>;
+}
+<span class="kw">@keyframes</span> pulse-old {
+  0%   { <span class="kw">width</span>: <span class="val">20px</span>; <span class="kw">height</span>: <span class="val">20px</span>; }
+  50%  { <span class="kw">width</span>: <span class="val">28px</span>; <span class="kw">height</span>: <span class="val">28px</span>; } <span class="comment">/* ← fuerza layout */</span>
+  100% { <span class="kw">width</span>: <span class="val">20px</span>; <span class="kw">height</span>: <span class="val">20px</span>; }
+}
+
+<span class="comment">/* ✅ DESPUÉS: solo transform y opacity (GPU-composited, sin layout) */</span>
+<span class="attr">.hotspot-btn</span> {
+  <span class="kw">width</span>: <span class="val">20px</span>;
+  <span class="kw">height</span>: <span class="val">20px</span>;
+  <span class="kw">will-change</span>: <span class="val">transform</span>;  <span class="comment">/* hint al navegador para GPU layer */</span>
+  <span class="kw">animation</span>: pulse-new <span class="val">2s infinite</span>;
+}
+<span class="kw">@keyframes</span> pulse-new {
+  0%   { <span class="kw">transform</span>: <span class="val">scale(1)</span>;   <span class="kw">opacity</span>: <span class="val">1</span>; }
+  50%  { <span class="kw">transform</span>: <span class="val">scale(1.4)</span>; <span class="kw">opacity</span>: <span class="val">.8</span>; } <span class="comment">/* ← solo GPU */</span>
+  100% { <span class="kw">transform</span>: <span class="val">scale(1)</span>;   <span class="kw">opacity</span>: <span class="val">1</span>; }
+}</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 10 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">10</div>
+          <div>
+            <div class="issue-title">Imagen LCP de producto sin <code class="inline">fetchpriority="high"</code> ni preload <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: Product · LCP</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora LCP</div>
+            <div class="saving saving-needs">−200–400ms</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> La imagen principal del producto (elemento LCP) no tiene prioridad de carga alta. El navegador la descubre tarde y la descarga con prioridad normal junto con otras imágenes de la página.</p>
+          <div class="pre-label">liquid · product.liquid — Priorizar imagen LCP</div>
+          <pre><span class="comment">{%- comment -%} Imagen principal del producto — LCP element {%- endcomment -%}</span>
+{%- <span class="kw">assign</span> featured_image = product.featured_image -%}
+
+<span class="comment">&lt;!-- Preload en el &lt;head&gt; para descarga anticipada --&gt;</span>
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"preload"</span> <span class="attr">as</span>=<span class="str">"image"</span>
+      <span class="attr">href</span>=<span class="str">"{{ featured_image | img_url: '800x800' }}"</span>
+      <span class="attr">imagesrcset</span>=<span class="str">"{{ featured_image | img_url: '400x400' }} 400w,
+                   {{ featured_image | img_url: '800x800' }} 800w,
+                   {{ featured_image | img_url: '1200x1200' }} 1200w"</span>
+      <span class="attr">imagesizes</span>=<span class="str">"(max-width:768px) 100vw, 50vw"</span>&gt;
+
+<span class="comment">&lt;!-- Imagen con fetchpriority="high" + dimensiones explícitas --&gt;</span>
+&lt;<span class="kw">img</span>
+  <span class="attr">src</span>=<span class="str">"{{ featured_image | img_url: '800x800' }}"</span>
+  <span class="attr">srcset</span>=<span class="str">"{{ featured_image | img_url: '400x400' }} 400w,
+          {{ featured_image | img_url: '800x800' }} 800w,
+          {{ featured_image | img_url: '1200x1200' }} 1200w"</span>
+  <span class="attr">sizes</span>=<span class="str">"(max-width:768px) 100vw, 50vw"</span>
+  <span class="attr">alt</span>=<span class="str">"{{ featured_image.alt | escape }}"</span>
+  <span class="attr">width</span>=<span class="str">"800"</span> <span class="attr">height</span>=<span class="str">"800"</span>
+  <span class="attr">fetchpriority</span>=<span class="str">"high"</span>
+  <span class="attr">loading</span>=<span class="str">"eager"</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 11 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">11</div>
+          <div>
+            <div class="issue-title">DOM con 5.503 nodos en HOME — muy por encima del límite recomendado <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: HOME · TTI, TBT, Memory</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Nodos recomendados</div>
+            <div class="saving saving-needs">≤ 1.500</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> 5.503 nodos DOM es 3.6× el máximo recomendado por Lighthouse (1.500). Un DOM grande hace más lento el recálculo de estilos, layout, y las operaciones de JavaScript que recorren el árbol.</p>
+          <ul>
+            <li>Auditar con <code class="inline">document.querySelectorAll('*').length</code> en DevTools Console para confirmar el número</li>
+            <li>Revisar secciones de la HOME con contenido redundante (carruseles con decenas de slides clonados, menús mega-menú con todas las categorías en el DOM aunque estén ocultos)</li>
+            <li>Usar <code class="inline">content-visibility: auto</code> en secciones fuera del viewport para diferir su render</li>
+            <li>Virtualizar listas largas de productos si las hay</li>
+          </ul>
+          <div class="pre-label">CSS — content-visibility para secciones off-screen</div>
+          <pre><span class="comment">/* Aplica a secciones que están debajo del fold */</span>
+<span class="attr">.section-testimonials</span>,
+<span class="attr">.section-instagram</span>,
+<span class="attr">.section-footer-nav</span> {
+  <span class="kw">content-visibility</span>: <span class="val">auto</span>;
+  <span class="kw">contain-intrinsic-size</span>: <span class="val">0 500px</span>; <span class="comment">/* estimación de la altura */</span>
+}</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 12 ── -->
+      <div class="issue-card priority-important">
+        <div class="issue-header">
+          <div class="issue-num">12</div>
+          <div>
+            <div class="issue-title">Imágenes sin dimensiones explícitas — reserva de espacio ausente <span class="priority-badge badge-important">🟠 Importante</span></div>
+            <div class="issue-pages">📄 Afecta: HOME, Collection, Product · CLS</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Previene CLS</div>
+            <div class="saving saving-needs">Variable</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Varias imágenes carecen de atributos <code class="inline">width</code> y <code class="inline">height</code> explícitos, lo que impide al navegador reservar el espacio necesario antes de cargar la imagen, generando layout shifts.</p>
+          <div class="pre-label">liquid — Patrón correcto para todas las imágenes</div>
+          <pre><span class="comment">{%- comment -%} Siempre incluir width, height y loading en imágenes {%- endcomment -%}</span>
+
+<span class="comment">&lt;!-- ❌ ANTES: sin dimensiones --&gt;</span>
+<span class="comment">&lt;img src="{{ image | img_url: '800x' }}" alt="{{ image.alt }}"&gt;</span>
+
+<span class="comment">&lt;!-- ✅ DESPUÉS: con aspect-ratio reservado --&gt;</span>
+&lt;<span class="kw">img</span>
+  <span class="attr">src</span>=<span class="str">"{{ image | img_url: '800x600' }}"</span>
+  <span class="attr">alt</span>=<span class="str">"{{ image.alt | escape }}"</span>
+  <span class="attr">width</span>=<span class="str">"{{ image.width }}"</span>
+  <span class="attr">height</span>=<span class="str">"{{ image.height }}"</span>
+  <span class="attr">loading</span>=<span class="str">"lazy"</span>&gt;
+
+<span class="comment">/* CSS: preservar aspect-ratio aunque el CSS redimensione */</span>
+<span class="attr">img</span> {
+  <span class="kw">max-width</span>: <span class="val">100%</span>;
+  <span class="kw">height</span>: <span class="val">auto</span>;  <span class="comment">/* respeta el aspect-ratio del atributo height */</span>
+}</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 13 ── -->
+      <div class="issue-card priority-minor">
+        <div class="issue-header">
+          <div class="issue-num">13</div>
+          <div>
+            <div class="issue-title">CSS no utilizado — 167 KiB HOME, 58 KiB Product <span class="priority-badge badge-minor">🔵 Menor</span></div>
+            <div class="issue-pages">📄 Afecta: HOME, Product · FCP, transferencia</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Ahorro transferencia</div>
+            <div class="saving" style="color:var(--blue)">~140 KiB</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Gran parte del CSS se descarga pero nunca se aplica en la página actual. Esto suele ocurrir cuando el tema Shopify carga un único stylesheet global para todas las plantillas.</p>
+          <ul>
+            <li>Usar PurgeCSS o el coverage de Chrome DevTools para identificar reglas sin usar</li>
+            <li>Separar el CSS crítico (above-the-fold) del resto usando la técnica de Critical CSS</li>
+            <li>Cargar el CSS no crítico de forma asíncrona con <code class="inline">media="print"</code> + <code class="inline">onload</code></li>
+          </ul>
+          <div class="pre-label">liquid · theme.liquid — Carga asíncrona de CSS no crítico</div>
+          <pre><span class="comment">&lt;!-- CSS crítico inline (above-the-fold) --&gt;</span>
+&lt;<span class="kw">style</span>&gt;
+  <span class="comment">/* Pegar aquí el CSS mínimo para renderizar el fold inicial */</span>
+  body { font-family: sans-serif; margin: 0; }
+  .header { background: #fff; padding: 16px; }
+  <span class="comment">/* ... aprox. 3-8 KB de CSS crítico ... */</span>
+&lt;/<span class="kw">style</span>&gt;
+
+<span class="comment">&lt;!-- Resto del CSS cargado de forma asíncrona --&gt;</span>
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span>
+      <span class="attr">href</span>=<span class="str">"{{ 'theme.css' | asset_url }}"</span>
+      <span class="attr">media</span>=<span class="str">"print"</span>
+      <span class="attr">onload</span>=<span class="str">"this.media='all'"</span>&gt;
+&lt;<span class="kw">noscript</span>&gt;
+  &lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="attr">href</span>=<span class="str">"{{ 'theme.css' | asset_url }}"</span>&gt;
+&lt;/<span class="kw">noscript</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 14 ── -->
+      <div class="issue-card priority-minor">
+        <div class="issue-header">
+          <div class="issue-num">14</div>
+          <div>
+            <div class="issue-title">Imágenes de producto sin formato WebP/AVIF <span class="priority-badge badge-minor">🔵 Menor</span></div>
+            <div class="issue-pages">📄 Afecta: Collection, Product · Transferencia</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Ahorro estimado</div>
+            <div class="saving" style="color:var(--blue)">30–50%</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Nota positiva:</strong> Shopify CDN ya sirve imágenes en formato WebP automáticamente si se usan los filtros <code class="inline">img_url</code> correctamente. Verificar que todas las imágenes usen el patrón <code class="inline">image_tag</code> de Shopify o el parámetro <code class="inline">format: 'webp'</code>.</p>
+          <div class="pre-label">liquid — Uso correcto de imágenes optimizadas en Shopify</div>
+          <pre><span class="comment">{%- comment -%} Shopify sirve WebP automáticamente con image_tag {%- endcomment -%}</span>
+
+<span class="comment">&lt;!-- ✅ Opción 1: image_tag helper (WebP automático) --&gt;</span>
+{{ product.featured_image | <span class="val">image_tag</span>:
+   width: <span class="val">800</span>,
+   loading: <span class="str">'lazy'</span>,
+   class: <span class="str">'product-image'</span>,
+   alt: product.featured_image.alt }}
+
+<span class="comment">&lt;!-- ✅ Opción 2: picture element con AVIF + WebP + fallback --&gt;</span>
+&lt;<span class="kw">picture</span>&gt;
+  &lt;<span class="kw">source</span>
+    <span class="attr">type</span>=<span class="str">"image/avif"</span>
+    <span class="attr">srcset</span>=<span class="str">"{{ image | img_url: '800x', format: 'avif' }} 800w,
+            {{ image | img_url: '400x', format: 'avif' }} 400w"</span>&gt;
+  &lt;<span class="kw">source</span>
+    <span class="attr">type</span>=<span class="str">"image/webp"</span>
+    <span class="attr">srcset</span>=<span class="str">"{{ image | img_url: '800x', format: 'webp' }} 800w,
+            {{ image | img_url: '400x', format: 'webp' }} 400w"</span>&gt;
+  &lt;<span class="kw">img</span> <span class="attr">src</span>=<span class="str">"{{ image | img_url: '800x' }}"</span>
+       <span class="attr">alt</span>=<span class="str">"{{ image.alt | escape }}"</span>
+       <span class="attr">width</span>=<span class="str">"800"</span> <span class="attr">height</span>=<span class="str">"800"</span>
+       <span class="attr">loading</span>=<span class="str">"lazy"</span>&gt;
+&lt;/<span class="kw">picture</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 15 ── -->
+      <div class="issue-card priority-minor">
+        <div class="issue-header">
+          <div class="issue-num">15</div>
+          <div>
+            <div class="issue-title">Falta de Resource Hints (preconnect) para dominios críticos <span class="priority-badge badge-minor">🔵 Menor</span></div>
+            <div class="issue-pages">📄 Afecta: HOME, Product · FCP, LCP</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Mejora FCP</div>
+            <div class="saving" style="color:var(--blue)">−100–200ms</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Las conexiones a dominios de terceros (Google Fonts, YouTube, CDN de apps) no se anticipan con <code class="inline">preconnect</code>, añadiendo latencia de DNS + TCP + TLS en el momento en que se necesitan los recursos.</p>
+          <div class="pre-label">liquid · theme.liquid — Resource hints en &lt;head&gt;</div>
+          <pre><span class="comment">&lt;!-- Preconnect a dominios críticos de terceros --&gt;</span>
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"preconnect"</span> <span class="attr">href</span>=<span class="str">"https://fonts.googleapis.com"</span>&gt;
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"preconnect"</span> <span class="attr">href</span>=<span class="str">"https://fonts.gstatic.com"</span> <span class="attr">crossorigin</span>&gt;
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"preconnect"</span> <span class="attr">href</span>=<span class="str">"https://www.googletagmanager.com"</span>&gt;
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"preconnect"</span> <span class="attr">href</span>=<span class="str">"https://assets.mailerlite.com"</span>&gt;
+
+<span class="comment">&lt;!-- DNS-prefetch como fallback para navegadores sin soporte preconnect --&gt;</span>
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"dns-prefetch"</span> <span class="attr">href</span>=<span class="str">"https://www.youtube.com"</span>&gt;
+&lt;<span class="kw">link</span> <span class="attr">rel</span>=<span class="str">"dns-prefetch"</span> <span class="attr">href</span>=<span class="str">"https://i.ytimg.com"</span>&gt;</pre>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 16 ── -->
+      <div class="issue-card priority-minor">
+        <div class="issue-header">
+          <div class="issue-num">16</div>
+          <div>
+            <div class="issue-title">Best Practices 54/100 en HOME — recursos HTTP/mixed content y errores consola <span class="priority-badge badge-minor">🔵 Menor</span></div>
+            <div class="issue-pages">📄 Afecta: HOME · Seguridad, confianza</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Score Best Practices</div>
+            <div class="saving" style="color:var(--blue)">54 → 85+</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> La puntuación de Best Practices (54) indica problemas de seguridad o calidad de código: posibles recursos servidos por HTTP en vez de HTTPS, errores en consola, uso de APIs deprecadas, o librerías con vulnerabilidades conocidas.</p>
+          <ul>
+            <li>Abrir Chrome DevTools → Console y revisar todos los errores y warnings</li>
+            <li>Verificar que no hay recursos cargados por HTTP (mixed content)</li>
+            <li>Ejecutar <code class="inline">npm audit</code> si hay dependencias gestionadas manualmente</li>
+            <li>Revisar si el tema usa APIs JavaScript deprecadas (document.write, synchronous XHR)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── ISSUE 17 ── -->
+      <div class="issue-card priority-minor">
+        <div class="issue-header">
+          <div class="issue-num">17</div>
+          <div>
+            <div class="issue-title">Accesibilidad 82/100 — elementos sin etiquetas ARIA o contraste insuficiente <span class="priority-badge badge-minor">🔵 Menor</span></div>
+            <div class="issue-pages">📄 Afecta: HOME (82), Product (86)</div>
+          </div>
+          <div class="issue-impact">
+            <div class="metric">Score Accesibilidad</div>
+            <div class="saving" style="color:var(--blue)">82 → 95+</div>
+          </div>
+        </div>
+        <div class="issue-body">
+          <p><strong>Diagnóstico:</strong> Lighthouse detecta elementos interactivos sin etiquetas accesibles y posibles problemas de contraste de color, lo que afecta a usuarios con discapacidad visual y puede impactar en el SEO.</p>
+          <ul>
+            <li>Añadir <code class="inline">aria-label</code> a botones que solo tienen iconos (carrito, búsqueda, menú hamburguesa)</li>
+            <li>Verificar ratio de contraste de textos sobre fondos de color con <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM Contrast Checker</a></li>
+            <li>Asegurar que todos los campos de formulario tienen <code class="inline">&lt;label&gt;</code> asociado</li>
+            <li>Añadir <code class="inline">alt</code> descriptivo a imágenes de producto (mejora también SEO de imágenes)</li>
+          </ul>
+          <div class="pre-label">liquid — Ejemplo corrección aria-label en botones de icono</div>
+          <pre><span class="comment">&lt;!-- ❌ ANTES: botón sin etiqueta accesible --&gt;</span>
+<span class="comment">&lt;button class="cart-btn"&gt;&lt;svg ...&gt;&lt;/svg&gt;&lt;/button&gt;</span>
+
+<span class="comment">&lt;!-- ✅ DESPUÉS: con aria-label descriptivo --&gt;</span>
+&lt;<span class="kw">button</span> <span class="attr">class</span>=<span class="str">"cart-btn"</span>
+        <span class="attr">aria-label</span>=<span class="str">"Ver carrito de compra ({{ cart.item_count }} artículos)"</span>&gt;
+  &lt;<span class="kw">svg</span> <span class="attr">aria-hidden</span>=<span class="str">"true"</span> <span class="attr">focusable</span>=<span class="str">"false"</span>&gt;...&lt;/<span class="kw">svg</span>&gt;
+&lt;/<span class="kw">button</span>&gt;</pre>
+        </div>
+      </div>
+
+    </div><!-- /issues-list -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ACTION PLAN -->
+<section id="plan">
+  <div class="container">
+    <h2><span class="icon">🗓️</span> Plan de Acción por Fases</h2>
+    <p class="section-desc">Priorización de tareas para maximizar el impacto en CWV con el menor esfuerzo posible. Comenzar por la Fase 1 resuelve el único fallo activo en GSC.</p>
+
+    <div class="phases">
+
+      <div class="phase-card phase-1">
+        <div class="phase-header">
+          <div class="phase-num">1</div>
+          <div>
+            <div class="phase-title">Fase 1 — Corrección urgente de CLS (resolver fallo GSC)</div>
+            <div class="phase-timeline">⏱️ Estimación: 4–8 horas · Semana 1</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <ol>
+            <li><strong>Retrasar carga de MailerLite</strong> con script de interacción diferida (Issue #1) — impacto directo en CLS 0.21 → estimado 0.05</li>
+            <li><strong>Añadir <code class="inline">font-display: swap</code></strong> a todas las declaraciones <code class="inline">@font-face</code> y a las URLs de Google Fonts (Issue #2)</li>
+            <li><strong>Migrar animaciones hotspot</strong> a propiedades composite <code class="inline">transform</code>/<code class="inline">opacity</code> (Issue #9)</li>
+            <li><strong>Validar CLS en GSC</strong> → pulsar "Validar corrección" en el informe de CLS de GSC tras publicar cambios</li>
+          </ol>
+          <div class="callout callout-bad" style="margin-top:12px">
+            <strong>🎯 Objetivo:</strong> Bajar CLS de 0.21 a ≤ 0.1 para eliminar el fallo en GSC y recuperar el estado "Superado" en las 19 URLs afectadas.
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-2">
+        <div class="phase-header">
+          <div class="phase-num">2</div>
+          <div>
+            <div class="phase-title">Fase 2 — Reducción de peso de recursos (LCP y transferencia)</div>
+            <div class="phase-timeline">⏱️ Estimación: 1–2 días · Semana 1–2</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <ol>
+            <li><strong>Convertir GIFs a vídeo WebM/MP4</strong> (Issue #3) — reducir 5+ MB a ~500 KB usando ffmpeg</li>
+            <li><strong>Comprimir y aplicar lazy-load al vídeo de producto</strong> (Issue #4) — reducir 9.9 MB a ~1–2 MB</li>
+            <li><strong>Implementar YouTube facade</strong> en página de producto (Issue #5)</li>
+            <li><strong>Añadir <code class="inline">fetchpriority="high"</code> y preload</strong> a imagen LCP de producto (Issue #10)</li>
+            <li><strong>Añadir resource hints <code class="inline">preconnect</code></strong> para dominios críticos (Issue #15)</li>
+          </ol>
+          <div class="callout callout-warn" style="margin-top:12px">
+            <strong>🎯 Objetivo:</strong> Mejorar Lighthouse Performance HOME de 55 → 70+ y Product de 45 → 65+. Reducir transferencia total en ~14 MB.
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-3">
+        <div class="phase-header">
+          <div class="phase-num">3</div>
+          <div>
+            <div class="phase-title">Fase 3 — Optimización de scripts y DOM</div>
+            <div class="phase-timeline">⏱️ Estimación: 2–3 días · Semana 2–3</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <ol>
+            <li><strong>Auditar y consolidar contenedores GTM</strong> — reducir de 4 a 1–2 máximo (Issue #7)</li>
+            <li><strong>Diferir scripts no críticos</strong> con <code class="inline">defer</code> o carga por interacción (Issue #6)</li>
+            <li><strong>Eliminar Bootstrap duplicado</strong> de MailerLite (Issue #8)</li>
+            <li><strong>Reducir nodos DOM</strong> aplicando <code class="inline">content-visibility: auto</code> en secciones off-screen (Issue #11)</li>
+            <li><strong>Añadir dimensiones explícitas</strong> a todas las imágenes sin <code class="inline">width</code>/<code class="inline">height</code> (Issue #12)</li>
+          </ol>
+          <div class="callout callout-good" style="margin-top:12px">
+            <strong>🎯 Objetivo:</strong> Reducir TBT en HOME de 580ms → ≤200ms. Mejorar TTI y Score Lighthouse a 75+.
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-4">
+        <div class="phase-header">
+          <div class="phase-num">4</div>
+          <div>
+            <div class="phase-title">Fase 4 — Calidad, accesibilidad y mantenimiento continuo</div>
+            <div class="phase-timeline">⏱️ Estimación: 1–2 días · Semana 3–4</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <ol>
+            <li><strong>Implementar Critical CSS</strong> inline + carga asíncrona del resto (Issue #13)</li>
+            <li><strong>Verificar uso correcto de <code class="inline">image_tag</code> Shopify</strong> para WebP automático (Issue #14)</li>
+            <li><strong>Corregir errores Best Practices</strong> — mixed content, console errors, APIs deprecadas (Issue #16)</li>
+            <li><strong>Mejorar accesibilidad</strong> — aria-labels, contraste, labels de formularios (Issue #17)</li>
+            <li><strong>Analizar Collection page con DevTools</strong> Performance Profiler para diagnóstico detallado</li>
+            <li><strong>Configurar alertas de CWV en GSC</strong> para detectar regresiones futuras</li>
+            <li><strong>Re-ejecutar PageSpeed Insights</strong> en las 3 URLs para verificar mejoras</li>
+          </ol>
+          <div class="callout callout-info" style="margin-top:12px">
+            <strong>🎯 Objetivo:</strong> Lighthouse HOME y Product ≥ 80/100. Accesibilidad ≥ 95. Best Practices ≥ 85. Mantenimiento proactivo de CWV.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /phases -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ IMPACTO ESPERADO -->
+<section id="impacto">
+  <div class="container">
+    <h2><span class="icon">📈</span> Impacto Esperado tras Implementación</h2>
+    <p class="section-desc">Proyección de mejoras en métricas CWV y Lighthouse tras completar las 4 fases. Valores estimados basados en benchmarks de optimizaciones similares en Shopify.</p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="metric-name">CLS — HOME</div>
+        <div class="impact-row">
+          <span class="impact-before">0.21</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≤ 0.05 ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">Fallo GSC eliminado · Fase 1</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">LCP — HOME (lab)</div>
+        <div class="impact-row">
+          <span class="impact-before">5.9s ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≤ 3.0s ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">GIFs a vídeo + resource hints · Fase 2</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">TBT — HOME (lab)</div>
+        <div class="impact-row">
+          <span class="impact-before">580ms ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≤ 200ms ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">GTM consolidado + scripts diferidos · Fase 3</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">LCP — Product (lab)</div>
+        <div class="impact-row">
+          <span class="impact-before">4.2s ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≤ 2.5s ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">Vídeo lazy + fetchpriority · Fase 2</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">Lighthouse — HOME</div>
+        <div class="impact-row">
+          <span class="impact-before">55 ⚠️</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≥ 80 ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">Fases 1–4 completas</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">Lighthouse — Product</div>
+        <div class="impact-row">
+          <span class="impact-before">45 ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≥ 75 ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">YouTube facade + vídeo · Fase 2–3</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">Transferencia total HOME</div>
+        <div class="impact-row">
+          <span class="impact-before">~16 MB ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">≤ 2 MB ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">GIFs + vídeo comprimidos · Fase 2</div>
+      </div>
+
+      <div class="impact-card">
+        <div class="metric-name">URLs GSC fallando</div>
+        <div class="impact-row">
+          <span class="impact-before">19 URLs ❌</span>
+          <span class="arrow">→</span>
+          <span class="impact-after">0 URLs ✅</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:6px">Validar en GSC tras Fase 1</div>
+      </div>
+
+    </div><!-- /impact-grid -->
+
+    <h3>Resumen de impacto por fase</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Esfuerzo</th>
+            <th>Impacto CWV</th>
+            <th>Impacto SEO</th>
+            <th>Impacto UX</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fase 1</strong> — CLS fix</td>
+            <td><span class="chip chip-good">Bajo (4–8h)</span></td>
+            <td><span class="chip chip-bad">🔴 Crítico</span></td>
+            <td>Elimina penalización GSC</td>
+            <td>Fin de saltos de layout</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 2</strong> — Recursos pesados</td>
+            <td><span class="chip chip-needs">Medio (1–2d)</span></td>
+            <td><span class="chip chip-bad">🔴 Alto</span></td>
+            <td>Mejora LCP real en móviles lentos</td>
+            <td>Carga ~8× más rápida</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 3</strong> — Scripts y DOM</td>
+            <td><span class="chip chip-needs">Medio (2–3d)</span></td>
+            <td><span class="chip chip-needs">🟠 Medio</span></td>
+            <td>Mejora INP y TBT</td>
+            <td>Interactividad más fluida</td>
+          </tr>
+          <tr>
+            <td><strong>Fase 4</strong> — Calidad</td>
+            <td><span class="chip chip-needs">Medio (1–2d)</span></td>
+            <td><span class="chip chip-good">🟢 Bajo-Medio</span></td>
+            <td>Accesibilidad + Best Practices</td>
+            <td>Experiencia más inclusiva</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-good" style="margin-top:28px">
+      <strong>✅ ROI estimado:</strong> Con solo la <strong>Fase 1</strong> (4–8 horas de trabajo) se resuelve el único fallo activo en Google Search Console, eliminando la penalización en ranking para las 19 URLs afectadas. Las fases 2 y 3 pueden suponer una reducción del tiempo de carga percibido de hasta un <strong>60–70%</strong> en usuarios con conexión móvil media.
+    </div>
+
+    <h3>Notas específicas para Shopify</h3>
+    <div class="callout callout-info">
+      <strong>⚙️ Limitaciones de la plataforma Shopify:</strong>
+      <ul style="margin-top:8px;padding-left:18px;font-size:.88rem;">
+        <li style="margin-bottom:6px"><strong>Apps de terceros:</strong> Cada app instalada en Shopify puede inyectar scripts globales. Revisar en <em>Admin → Tienda online → Temas → Editar código</em> qué scripts se cargan en <code class="inline">theme.liquid</code>.</li>
+        <li style="margin-bottom:6px"><strong>CDN de Shopify:</strong> Shopify usa su propia CDN global para assets. Los tiempos de TTFB bajos (0.2–0.6s) confirman que la CDN funciona bien — no es necesario cambiar de hosting.</li>
+        <li style="margin-bottom:6px"><strong>Imágenes:</strong> Shopify redimensiona y sirve imágenes en WebP automáticamente si se usan los helpers <code class="inline">image_tag</code> o <code class="inline">img_url</code> correctamente. No es necesario convertir imágenes manualmente.</li>
+        <li style="margin-bottom:6px"><strong>Critical CSS:</strong> En Shopify Online Store 2.0, el CSS se puede segmentar por sección usando <code class="inline">{% stylesheet %}</code> dentro de cada archivo de sección para carga más granular.</li>
+        <li><strong>Script de apps:</strong> Considerar usar <em>Shopify Web Performance App</em> (oficial) o <em>SpeedBooster Pack</em> para automatizar algunas optimizaciones sin editar código directamente.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOOTER -->
+<footer>
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+    <p style="margin-bottom:8px">
+      <strong>Informe WPO — Glassy Europe</strong> &nbsp;|&nbsp;
+      Auditoría realizada en Abril 2026 &nbsp;|&nbsp;
+      Herramientas: Google Search Console · PageSpeed Insights · Chrome UX Report (CrUX)
+    </p>
+    <p>
+      Propiedad analizada: <strong>sc-domain:glassyeurope.com</strong> &nbsp;·&nbsp;
+      Dispositivo principal: <strong>Móvil</strong> &nbsp;·&nbsp;
+      URLs auditadas: <strong>3</strong> (HOME · Collection · Product)
+    </p>
+    <p style="margin-top:12px;font-size:.78rem;opacity:.5">
+      Los valores de laboratorio (Lighthouse) simulan red 4G lenta con CPU throttling ×4 y pueden diferir de los datos reales CrUX.
+      Los datos de campo CrUX reflejan el percentil p75 de los últimos 28 días de usuarios reales de Chrome.
+      Las estimaciones de mejora son proyecciones basadas en benchmarks del sector y pueden variar según la implementación.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
+
+
+
