@@ -443,7 +443,7 @@
       <div class="meta-item"><dt>Cuenta GSC</dt><dd>Von3</dd></div>
       <div class="meta-item"><dt>Periodo analizado</dt><dd>11 mar 2025 – 4 jul 2026</dd></div>
       <div class="meta-item"><dt>Mercado principal</dt><dd>España + LatAm</dd></div>
-      <div class="meta-item"><dt>Fecha del informe</dt><dd>8 jul 2026</dd></div>
+      <div class="meta-item"><dt>Fecha del informe</dt><dd>10 jul 2026</dd></div>
     </dl>
   </header>
 
@@ -459,9 +459,9 @@
       <div class="kpi-delta bad">↓ −67,4% vs may. 2025 (2,05M)</div>
     </div>
     <div class="kpi-tile">
-      <div class="kpi-label">Clics recuperados en URLs migradas a Shopify</div>
-      <div class="kpi-value">11,8%</div>
-      <div class="kpi-delta neutral">del tráfico que tenían antes de migrar</div>
+      <div class="kpi-label">Clics recuperados en URLs migradas (301 verificado)</div>
+      <div class="kpi-value">21,8%</div>
+      <div class="kpi-delta bad">68 de 68 URLs con redirect válido — aun así no recuperan</div>
     </div>
     <div class="kpi-tile">
       <div class="kpi-label">Caída en los 8 mercados principales</div>
@@ -531,21 +531,25 @@
     <div class="block-head">
       <span class="block-num">03</span>
       <div class="block-title-wrap">
-        <h2>Qué contenido se perdió</h2>
-        <p class="block-text">De las 10 páginas que más tráfico generaban, <strong>5 tienen una URL nueva en Shopify y recuperan solo el 12% del tráfico que tenían</strong> (probablemente por falta de redirecciones 301 o pérdida de autoridad). Las otras 5 — incluida la página histórica número uno del sitio, con 10.722 clics en solo dos meses — <strong>no tienen ninguna URL de destino</strong>: el contenido no se migró.</p>
+        <h2>Por qué no se recupera el tráfico migrado</h2>
+        <p class="block-text">Verificamos una a una (petición HTTP real, no solo datos de GSC) las 68 URLs antiguas con más tráfico: <strong>las 68 tienen una redirección 301 correcta</strong> a una URL nueva — no hay contenido huérfano ni enlaces rotos. Aun así, recuperan de media solo el <strong>21,8%</strong> del tráfico que tenían, y <strong>25 de las 68 recuperan menos del 10%</strong> pese al redirect bien puesto. El problema no es técnico-de-enlace, es de transferencia de autoridad/ranking.</p>
       </div>
     </div>
     <div class="block-body">
       <div class="chart-card">
         <div class="chart-card-head">
-          <span class="chart-title">Clics por página — abr–may 2025 (antes) vs may–jun 2026 (ahora)</span>
+          <span class="chart-title">Clics por página — abr–may 2025 (antes) vs may–jun 2026 (ahora), las 10 con mayor pérdida absoluta</span>
           <div class="chart-legend">
             <span class="legend-key"><span class="legend-swatch" style="background:var(--accent-soft)"></span>Antes</span>
-            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent)"></span>Después (migrada)</span>
-            <span class="legend-key"><span class="legend-swatch" style="background:var(--critical)"></span>Sin URL nueva</span>
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent)"></span>Después (recuperación ≥10%)</span>
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--critical)"></span>Después (recuperación &lt;10%)</span>
           </div>
         </div>
         <div id="dumbbell-rows"></div>
+        <div class="callout" style="margin-top:12px">
+          <span class="callout-mark">✓</span>
+          <span>Las 68 URLs se verificaron con una petición HTTP directa (<code style="font-family:var(--font-mono)">curl -IL</code>) siguiendo la redirección real, no solo cruzando datos de Search Console — así se confirma que el 301 existe y a dónde apunta de verdad.</span>
+        </div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-title">Búsquedas con mayor caída de clics</span></div>
@@ -587,11 +591,11 @@
       <div class="reco-list">
         <div class="reco-item p1">
           <span class="reco-pri">P1</span>
-          <div><p class="reco-title">Auditar y completar las redirecciones 301</p><p class="reco-desc">Confirmar en el admin de Shopify si existe un mapa de redirects de <code>/menoteca/*</code> y <code>/productos/*</code> a las rutas nuevas. Empezar por los 5 artículos migrados que solo recuperan el 12% del tráfico.</p></div>
+          <div><p class="reco-title">Investigar por qué Google no transfiere el ranking pese al 301</p><p class="reco-desc">Los redirects están bien puestos (verificado 68/68), pero 25 páginas recuperan &lt;10% del tráfico. Revisar en Search Console → Indexación si Google marca esas URLs nuevas como "duplicado, canonical distinto al enviado" — síntoma típico de que el <code>rel=canonical</code> o el sitemap no coinciden con el redirect.</p></div>
         </div>
         <div class="reco-item p1">
           <span class="reco-pri">P1</span>
-          <div><p class="reco-title">Recrear el contenido huérfano</p><p class="reco-desc">Publicar en <code>/blogs/news/</code> los ~5 artículos sin URL de destino, empezando por "estrógenos naturales" (10.722 clics perdidos en 2 meses) y "dolores de ovarios en la menopausia" (5.599).</p></div>
+          <div><p class="reco-title">Priorizar el reindexado manual de las 10 páginas con más pérdida</p><p class="reco-desc">Solicitar inspección e indexación manual en GSC para las URLs con mayor pérdida absoluta, empezando por "estrógenos naturales" (10.722→410 clics, recupera 3,8%) y "35 síntomas de la menopausia" (2.707→14, recupera 0,5%).</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">P2</span>
@@ -610,7 +614,7 @@
   </section>
 
   <footer>
-    Fuente: Search Console API (searchAnalytics.query, sitemaps.list), propiedad sc-domain:wearedomma.com, cuenta Von3 · Comparativas "antes/después" sobre abr–may 2025 vs may–jun 2026 salvo donde se indique · Datos hasta el 4 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Informe generado el 8 jul 2026.
+    Fuente: Search Console API (searchAnalytics.query, sitemaps.list), propiedad sc-domain:wearedomma.com, cuenta Von3 · Comparativas "antes/después" sobre abr–may 2025 vs may–jun 2026 salvo donde se indique · Los 301 de las 68 URLs con más tráfico se verificaron con peticiones HTTP directas (curl -IL) el 9 jul 2026, no solo con datos de GSC · Datos hasta el 4 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Informe generado el 8 jul 2026, actualizado el 10 jul 2026.
   </footer>
 
 </div>
@@ -641,18 +645,21 @@
 
   var daily = [{"date":"2026-02-15","clicks":376,"impressions":42636},{"date":"2026-02-16","clicks":437,"impressions":47653},{"date":"2026-02-17","clicks":449,"impressions":49615},{"date":"2026-02-18","clicks":440,"impressions":56190},{"date":"2026-02-19","clicks":468,"impressions":55322},{"date":"2026-02-20","clicks":345,"impressions":49623},{"date":"2026-02-21","clicks":387,"impressions":46005},{"date":"2026-02-22","clicks":424,"impressions":46572},{"date":"2026-02-23","clicks":390,"impressions":51445},{"date":"2026-02-24","clicks":472,"impressions":53474},{"date":"2026-02-25","clicks":434,"impressions":52186},{"date":"2026-02-26","clicks":431,"impressions":51366},{"date":"2026-02-27","clicks":382,"impressions":51441},{"date":"2026-02-28","clicks":380,"impressions":53684},{"date":"2026-03-01","clicks":497,"impressions":59102},{"date":"2026-03-02","clicks":577,"impressions":67876},{"date":"2026-03-03","clicks":499,"impressions":65405},{"date":"2026-03-04","clicks":496,"impressions":62406},{"date":"2026-03-05","clicks":545,"impressions":59952},{"date":"2026-03-06","clicks":465,"impressions":54681},{"date":"2026-03-07","clicks":398,"impressions":53805},{"date":"2026-03-08","clicks":445,"impressions":52886},{"date":"2026-03-09","clicks":545,"impressions":61614},{"date":"2026-03-10","clicks":499,"impressions":61726},{"date":"2026-03-11","clicks":561,"impressions":61149},{"date":"2026-03-12","clicks":469,"impressions":55877},{"date":"2026-03-13","clicks":453,"impressions":54000},{"date":"2026-03-14","clicks":427,"impressions":53869},{"date":"2026-03-15","clicks":482,"impressions":55689},{"date":"2026-03-16","clicks":479,"impressions":56419},{"date":"2026-03-17","clicks":427,"impressions":53787},{"date":"2026-03-18","clicks":410,"impressions":55226},{"date":"2026-03-19","clicks":401,"impressions":58647},{"date":"2026-03-20","clicks":411,"impressions":55780},{"date":"2026-03-21","clicks":430,"impressions":53654},{"date":"2026-03-22","clicks":500,"impressions":57708},{"date":"2026-03-23","clicks":495,"impressions":58217},{"date":"2026-03-24","clicks":408,"impressions":55982},{"date":"2026-03-25","clicks":402,"impressions":55768},{"date":"2026-03-26","clicks":398,"impressions":55407},{"date":"2026-03-27","clicks":374,"impressions":50885},{"date":"2026-03-28","clicks":389,"impressions":48171},{"date":"2026-03-29","clicks":382,"impressions":49560},{"date":"2026-03-30","clicks":394,"impressions":52935},{"date":"2026-03-31","clicks":348,"impressions":48721},{"date":"2026-04-01","clicks":259,"impressions":43146},{"date":"2026-04-02","clicks":247,"impressions":37657},{"date":"2026-04-03","clicks":260,"impressions":37275},{"date":"2026-04-04","clicks":255,"impressions":38952},{"date":"2026-04-05","clicks":300,"impressions":40575},{"date":"2026-04-06","clicks":290,"impressions":43500},{"date":"2026-04-07","clicks":317,"impressions":44734},{"date":"2026-04-08","clicks":334,"impressions":44429},{"date":"2026-04-09","clicks":341,"impressions":45159},{"date":"2026-04-10","clicks":358,"impressions":40286},{"date":"2026-04-11","clicks":307,"impressions":38847},{"date":"2026-04-12","clicks":363,"impressions":40735},{"date":"2026-04-13","clicks":322,"impressions":43060},{"date":"2026-04-14","clicks":311,"impressions":41497},{"date":"2026-04-15","clicks":302,"impressions":41107},{"date":"2026-04-16","clicks":285,"impressions":39050},{"date":"2026-04-17","clicks":260,"impressions":34220},{"date":"2026-04-18","clicks":247,"impressions":30934},{"date":"2026-04-19","clicks":281,"impressions":33470},{"date":"2026-04-20","clicks":308,"impressions":28329},{"date":"2026-04-21","clicks":310,"impressions":22453},{"date":"2026-04-22","clicks":295,"impressions":23405},{"date":"2026-04-23","clicks":286,"impressions":22224},{"date":"2026-04-24","clicks":246,"impressions":20982},{"date":"2026-04-25","clicks":299,"impressions":20679},{"date":"2026-04-26","clicks":356,"impressions":22280},{"date":"2026-04-27","clicks":362,"impressions":24809},{"date":"2026-04-28","clicks":318,"impressions":23821},{"date":"2026-04-29","clicks":281,"impressions":23380},{"date":"2026-04-30","clicks":279,"impressions":20826},{"date":"2026-05-01","clicks":249,"impressions":21643},{"date":"2026-05-02","clicks":270,"impressions":21311},{"date":"2026-05-03","clicks":306,"impressions":22712},{"date":"2026-05-04","clicks":309,"impressions":25480},{"date":"2026-05-05","clicks":255,"impressions":24380},{"date":"2026-05-06","clicks":239,"impressions":22555},{"date":"2026-05-07","clicks":255,"impressions":21832},{"date":"2026-05-08","clicks":238,"impressions":21501},{"date":"2026-05-09","clicks":209,"impressions":20025},{"date":"2026-05-10","clicks":254,"impressions":21141},{"date":"2026-05-11","clicks":305,"impressions":25333},{"date":"2026-05-12","clicks":310,"impressions":24968},{"date":"2026-05-13","clicks":294,"impressions":22380},{"date":"2026-05-14","clicks":274,"impressions":20580},{"date":"2026-05-15","clicks":313,"impressions":20317},{"date":"2026-05-16","clicks":286,"impressions":19506},{"date":"2026-05-17","clicks":328,"impressions":21420},{"date":"2026-05-18","clicks":366,"impressions":23803},{"date":"2026-05-19","clicks":372,"impressions":23294},{"date":"2026-05-20","clicks":335,"impressions":23044},{"date":"2026-05-21","clicks":330,"impressions":23375},{"date":"2026-05-22","clicks":317,"impressions":22447},{"date":"2026-05-23","clicks":301,"impressions":21831},{"date":"2026-05-24","clicks":371,"impressions":23821},{"date":"2026-05-25","clicks":427,"impressions":26218},{"date":"2026-05-26","clicks":391,"impressions":25810},{"date":"2026-05-27","clicks":399,"impressions":25987},{"date":"2026-05-28","clicks":347,"impressions":24145},{"date":"2026-05-29","clicks":315,"impressions":23534},{"date":"2026-05-30","clicks":271,"impressions":21269},{"date":"2026-05-31","clicks":349,"impressions":22482}];
 
+  // Las 10 páginas con mayor pérdida absoluta. Las 68 URLs analizadas tienen
+  // 301 verificado con curl -IL (ver sección 03) — "migrated" ya no distingue
+  // "tiene URL nueva o no" (todas la tienen) sino la tasa de recuperación.
   var dumbbell = [
-    {label:"Estrógenos naturales", before:10722, after:410, migrated:true},
-    {label:"Dolor de ovarios en menopausia", before:5599, after:652, migrated:true},
-    {label:"Problemas digestivos", before:3895, after:416, migrated:true},
-    {label:"Sequedad vulvar, remedios", before:3465, after:789, migrated:true},
-    {label:"Dolor de pezón en menopausia", before:2883, after:0, migrated:false},
-    {label:"Magnesio y menopausia", before:2766, after:0, migrated:false},
-    {label:"35 síntomas de la menopausia", before:2707, after:0, migrated:false},
-    {label:"Sangrado en menopausia", before:2492, after:0, migrated:false},
-    {label:"Regla cada 15 días", before:2081, after:0, migrated:false},
-    {label:"Producto: Deseo", before:1628, after:722, migrated:true}
-  ];
+    {label:"Estrógenos naturales", before:10722, after:410},
+    {label:"Dolor de ovarios en menopausia", before:5599, after:652},
+    {label:"Problemas digestivos", before:3895, after:416},
+    {label:"Sequedad vulvar, remedios", before:3465, after:789},
+    {label:"Dolor de pezón en menopausia", before:2883, after:123},
+    {label:"Magnesio y menopausia", before:2766, after:75},
+    {label:"35 síntomas de la menopausia", before:2707, after:14},
+    {label:"Sangrado en menopausia", before:2492, after:79},
+    {label:"Regla cada 15 días", before:2081, after:239},
+    {label:"Reducir barriga en menopausia", before:1315, after:4}
+  ].map(function (d) { d.migrated = (d.after / d.before) >= 0.10; return d; });
 
   var queries = [
     {q:"tipos de sangrados en la menopausia", before:682, after:6},
@@ -907,9 +914,10 @@
       var labelText = document.createElement("div");
       labelText.className = "dumbbell-label";
       labelText.textContent = d.label;
+      var recPct = Math.round((d.after / d.before) * 100);
       var tag = document.createElement("span");
       tag.className = "dumbbell-tag" + (d.migrated ? "" : " orphan");
-      tag.textContent = d.migrated ? "migrada" : "sin migrar";
+      tag.textContent = "301 ok · recupera " + recPct + "%";
       labelWrap.appendChild(labelText);
       labelWrap.appendChild(tag);
 
@@ -931,7 +939,7 @@
 
       track.addEventListener("pointermove", function (evt) {
         var rect = track.getBoundingClientRect();
-        showTip(evt.clientX, rect.top, '<div class="t-label">Antes</div><div class="t-value">' + fmt(d.before) + '</div><div class="t-label">Ahora</div><div class="t-value">' + fmt(d.after) + '</div>');
+        showTip(evt.clientX, rect.top, '<div class="t-label">Antes</div><div class="t-value">' + fmt(d.before) + '</div><div class="t-label">Ahora (301 verificado)</div><div class="t-value">' + fmt(d.after) + '</div>');
       });
       track.addEventListener("pointerleave", hideTip);
 
