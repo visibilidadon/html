@@ -1,0 +1,996 @@
+<title>Auditoría SEO — wearedomma.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eceef2;
+    --ink: #10131a;
+    --ink-secondary: #545b66;
+    --ink-muted: #8a8f99;
+    --accent: #2a78d6;
+    --accent-soft: #cde2fb;
+    --accent-mid: #6da7ec;
+    --accent-strong: #184f95;
+    --critical: #d03b3b;
+    --critical-soft: rgba(208, 59, 59, 0.10);
+    --critical-ink: #a32d2d;
+    --hairline: rgba(16, 19, 26, 0.12);
+    --hairline-strong: rgba(16, 19, 26, 0.22);
+    --font-head: ui-serif, Georgia, "Times New Roman", serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15181c;
+      --surface: #1d2126;
+      --surface-2: #262a30;
+      --ink: #f2f3f5;
+      --ink-secondary: #a7aebb;
+      --ink-muted: #6f7680;
+      --accent: #4c93e8;
+      --accent-soft: rgba(76, 147, 232, 0.16);
+      --accent-mid: #6da7ec;
+      --accent-strong: #a9cbf5;
+      --critical: #e6706f;
+      --critical-soft: rgba(230, 112, 111, 0.14);
+      --critical-ink: #f0a4a3;
+      --hairline: rgba(255, 255, 255, 0.12);
+      --hairline-strong: rgba(255, 255, 255, 0.22);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15181c;
+    --surface: #1d2126;
+    --surface-2: #262a30;
+    --ink: #f2f3f5;
+    --ink-secondary: #a7aebb;
+    --ink-muted: #6f7680;
+    --accent: #4c93e8;
+    --accent-soft: rgba(76, 147, 232, 0.16);
+    --accent-mid: #6da7ec;
+    --accent-strong: #a9cbf5;
+    --critical: #e6706f;
+    --critical-soft: rgba(230, 112, 111, 0.14);
+    --critical-ink: #f0a4a3;
+    --hairline: rgba(255, 255, 255, 0.12);
+    --hairline-strong: rgba(255, 255, 255, 0.22);
+  }
+  :root[data-theme="light"] {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eceef2;
+    --ink: #10131a;
+    --ink-secondary: #545b66;
+    --ink-muted: #8a8f99;
+    --accent: #2a78d6;
+    --accent-soft: #cde2fb;
+    --accent-mid: #6da7ec;
+    --accent-strong: #184f95;
+    --critical: #d03b3b;
+    --critical-soft: rgba(208, 59, 59, 0.10);
+    --critical-ink: #a32d2d;
+    --hairline: rgba(16, 19, 26, 0.12);
+    --hairline-strong: rgba(16, 19, 26, 0.22);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  /* ---------- Header / doc block ---------- */
+  .doc-header {
+    border: 1px solid var(--hairline-strong);
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 28px 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--critical);
+    display: inline-block;
+  }
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .doc-sub {
+    font-size: 16px;
+    color: var(--ink-secondary);
+    margin: 0;
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+  .meta-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .meta-item dt {
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10.5px;
+    margin-bottom: 4px;
+  }
+  .meta-item dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 13px;
+  }
+
+  /* ---------- KPI row ---------- */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .kpi-tile {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kpi-label {
+    font-size: 12.5px;
+    color: var(--ink-secondary);
+    line-height: 1.35;
+    min-height: 32px;
+  }
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .kpi-delta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .kpi-delta.bad { color: var(--critical-ink); }
+  .kpi-delta.neutral { color: var(--ink-muted); }
+
+  /* ---------- Section ---------- */
+  section.block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .block-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+  }
+  .block-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    padding-top: 3px;
+    flex: none;
+  }
+  .block-title-wrap { flex: 1; }
+  h2 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .block-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+    max-width: 66ch;
+    margin: 0;
+  }
+  .block-text strong { color: var(--ink); font-weight: 600; }
+  .block-body { padding-left: 27px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ---------- Chart card ---------- */
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 20px 20px 14px;
+  }
+  .chart-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .chart-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .chart-legend {
+    display: flex;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-secondary);
+  }
+  .legend-key { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 12px; height: 2px; border-radius: 1px; display: inline-block; }
+  .legend-dash { background-image: linear-gradient(to right, var(--critical) 60%, transparent 0%); background-size: 5px 2px; }
+
+  .chart-wrap { position: relative; }
+  svg.chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .grid-line { stroke: var(--hairline); stroke-width: 1; }
+  .axis-label { fill: var(--ink-muted); font-family: var(--font-mono); font-size: 10px; }
+  .series-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .series-area { fill: var(--accent); opacity: 0.10; }
+  .event-line { stroke: var(--critical); stroke-width: 1.4; stroke-dasharray: 4 3; }
+  .event-label {
+    fill: var(--critical-ink);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .end-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+  .direct-label { fill: var(--ink); font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+  .hover-x { stroke: var(--ink-muted); stroke-width: 1; opacity: 0; pointer-events: none; }
+  .hover-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; opacity: 0; pointer-events: none; }
+
+  .tooltip {
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+    padding: 8px 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    transition: opacity 0.08s ease;
+    white-space: nowrap;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip .t-value { color: #ffffff; font-weight: 700; }
+  .tooltip .t-label { color: var(--ink-muted); }
+
+  details.data-toggle { margin-top: 8px; }
+  details.data-toggle > summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.03em;
+    list-style: none;
+    padding: 6px 0;
+    user-select: none;
+  }
+  details.data-toggle > summary::-webkit-details-marker { display: none; }
+  details.data-toggle > summary::before { content: "▸ "; }
+  details.data-toggle[open] > summary::before { content: "▾ "; }
+  .data-table-wrap { overflow-x: auto; }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  table.data-table th, table.data-table td {
+    text-align: right;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--hairline);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table.data-table th:first-child, table.data-table td:first-child { text-align: left; }
+  table.data-table th { color: var(--ink-muted); font-weight: 500; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  table.data-table td { color: var(--ink-secondary); }
+  table.data-table td.strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Dumbbell ---------- */
+  .dumbbell-row {
+    display: grid;
+    grid-template-columns: 172px 1fr 128px;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .dumbbell-row:last-child { border-bottom: none; }
+  .dumbbell-label {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .dumbbell-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-top: 3px;
+    background: var(--surface-2);
+    color: var(--ink-muted);
+  }
+  .dumbbell-tag.orphan { background: var(--critical-soft); color: var(--critical-ink); }
+  .dumbbell-track { position: relative; height: 20px; }
+  .dumbbell-vals {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-align: right;
+    color: var(--ink-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .dumbbell-vals .delta { color: var(--critical-ink); font-weight: 600; display: block; font-size: 11px; }
+
+  /* ---------- Bars ---------- */
+  .bar-row {
+    display: grid;
+    grid-template-columns: 96px 1fr 56px;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .bar-country { font-size: 12.5px; color: var(--ink); }
+  .bar-track { position: relative; height: 16px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); border-radius: 3px; }
+  .bar-value { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    display: flex;
+    gap: 12px;
+    background: var(--critical-soft);
+    border: 1px solid rgba(208, 59, 59, 0.25);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .callout-mark { font-family: var(--font-mono); color: var(--critical-ink); font-weight: 700; flex: none; }
+
+  /* ---------- Recommendations ---------- */
+  .reco-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; background: var(--surface); }
+  .reco-item { display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
+  .reco-item:last-child { border-bottom: none; }
+  .reco-pri {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    padding-top: 2px;
+  }
+  .reco-item.p1 .reco-pri { color: var(--critical-ink); }
+  .reco-title { font-size: 14px; font-weight: 600; margin: 0 0 3px; color: var(--ink); }
+  .reco-desc { font-size: 13px; color: var(--ink-secondary); margin: 0; line-height: 1.5; }
+
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .meta-row { grid-template-columns: repeat(2, 1fr); }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .dumbbell-row { grid-template-columns: 120px 1fr 92px; }
+    .dumbbell-label { font-size: 11.5px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="doc-header">
+    <div class="eyebrow">Auditoría de tráfico orgánico</div>
+    <h1>Por qué se ha hundido el SEO de wearedomma.com</h1>
+    <p class="doc-sub">Diagnóstico a partir de datos diarios de Google Search Console (marzo 2025 – julio 2026), propiedad <strong style="color:var(--ink)">sc-domain:wearedomma.com</strong>.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Cuenta GSC</dt><dd>Von3</dd></div>
+      <div class="meta-item"><dt>Periodo analizado</dt><dd>11 mar 2025 – 4 jul 2026</dd></div>
+      <div class="meta-item"><dt>Mercado principal</dt><dd>España + LatAm</dd></div>
+      <div class="meta-item"><dt>Fecha del informe</dt><dd>8 jul 2026</dd></div>
+    </dl>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi-tile">
+      <div class="kpi-label">Clics orgánicos, mes pico → jun. 2026</div>
+      <div class="kpi-value">9.648</div>
+      <div class="kpi-delta bad">↓ −74,2% vs abr. 2025 (37.450)</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">Impresiones, mes pico → jun. 2026</div>
+      <div class="kpi-value">667.877</div>
+      <div class="kpi-delta bad">↓ −67,4% vs may. 2025 (2,05M)</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">Clics recuperados en URLs migradas a Shopify</div>
+      <div class="kpi-value">11,8%</div>
+      <div class="kpi-delta neutral">del tráfico que tenían antes de migrar</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">Caída en los 8 mercados principales</div>
+      <div class="kpi-value">−62% a −78%</div>
+      <div class="kpi-delta neutral">rango uniforme, ningún país se libra</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">01</span>
+      <div class="block-title-wrap">
+        <h2>Qué está pasando</h2>
+        <p class="block-text">El tráfico orgánico lleva <strong>15 meses cayendo de forma casi continua</strong>: de 37.450 clics/mes en el pico (abril 2025) a 9.648 en junio 2026. Hay dos fases: un declive gradual entre septiembre y diciembre de 2025, y un corte brusco en abril de 2026 que coincide con una migración de plataforma (ver sección 03).</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics mensuales — abr. 2025 a jun. 2026</span>
+        </div>
+        <div class="chart-wrap" id="chart-clicks"></div>
+        <details class="data-toggle"><summary>Ver datos mensuales</summary>
+          <div class="data-table-wrap">
+            <table class="data-table" id="table-clicks">
+              <thead><tr><th>Mes</th><th>Clics</th><th>Impresiones</th><th>Posición media</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Impresiones mensuales — misma ventana</span>
+        </div>
+        <div class="chart-wrap" id="chart-impressions"></div>
+      </div>
+      <div class="callout">
+        <span class="callout-mark">⚠</span>
+        <span>La posición media <strong>mejora</strong> en este periodo (12,9 → 7,2) mientras clics e impresiones se desploman. No es un problema de ranking: es que Google dejó de encontrar/mostrar un volumen enorme de páginas que antes sí aparecían — el promedio se calcula sobre un universo mucho más pequeño de URLs supervivientes.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">02</span>
+      <div class="block-title-wrap">
+        <h2>El momento exacto: 1 de abril de 2026</h2>
+        <p class="block-text">La web migró de una estructura propia (<code style="font-family:var(--font-mono)">/menoteca/</code>, <code style="font-family:var(--font-mono)">/productos/</code>) a Shopify (<code style="font-family:var(--font-mono)">/blogs/news/</code>, <code style="font-family:var(--font-mono)">/products/</code>) — el sitemap nuevo se envió el 28 de marzo de 2026. El tráfico diario cae de golpe el 1 de abril, no de forma gradual.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics diarios — 15 feb. a 31 may. 2026</span>
+          <div class="chart-legend">
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--critical)" class="legend-dash"></span>Migración a Shopify</span>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chart-daily"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <div class="block-title-wrap">
+        <h2>Qué contenido se perdió</h2>
+        <p class="block-text">De las 10 páginas que más tráfico generaban, <strong>5 tienen una URL nueva en Shopify y recuperan solo el 12% del tráfico que tenían</strong> (probablemente por falta de redirecciones 301 o pérdida de autoridad). Las otras 5 — incluida la página histórica número uno del sitio, con 10.722 clics en solo dos meses — <strong>no tienen ninguna URL de destino</strong>: el contenido no se migró.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics por página — abr–may 2025 (antes) vs may–jun 2026 (ahora)</span>
+          <div class="chart-legend">
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent-soft)"></span>Antes</span>
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent)"></span>Después (migrada)</span>
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--critical)"></span>Sin URL nueva</span>
+          </div>
+        </div>
+        <div id="dumbbell-rows"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Búsquedas con mayor caída de clics</span></div>
+        <div class="data-table-wrap">
+          <table class="data-table" id="table-queries">
+            <thead><tr><th>Consulta</th><th>Antes</th><th>Ahora</th><th>Perdidos</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">04</span>
+      <div class="block-title-wrap">
+        <h2>Alcance: cae en todos los mercados por igual</h2>
+        <p class="block-text">España, México, Argentina, Colombia, EE. UU., Chile, Perú y Venezuela pierden todos entre el 62% y el 78% de sus clics en la misma ventana. Esa uniformidad descarta una penalización geográfica o un problema local: es la plataforma completa la que perdió visibilidad.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Variación de clics por país — abr–may 2025 vs may–jun 2026</span></div>
+        <div id="country-bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">05</span>
+      <div class="block-title-wrap">
+        <h2>Qué hacer ahora</h2>
+        <p class="block-text">Por prioridad de impacto — el objetivo inmediato es dejar de perder lo que aún se puede recuperar antes de invertir en contenido nuevo.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="reco-list">
+        <div class="reco-item p1">
+          <span class="reco-pri">P1</span>
+          <div><p class="reco-title">Auditar y completar las redirecciones 301</p><p class="reco-desc">Confirmar en el admin de Shopify si existe un mapa de redirects de <code>/menoteca/*</code> y <code>/productos/*</code> a las rutas nuevas. Empezar por los 5 artículos migrados que solo recuperan el 12% del tráfico.</p></div>
+        </div>
+        <div class="reco-item p1">
+          <span class="reco-pri">P1</span>
+          <div><p class="reco-title">Recrear el contenido huérfano</p><p class="reco-desc">Publicar en <code>/blogs/news/</code> los ~5 artículos sin URL de destino, empezando por "estrógenos naturales" (10.722 clics perdidos en 2 meses) y "dolores de ovarios en la menopausia" (5.599).</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P2</span>
+          <div><p class="reco-title">Revisar el informe de Cobertura en Search Console (UI)</p><p class="reco-desc">La API de sitemaps no devuelve el dato fiable de páginas indexadas; hay que confirmarlo manualmente en Indexación → Páginas.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P2</span>
+          <div><p class="reco-title">Verificar el catálogo del sitemap</p><p class="reco-desc">El sitemap actual solo declara 8 productos y 8 colecciones — parece muy poco para el catálogo real. Confirmar en Shopify que no falta contenido por sincronizar.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P3</span>
+          <div><p class="reco-title">Investigar la caída previa (sep–dic 2025)</p><p class="reco-desc">Antes de la migración ya había una pérdida gradual del 51% en clics. No se explica por la migración de Shopify; conviene revisar cambios de contenido o técnicos anteriores a marzo de 2026.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Fuente: Search Console API (searchAnalytics.query, sitemaps.list), propiedad sc-domain:wearedomma.com, cuenta Von3 · Comparativas "antes/después" sobre abr–may 2025 vs may–jun 2026 salvo donde se indique · Datos hasta el 4 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Informe generado el 8 jul 2026.
+  </footer>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var monthly = [
+    {m:"2025-04", label:"abr 25", clicks:37450, impressions:1799985, pos:12.9},
+    {m:"2025-05", label:"may 25", clicks:34162, impressions:2045760, pos:15.8},
+    {m:"2025-06", label:"jun 25", clicks:26402, impressions:1786028, pos:16.7},
+    {m:"2025-07", label:"jul 25", clicks:24784, impressions:1663572, pos:16.6},
+    {m:"2025-08", label:"ago 25", clicks:25759, impressions:1736864, pos:15.9},
+    {m:"2025-09", label:"sep 25", clicks:22705, impressions:1518316, pos:13.8},
+    {m:"2025-10", label:"oct 25", clicks:23644, impressions:1497412, pos:8.1},
+    {m:"2025-11", label:"nov 25", clicks:17461, impressions:1373388, pos:6.0},
+    {m:"2025-12", label:"dic 25", clicks:11077, impressions:1141007, pos:6.3},
+    {m:"2026-01", label:"ene 26", clicks:11577, impressions:1276708, pos:5.3},
+    {m:"2026-02", label:"feb 26", clicks:11000, impressions:1279280, pos:4.3},
+    {m:"2026-03", label:"mar 26", clicks:14006, impressions:1746904, pos:3.5},
+    {m:"2026-04", label:"abr 26", clicks:8979, impressions:1011821, pos:5.0},
+    {m:"2026-05", label:"may 26", clicks:9585, impressions:708144, pos:8.0},
+    {m:"2026-06", label:"jun 26", clicks:9648, impressions:667877, pos:7.2}
+  ];
+
+  var daily = [{"date":"2026-02-15","clicks":376,"impressions":42636},{"date":"2026-02-16","clicks":437,"impressions":47653},{"date":"2026-02-17","clicks":449,"impressions":49615},{"date":"2026-02-18","clicks":440,"impressions":56190},{"date":"2026-02-19","clicks":468,"impressions":55322},{"date":"2026-02-20","clicks":345,"impressions":49623},{"date":"2026-02-21","clicks":387,"impressions":46005},{"date":"2026-02-22","clicks":424,"impressions":46572},{"date":"2026-02-23","clicks":390,"impressions":51445},{"date":"2026-02-24","clicks":472,"impressions":53474},{"date":"2026-02-25","clicks":434,"impressions":52186},{"date":"2026-02-26","clicks":431,"impressions":51366},{"date":"2026-02-27","clicks":382,"impressions":51441},{"date":"2026-02-28","clicks":380,"impressions":53684},{"date":"2026-03-01","clicks":497,"impressions":59102},{"date":"2026-03-02","clicks":577,"impressions":67876},{"date":"2026-03-03","clicks":499,"impressions":65405},{"date":"2026-03-04","clicks":496,"impressions":62406},{"date":"2026-03-05","clicks":545,"impressions":59952},{"date":"2026-03-06","clicks":465,"impressions":54681},{"date":"2026-03-07","clicks":398,"impressions":53805},{"date":"2026-03-08","clicks":445,"impressions":52886},{"date":"2026-03-09","clicks":545,"impressions":61614},{"date":"2026-03-10","clicks":499,"impressions":61726},{"date":"2026-03-11","clicks":561,"impressions":61149},{"date":"2026-03-12","clicks":469,"impressions":55877},{"date":"2026-03-13","clicks":453,"impressions":54000},{"date":"2026-03-14","clicks":427,"impressions":53869},{"date":"2026-03-15","clicks":482,"impressions":55689},{"date":"2026-03-16","clicks":479,"impressions":56419},{"date":"2026-03-17","clicks":427,"impressions":53787},{"date":"2026-03-18","clicks":410,"impressions":55226},{"date":"2026-03-19","clicks":401,"impressions":58647},{"date":"2026-03-20","clicks":411,"impressions":55780},{"date":"2026-03-21","clicks":430,"impressions":53654},{"date":"2026-03-22","clicks":500,"impressions":57708},{"date":"2026-03-23","clicks":495,"impressions":58217},{"date":"2026-03-24","clicks":408,"impressions":55982},{"date":"2026-03-25","clicks":402,"impressions":55768},{"date":"2026-03-26","clicks":398,"impressions":55407},{"date":"2026-03-27","clicks":374,"impressions":50885},{"date":"2026-03-28","clicks":389,"impressions":48171},{"date":"2026-03-29","clicks":382,"impressions":49560},{"date":"2026-03-30","clicks":394,"impressions":52935},{"date":"2026-03-31","clicks":348,"impressions":48721},{"date":"2026-04-01","clicks":259,"impressions":43146},{"date":"2026-04-02","clicks":247,"impressions":37657},{"date":"2026-04-03","clicks":260,"impressions":37275},{"date":"2026-04-04","clicks":255,"impressions":38952},{"date":"2026-04-05","clicks":300,"impressions":40575},{"date":"2026-04-06","clicks":290,"impressions":43500},{"date":"2026-04-07","clicks":317,"impressions":44734},{"date":"2026-04-08","clicks":334,"impressions":44429},{"date":"2026-04-09","clicks":341,"impressions":45159},{"date":"2026-04-10","clicks":358,"impressions":40286},{"date":"2026-04-11","clicks":307,"impressions":38847},{"date":"2026-04-12","clicks":363,"impressions":40735},{"date":"2026-04-13","clicks":322,"impressions":43060},{"date":"2026-04-14","clicks":311,"impressions":41497},{"date":"2026-04-15","clicks":302,"impressions":41107},{"date":"2026-04-16","clicks":285,"impressions":39050},{"date":"2026-04-17","clicks":260,"impressions":34220},{"date":"2026-04-18","clicks":247,"impressions":30934},{"date":"2026-04-19","clicks":281,"impressions":33470},{"date":"2026-04-20","clicks":308,"impressions":28329},{"date":"2026-04-21","clicks":310,"impressions":22453},{"date":"2026-04-22","clicks":295,"impressions":23405},{"date":"2026-04-23","clicks":286,"impressions":22224},{"date":"2026-04-24","clicks":246,"impressions":20982},{"date":"2026-04-25","clicks":299,"impressions":20679},{"date":"2026-04-26","clicks":356,"impressions":22280},{"date":"2026-04-27","clicks":362,"impressions":24809},{"date":"2026-04-28","clicks":318,"impressions":23821},{"date":"2026-04-29","clicks":281,"impressions":23380},{"date":"2026-04-30","clicks":279,"impressions":20826},{"date":"2026-05-01","clicks":249,"impressions":21643},{"date":"2026-05-02","clicks":270,"impressions":21311},{"date":"2026-05-03","clicks":306,"impressions":22712},{"date":"2026-05-04","clicks":309,"impressions":25480},{"date":"2026-05-05","clicks":255,"impressions":24380},{"date":"2026-05-06","clicks":239,"impressions":22555},{"date":"2026-05-07","clicks":255,"impressions":21832},{"date":"2026-05-08","clicks":238,"impressions":21501},{"date":"2026-05-09","clicks":209,"impressions":20025},{"date":"2026-05-10","clicks":254,"impressions":21141},{"date":"2026-05-11","clicks":305,"impressions":25333},{"date":"2026-05-12","clicks":310,"impressions":24968},{"date":"2026-05-13","clicks":294,"impressions":22380},{"date":"2026-05-14","clicks":274,"impressions":20580},{"date":"2026-05-15","clicks":313,"impressions":20317},{"date":"2026-05-16","clicks":286,"impressions":19506},{"date":"2026-05-17","clicks":328,"impressions":21420},{"date":"2026-05-18","clicks":366,"impressions":23803},{"date":"2026-05-19","clicks":372,"impressions":23294},{"date":"2026-05-20","clicks":335,"impressions":23044},{"date":"2026-05-21","clicks":330,"impressions":23375},{"date":"2026-05-22","clicks":317,"impressions":22447},{"date":"2026-05-23","clicks":301,"impressions":21831},{"date":"2026-05-24","clicks":371,"impressions":23821},{"date":"2026-05-25","clicks":427,"impressions":26218},{"date":"2026-05-26","clicks":391,"impressions":25810},{"date":"2026-05-27","clicks":399,"impressions":25987},{"date":"2026-05-28","clicks":347,"impressions":24145},{"date":"2026-05-29","clicks":315,"impressions":23534},{"date":"2026-05-30","clicks":271,"impressions":21269},{"date":"2026-05-31","clicks":349,"impressions":22482}];
+
+  var dumbbell = [
+    {label:"Estrógenos naturales", before:10722, after:410, migrated:true},
+    {label:"Dolor de ovarios en menopausia", before:5599, after:652, migrated:true},
+    {label:"Problemas digestivos", before:3895, after:416, migrated:true},
+    {label:"Sequedad vulvar, remedios", before:3465, after:789, migrated:true},
+    {label:"Dolor de pezón en menopausia", before:2883, after:0, migrated:false},
+    {label:"Magnesio y menopausia", before:2766, after:0, migrated:false},
+    {label:"35 síntomas de la menopausia", before:2707, after:0, migrated:false},
+    {label:"Sangrado en menopausia", before:2492, after:0, migrated:false},
+    {label:"Regla cada 15 días", before:2081, after:0, migrated:false},
+    {label:"Producto: Deseo", before:1628, after:722, migrated:true}
+  ];
+
+  var queries = [
+    {q:"tipos de sangrados en la menopausia", before:682, after:6},
+    {q:"domma", before:1001, after:509},
+    {q:"34 síntomas de la menopausia", before:451, after:1},
+    {q:"hormonas femeninas", before:454, after:27},
+    {q:"estrogenos naturales", before:446, after:28},
+    {q:"sequedad vulvar, remedios caseros", before:506, after:191},
+    {q:"remedios caseros sequedad vulvar", before:330, after:21},
+    {q:"crisis de los 40", before:259, after:6}
+  ];
+
+  var countries = [
+    {country:"España", pct:-78.1, before:33840, after:7425},
+    {country:"Venezuela", pct:-74.7, before:1798, after:454},
+    {country:"Chile", pct:-72.7, before:2525, after:689},
+    {country:"Argentina", pct:-72.0, before:4693, after:1312},
+    {country:"EE. UU.", pct:-71.7, before:3448, after:975},
+    {country:"Perú", pct:-71.0, before:2041, after:592},
+    {country:"Colombia", pct:-67.8, before:3729, after:1202},
+    {country:"México", pct:-62.2, before:9796, after:3698}
+  ];
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function fmt(n) { return n.toLocaleString("es-ES"); }
+  function niceMax(v) {
+    var mag = Math.pow(10, Math.floor(Math.log10(v)));
+    var n = v / mag;
+    var step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+    return step * mag;
+  }
+
+  var tooltip = document.getElementById("tooltip");
+  function showTip(x, y, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = (y - 12) + "px";
+    tooltip.classList.add("show");
+  }
+  function hideTip() { tooltip.classList.remove("show"); }
+
+  // ---------- Line chart (monthly) ----------
+  function buildLineChart(containerId, series, opts) {
+    var container = document.getElementById(containerId);
+    var W = 780, H = opts.height || 200;
+    var padL = 46, padR = 12, padT = 14, padB = 26;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var maxV = niceMax(Math.max.apply(null, series.map(function (d) { return d[opts.key]; })) * 1.12);
+    var n = series.length;
+    function xAt(i) { return padL + (plotW * i) / (n - 1); }
+    function yAt(v) { return padT + plotH - (plotH * v) / maxV; }
+
+    var svg = el("svg", { class: "chart-svg", viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "xMidYMid meet" });
+
+    // gridlines
+    var gridN = 4;
+    for (var g = 0; g <= gridN; g++) {
+      var v = (maxV / gridN) * g;
+      var y = yAt(v);
+      svg.appendChild(el("line", { class: "grid-line", x1: padL, x2: W - padR, y1: y, y2: y }));
+      var t = el("text", { class: "axis-label", x: padL - 8, y: y + 3, "text-anchor": "end" });
+      t.textContent = opts.formatAxis ? opts.formatAxis(v) : fmt(Math.round(v));
+      svg.appendChild(t);
+    }
+
+    // x labels (every other month)
+    series.forEach(function (d, i) {
+      if (i % 2 === 0 || i === n - 1) {
+        var t = el("text", { class: "axis-label", x: xAt(i), y: H - 6, "text-anchor": "middle" });
+        t.textContent = d.label;
+        svg.appendChild(t);
+      }
+    });
+
+    // event line
+    if (opts.eventMonth) {
+      var idx = series.findIndex(function (d) { return d.m === opts.eventMonth; });
+      if (idx > -1) {
+        var ex = xAt(idx) - (plotW / (n - 1)) / 2;
+        svg.appendChild(el("line", { class: "event-line", x1: ex, x2: ex, y1: padT, y2: padT + plotH }));
+        var lbl = el("text", { class: "event-label", x: ex + 6, y: padT + 12 });
+        lbl.textContent = opts.eventLabel || "";
+        svg.appendChild(lbl);
+      }
+    }
+
+    // area + line
+    var linePts = series.map(function (d, i) { return xAt(i) + "," + yAt(d[opts.key]); }).join(" L ");
+    var pathD = "M " + linePts;
+    svg.appendChild(el("path", { class: "series-line", d: pathD }));
+
+    var areaD = "M " + xAt(0) + "," + (padT + plotH) + " L " + linePts + " L " + xAt(n - 1) + "," + (padT + plotH) + " Z";
+    svg.appendChild(el("path", { class: "series-area", d: areaD }));
+
+    // end dot + label
+    var lastX = xAt(n - 1), lastY = yAt(series[n - 1][opts.key]);
+    svg.appendChild(el("circle", { class: "end-dot", cx: lastX, cy: lastY, r: 4 }));
+    var endLbl = el("text", { class: "direct-label", x: lastX - 6, y: lastY - 10, "text-anchor": "end" });
+    endLbl.textContent = opts.formatAxis ? opts.formatAxis(series[n - 1][opts.key]) : fmt(series[n - 1][opts.key]);
+    svg.appendChild(endLbl);
+
+    // hover layer
+    var hoverX = el("line", { class: "hover-x", x1: 0, x2: 0, y1: padT, y2: padT + plotH });
+    var hoverDot = el("circle", { class: "hover-dot", r: 4 });
+    svg.appendChild(hoverX);
+    svg.appendChild(hoverDot);
+    var overlay = el("rect", { x: padL, y: padT, width: plotW, height: plotH, fill: "transparent" });
+    svg.appendChild(overlay);
+
+    function onMove(evt) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = W / rect.width;
+      var px = (evt.clientX - rect.left) * scaleX;
+      var i = Math.round(((px - padL) / plotW) * (n - 1));
+      i = Math.max(0, Math.min(n - 1, i));
+      var d = series[i];
+      var x = xAt(i), y = yAt(d[opts.key]);
+      hoverX.setAttribute("x1", x); hoverX.setAttribute("x2", x);
+      hoverX.style.opacity = 1;
+      hoverDot.setAttribute("cx", x); hoverDot.setAttribute("cy", y);
+      hoverDot.style.opacity = 1;
+      var html = '<div class="t-label">' + (d.label || d.date) + '</div><div class="t-value">' +
+        (opts.formatAxis ? opts.formatAxis(d[opts.key]) : fmt(d[opts.key])) + ' ' + (opts.unit || "") + '</div>';
+      if (d.impressions !== undefined && opts.key === "clicks") {
+        html += '<div class="t-label">Posición media: ' + d.pos + '</div>';
+      }
+      showTip(evt.clientX, rect.top, html);
+    }
+    overlay.addEventListener("pointermove", onMove);
+    overlay.addEventListener("pointerleave", function () {
+      hoverX.style.opacity = 0; hoverDot.style.opacity = 0; hideTip();
+    });
+
+    container.appendChild(svg);
+  }
+
+  buildLineChart("chart-clicks", monthly, { key: "clicks", eventMonth: "2026-04", eventLabel: "Migración Shopify", unit: "clics" });
+  buildLineChart("chart-impressions", monthly, {
+    key: "impressions", eventMonth: "2026-04", eventLabel: "Migración Shopify", unit: "impr.",
+    formatAxis: function (v) { return v >= 1000000 ? (v / 1000000).toFixed(1) + "M" : Math.round(v / 1000) + "K"; }
+  });
+
+  // fill monthly table
+  (function () {
+    var tbody = document.querySelector("#table-clicks tbody");
+    monthly.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.label;
+      var c2 = document.createElement("td"); c2.className = "strong"; c2.textContent = fmt(d.clicks);
+      var c3 = document.createElement("td"); c3.textContent = fmt(d.impressions);
+      var c4 = document.createElement("td"); c4.textContent = d.pos.toFixed(1);
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
+      tbody.appendChild(tr);
+    });
+  })();
+
+  // ---------- Daily zoom chart ----------
+  function buildDailyChart(containerId, series) {
+    var container = document.getElementById(containerId);
+    var W = 780, H = 200;
+    var padL = 46, padR = 12, padT = 14, padB = 22;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxV = niceMax(Math.max.apply(null, series.map(function (d) { return d.clicks; })) * 1.12);
+    var n = series.length;
+    function xAt(i) { return padL + (plotW * i) / (n - 1); }
+    function yAt(v) { return padT + plotH - (plotH * v) / maxV; }
+
+    var svg = el("svg", { class: "chart-svg", viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "xMidYMid meet" });
+
+    var gridN = 4;
+    for (var g = 0; g <= gridN; g++) {
+      var v = (maxV / gridN) * g;
+      var y = yAt(v);
+      svg.appendChild(el("line", { class: "grid-line", x1: padL, x2: W - padR, y1: y, y2: y }));
+      var t = el("text", { class: "axis-label", x: padL - 8, y: y + 3, "text-anchor": "end" });
+      t.textContent = fmt(Math.round(v));
+      svg.appendChild(t);
+    }
+
+    // month tick labels: first occurrence of each month
+    var seenMonth = {};
+    series.forEach(function (d, i) {
+      var mon = d.date.slice(0, 7);
+      if (!seenMonth[mon]) {
+        seenMonth[mon] = true;
+        var t = el("text", { class: "axis-label", x: xAt(i), y: H - 4, "text-anchor": "start" });
+        var monthNames = {"02":"feb","03":"mar","04":"abr","05":"may"};
+        t.textContent = monthNames[mon.slice(5,7)] + " " + d.date.slice(8,10);
+        svg.appendChild(t);
+      }
+    });
+
+    // event line at 2026-04-01
+    var idx = series.findIndex(function (d) { return d.date === "2026-04-01"; });
+    if (idx > -1) {
+      var ex = xAt(idx);
+      svg.appendChild(el("line", { class: "event-line", x1: ex, x2: ex, y1: padT, y2: padT + plotH }));
+      var lbl = el("text", { class: "event-label", x: ex + 6, y: padT + 12 });
+      lbl.textContent = "1 abr — migración";
+      svg.appendChild(lbl);
+    }
+
+    var linePts = series.map(function (d, i) { return xAt(i) + "," + yAt(d.clicks); }).join(" L ");
+    svg.appendChild(el("path", { class: "series-line", d: "M " + linePts }));
+    var areaD = "M " + xAt(0) + "," + (padT + plotH) + " L " + linePts + " L " + xAt(n - 1) + "," + (padT + plotH) + " Z";
+    svg.appendChild(el("path", { class: "series-area", d: areaD }));
+
+    var hoverX = el("line", { class: "hover-x", x1: 0, x2: 0, y1: padT, y2: padT + plotH });
+    var hoverDot = el("circle", { class: "hover-dot", r: 4 });
+    svg.appendChild(hoverX);
+    svg.appendChild(hoverDot);
+    var overlay = el("rect", { x: padL, y: padT, width: plotW, height: plotH, fill: "transparent" });
+    svg.appendChild(overlay);
+
+    function onMove(evt) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = W / rect.width;
+      var px = (evt.clientX - rect.left) * scaleX;
+      var i = Math.round(((px - padL) / plotW) * (n - 1));
+      i = Math.max(0, Math.min(n - 1, i));
+      var d = series[i];
+      var x = xAt(i), y = yAt(d.clicks);
+      hoverX.setAttribute("x1", x); hoverX.setAttribute("x2", x);
+      hoverX.style.opacity = 1;
+      hoverDot.setAttribute("cx", x); hoverDot.setAttribute("cy", y);
+      hoverDot.style.opacity = 1;
+      var html = '<div class="t-label">' + d.date + '</div><div class="t-value">' + fmt(d.clicks) + ' clics</div><div class="t-label">' + fmt(d.impressions) + ' impresiones</div>';
+      showTip(evt.clientX, rect.top, html);
+    }
+    overlay.addEventListener("pointermove", onMove);
+    overlay.addEventListener("pointerleave", function () { hoverX.style.opacity = 0; hoverDot.style.opacity = 0; hideTip(); });
+
+    container.appendChild(svg);
+  }
+  buildDailyChart("chart-daily", daily);
+
+  // ---------- Dumbbell ----------
+  (function () {
+    var container = document.getElementById("dumbbell-rows");
+    var maxV = Math.max.apply(null, dumbbell.map(function (d) { return d.before; }));
+    dumbbell.forEach(function (d) {
+      var row = document.createElement("div");
+      row.className = "dumbbell-row";
+
+      var labelWrap = document.createElement("div");
+      var labelText = document.createElement("div");
+      labelText.className = "dumbbell-label";
+      labelText.textContent = d.label;
+      var tag = document.createElement("span");
+      tag.className = "dumbbell-tag" + (d.migrated ? "" : " orphan");
+      tag.textContent = d.migrated ? "migrada" : "sin migrar";
+      labelWrap.appendChild(labelText);
+      labelWrap.appendChild(tag);
+
+      var track = document.createElement("div");
+      track.className = "dumbbell-track";
+      var svg = el("svg", { width: "100%", height: "20", viewBox: "0 0 400 20", preserveAspectRatio: "none" });
+      var svgWrap = document.createElement("div");
+      svgWrap.style.width = "100%";
+      var x1 = 6 + (388 * d.before) / maxV;
+      var x2 = 6 + (388 * d.after) / maxV;
+      var line = el("line", { x1: 6, x2: x1, y1: 10, y2: 10, stroke: "var(--hairline-strong)", "stroke-width": 2 });
+      var beforeDot = el("circle", { cx: x1, cy: 10, r: 5, fill: "var(--accent-soft)", stroke: "var(--accent-mid)", "stroke-width": 1.5 });
+      var afterDot = el("circle", { cx: x2, cy: 10, r: 5, fill: d.migrated ? "var(--accent)" : "var(--critical)", stroke: "var(--surface)", "stroke-width": 1.5 });
+      svg.appendChild(line);
+      svg.appendChild(beforeDot);
+      svg.appendChild(afterDot);
+      svgWrap.appendChild(svg);
+      track.appendChild(svgWrap);
+
+      track.addEventListener("pointermove", function (evt) {
+        var rect = track.getBoundingClientRect();
+        showTip(evt.clientX, rect.top, '<div class="t-label">Antes</div><div class="t-value">' + fmt(d.before) + '</div><div class="t-label">Ahora</div><div class="t-value">' + fmt(d.after) + '</div>');
+      });
+      track.addEventListener("pointerleave", hideTip);
+
+      var vals = document.createElement("div");
+      vals.className = "dumbbell-vals";
+      var pct = d.before ? Math.round(((d.after - d.before) / d.before) * 100) : 0;
+      vals.innerHTML = fmt(d.before) + " → " + fmt(d.after) + '<span class="delta">' + pct + '%</span>';
+
+      row.appendChild(labelWrap);
+      row.appendChild(track);
+      row.appendChild(vals);
+      container.appendChild(row);
+    });
+  })();
+
+  // ---------- Queries table ----------
+  (function () {
+    var tbody = document.querySelector("#table-queries tbody");
+    queries.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.q;
+      var c2 = document.createElement("td"); c2.textContent = fmt(d.before);
+      var c3 = document.createElement("td"); c3.textContent = fmt(d.after);
+      var c4 = document.createElement("td"); c4.className = "strong"; c4.textContent = "−" + fmt(d.before - d.after);
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
+      tbody.appendChild(tr);
+    });
+  })();
+
+  // ---------- Country bars ----------
+  (function () {
+    var container = document.getElementById("country-bars");
+    var maxPct = Math.max.apply(null, countries.map(function (d) { return Math.abs(d.pct); }));
+    countries.forEach(function (d) {
+      var row = document.createElement("div");
+      row.className = "bar-row";
+      var name = document.createElement("div");
+      name.className = "bar-country";
+      name.textContent = d.country;
+      var track = document.createElement("div");
+      track.className = "bar-track";
+      var fill = document.createElement("div");
+      fill.className = "bar-fill";
+      fill.style.width = (Math.abs(d.pct) / maxPct) * 100 + "%";
+      track.appendChild(fill);
+      track.addEventListener("pointermove", function (evt) {
+        var rect = track.getBoundingClientRect();
+        showTip(evt.clientX, rect.top, '<div class="t-label">' + d.country + '</div><div class="t-value">' + fmt(d.before) + ' → ' + fmt(d.after) + ' clics</div>');
+      });
+      track.addEventListener("pointerleave", hideTip);
+      var val = document.createElement("div");
+      val.className = "bar-value";
+      val.textContent = d.pct.toFixed(1) + "%";
+      row.appendChild(name);
+      row.appendChild(track);
+      row.appendChild(val);
+      container.appendChild(row);
+    });
+  })();
+
+})();
+</script>
