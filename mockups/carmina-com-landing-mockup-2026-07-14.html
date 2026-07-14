@@ -1,0 +1,687 @@
+<title>Carmina Shoemaker — carmina.com (Mockup)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --cream: #ede6d6;
+    --cream-soft: #e4dac4;
+    --espresso: #241b16;
+    --espresso-soft: #362a22;
+    --cordovan: #6e2a38;
+    --cordovan-deep: #52202b;
+    --oak: #8a6239;
+    --brass: #a3823f;
+    --ink: #2c211a;
+    --ink-soft: #5c4b3d;
+    --line: rgba(44, 33, 26, 0.16);
+    --paper-shadow: rgba(36, 27, 22, 0.12);
+
+    --bg: var(--cream);
+    --bg-raised: var(--cream-soft);
+    --fg: var(--ink);
+    --fg-soft: var(--ink-soft);
+    --accent: var(--cordovan);
+    --accent-deep: var(--cordovan-deep);
+    --gold: var(--brass);
+    --rule: var(--line);
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #1c1512;
+    --bg-raised: #241b16;
+    --fg: #ece2d2;
+    --fg-soft: #b9a793;
+    --accent: #a8495a;
+    --accent-deep: #7d3542;
+    --gold: #c9a25c;
+    --rule: rgba(236, 226, 210, 0.16);
+    --paper-shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1512;
+      --bg-raised: #241b16;
+      --fg: #ece2d2;
+      --fg-soft: #b9a793;
+      --accent: #a8495a;
+      --accent-deep: #7d3542;
+      --gold: #c9a25c;
+      --rule: rgba(236, 226, 210, 0.16);
+      --paper-shadow: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Charter, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2000;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  :root[data-theme="dark"] body::before { mix-blend-mode: overlay; opacity: 0.06; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body::before { mix-blend-mode: overlay; opacity: 0.06; }
+  }
+
+  .display {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- mockup badge ---------- */
+  .mockup-badge {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 3000;
+    background: var(--espresso);
+    color: var(--cream);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 3px;
+    box-shadow: 0 4px 14px var(--paper-shadow);
+    opacity: 0.9;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    gap: 24px;
+  }
+  .wordmark {
+    font-family: Georgia, "Iowan Old Style", serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-region {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--fg-soft);
+    border: 1px solid var(--rule);
+    padding: 5px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .nav-region strong { color: var(--fg); font-weight: 600; }
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 96px 0 64px;
+    text-align: center;
+    position: relative;
+  }
+  .eyebrow {
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    margin: 0 0 20px;
+    line-height: 1.02;
+  }
+  .hero .tagline {
+    font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--fg-soft);
+    max-width: 42ch;
+    margin: 0 auto 40px;
+    text-wrap: balance;
+  }
+
+  .stitch {
+    display: block;
+    width: min(560px, 86%);
+    margin: 0 auto 40px;
+    height: 28px;
+  }
+  .stitch path {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 9;
+    stroke-dashoffset: 480;
+    animation: draw 2.2s ease-out 0.3s forwards;
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .hero-note {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--fg-soft);
+  }
+  .hero-note strong { color: var(--fg); font-weight: 600; }
+
+  /* ---------- transition ribbon ---------- */
+  .ribbon {
+    background: var(--accent);
+    color: var(--cream);
+    padding: 20px 0;
+  }
+  .ribbon-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px 14px;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  .ribbon a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .ribbon .label { color: color-mix(in srgb, var(--cream) 70%, transparent); }
+
+  /* ---------- section rhythm ---------- */
+  section.block { padding: 96px 0; }
+  .rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ---------- heritage ---------- */
+  .heritage-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .big-year {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(4.5rem, 11vw, 8rem);
+    line-height: 0.85;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+  }
+  .big-year + p {
+    margin-top: 14px;
+    color: var(--fg-soft);
+  }
+  .heritage-copy h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin: 0 0 20px;
+  }
+  .heritage-copy p {
+    max-width: 62ch;
+    color: var(--fg-soft);
+    margin: 0 0 16px;
+  }
+  .heritage-copy p:last-child { margin-bottom: 0; }
+  @media (max-width: 760px) {
+    .heritage-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ---------- section headers ---------- */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin: 0;
+  }
+  .section-head .label { color: var(--fg-soft); }
+
+  /* ---------- craft grid (tag cards) ---------- */
+  .tag-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .tag-card {
+    background: var(--bg);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: background 0.25s ease;
+  }
+  .tag-card:hover { background: var(--bg-raised); }
+  .tag-monogram {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+  .tag-card h3 {
+    font-size: 1.02rem;
+    margin: 0;
+    font-family: Charter, Georgia, serif;
+  }
+  .tag-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--fg-soft);
+  }
+  @media (max-width: 860px) {
+    .tag-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .tag-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- spec strip (ledger) ---------- */
+  .spec-strip { background: var(--bg-raised); }
+  .ledger {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .ledger tr { border-bottom: 1px solid var(--rule); }
+  .ledger tr:last-child { border-bottom: none; }
+  .ledger td {
+    padding: 20px 0;
+    vertical-align: baseline;
+  }
+  .ledger td:first-child {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    width: 34%;
+    padding-right: 24px;
+  }
+  .ledger td:last-child {
+    font-size: 1.02rem;
+  }
+  @media (max-width: 640px) {
+    .ledger td:first-child { display: block; width: auto; padding-bottom: 4px; }
+    .ledger td { display: block; padding: 8px 0; }
+    .ledger tr { padding: 16px 0; display: block; }
+  }
+
+  /* ---------- locations ---------- */
+  .loc-hq {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 28px;
+    border: 1px solid var(--rule);
+    margin-bottom: 40px;
+    background: var(--bg-raised);
+  }
+  .loc-hq .pin {
+    color: var(--accent);
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .loc-hq h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .loc-hq p { margin: 0; color: var(--fg-soft); font-size: 0.92rem; }
+
+  .city-list {
+    columns: 3;
+    column-gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .city-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    break-inside: avoid;
+    font-size: 0.95rem;
+  }
+  .city-list .country {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+  }
+  @media (max-width: 760px) {
+    .city-list { columns: 2; }
+  }
+  @media (max-width: 500px) {
+    .city-list { columns: 1; }
+  }
+
+  /* ---------- contact ---------- */
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .contact-email {
+    font-family: Georgia, serif;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .social-icons {
+    display: flex;
+    gap: 14px;
+  }
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    color: var(--fg-soft);
+  }
+  .social-icons a:hover { border-color: var(--accent); color: var(--accent); }
+  .social-icons svg { width: 16px; height: 16px; }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--espresso);
+    color: color-mix(in srgb, var(--cream) 88%, transparent);
+    padding: 56px 0 28px;
+  }
+  footer .foot-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(237, 230, 214, 0.14);
+  }
+  footer .wordmark { color: var(--cream); }
+  footer .foot-copy {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: rgba(237, 230, 214, 0.6);
+    max-width: 36ch;
+  }
+  footer h4 {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(237, 230, 214, 0.55);
+    margin: 0 0 16px;
+  }
+  footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  footer a { text-decoration: none; color: rgba(237, 230, 214, 0.85); font-size: 0.9rem; }
+  footer a:hover { color: var(--gold); }
+  .foot-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 24px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: rgba(237, 230, 214, 0.45);
+  }
+  @media (max-width: 760px) {
+    footer .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    footer .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="mockup-badge">Mockup · placeholder copy</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="wordmark" href="#top">CARMINA</a>
+    <ul class="nav-links">
+      <li><a href="#heritage">Heritage</a></li>
+      <li><a href="#craft">Craft</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="nav-region">EN — <strong>Global</strong></span>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <p class="label eyebrow">Est. 1866 · Mallorca, Spain</p>
+    <h1 class="display">Carmina Shoemaker</h1>
+    <p class="tagline">Handcrafted Goodyear-welted footwear, four generations in the making.</p>
+
+    <svg class="stitch" viewBox="0 0 560 28" aria-hidden="true">
+      <path d="M4 14 Q 140 -8, 280 14 T 556 14" />
+    </svg>
+
+    <p class="hero-note"><strong>carmina.com</strong> is the new global home of Carmina Shoemaker.</p>
+  </section>
+
+  <div class="ribbon">
+    <div class="wrap ribbon-inner">
+      <span class="label">Shopping now?</span>
+      <span>We're building our global store here — in the meantime, shop at <a href="#">carminashoemaker.com →</a></span>
+    </div>
+  </div>
+
+  <section class="block wrap" id="heritage">
+    <div class="heritage-grid">
+      <div>
+        <p class="big-year">1866</p>
+        <p class="label">Founded in Inca, Mallorca</p>
+      </div>
+      <div class="heritage-copy">
+        <h2 class="display">Our heritage</h2>
+        <p>Carmina Shoemaker began as a small family workshop on the island of Mallorca. Five generations later, the same hands-on methods — Goodyear welt construction, hand-lasting, and meticulous leather selection — still shape every pair that leaves our workshop.</p>
+        <p>We build shoes to be resoled, not replaced: an investment in construction over trend, made by artisans who learned the craft from the generation before them.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule wrap" />
+
+  <section class="block wrap" id="craft">
+    <div class="section-head">
+      <h2 class="display">What we make</h2>
+      <span class="label">Four categories, one standard</span>
+    </div>
+    <div class="tag-grid">
+      <div class="tag-card">
+        <span class="tag-monogram">M</span>
+        <h3>Men's</h3>
+        <p>Oxfords, derbys, loafers, boots and monk-strap shoes.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-monogram">W</span>
+        <h3>Women's</h3>
+        <p>Chelsea boots, loafers, heels and oxfords.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-monogram">MTO</span>
+        <h3>Made-to-Order</h3>
+        <p>Fully customized pairs, built to your last — a 120-day process.</p>
+      </div>
+      <div class="tag-card">
+        <span class="tag-monogram">C</span>
+        <h3>Cordovan &amp; Exotics</h3>
+        <p>Genuine shell cordovan, alligator and python leathers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block spec-strip">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display">Craftsmanship</h2>
+        <span class="label">The construction ledger</span>
+      </div>
+      <table class="ledger">
+        <tr><td>Construction</td><td>Goodyear welt, built for resoling</td></tr>
+        <tr><td>Lasting</td><td>Hand-lasted on proprietary in-house forms</td></tr>
+        <tr><td>Leather</td><td>Oak-bark tanned calfskin &amp; genuine shell cordovan</td></tr>
+        <tr><td>Made-to-order</td><td>120-day lead time, built to your measurements</td></tr>
+        <tr><td>Production</td><td>All manufacturing in-house, Mallorca</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="block wrap" id="locations">
+    <div class="section-head">
+      <h2 class="display">Where to find us</h2>
+      <span class="label">Workshop &amp; flagship stores</span>
+    </div>
+    <div class="loc-hq">
+      <span class="pin">◆</span>
+      <div>
+        <h3>Workshop &amp; Headquarters</h3>
+        <p>Inca, Mallorca, Spain — where every pair has been made since 1866.</p>
+      </div>
+    </div>
+    <ul class="city-list">
+      <li><span>Madrid</span><span class="country">Spain</span></li>
+      <li><span>Barcelona</span><span class="country">Spain</span></li>
+      <li><span>Palma de Mallorca</span><span class="country">Spain</span></li>
+      <li><span>Paris</span><span class="country">France</span></li>
+      <li><span>London</span><span class="country">UK</span></li>
+      <li><span>New York</span><span class="country">USA</span></li>
+    </ul>
+  </section>
+
+  <hr class="rule wrap" />
+
+  <section class="block wrap" id="contact">
+    <div class="contact-row">
+      <a class="contact-email display" href="mailto:hello@carmina.com">hello@carmina.com</a>
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8h2V5h-2c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v6h3v-6H16l.5-3h-3V9c0-.6.4-1 1-1z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 18c1-3 1.5-5 1.5-7a2.5 2.5 0 1 1 5 0c0 1.8-1 4-2.7 4-.7 0-1.2-.5-1.1-1.2"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="#top">CARMINA</a>
+        <p class="foot-copy">The new global home of Carmina Shoemaker — handcrafted Goodyear-welted footwear from Mallorca, Spain, since 1866.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#heritage">Heritage</a></li>
+          <li><a href="#craft">Craft</a></li>
+          <li><a href="#locations">Locations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Legal notice</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Cookie policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap foot-bottom" style="padding:0;">
+      <span>© 1866–2026 Carmina Shoemaker. All rights reserved.</span>
+      <span>Mallorca, Spain</span>
+    </div>
+  </div>
+</footer>
