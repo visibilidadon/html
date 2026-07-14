@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>carmina.com — Wireframe</title>
+<style>
+  @page { size: A4; margin: 14mm 12mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #111;
+    background: #fff;
+    font-size: 11px;
+  }
+
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  .doc-header h1 {
+    font-size: 15px;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .doc-header .meta {
+    font-size: 9px;
+    color: #666;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  .frame {
+    border: 1.5px solid #111;
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+    position: relative;
+  }
+  .frame > .tag {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+    background: #fff;
+    padding: 0 6px;
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #111;
+    font-weight: bold;
+  }
+  .frame-inner { padding: 16px 14px 12px; }
+
+  .row { display: flex; gap: 10px; }
+  .col { flex: 1; }
+
+  /* generic placeholder primitives */
+  .bar {
+    background: repeating-linear-gradient(45deg, #ccc, #ccc 3px, #fff 3px, #fff 6px);
+    border: 1px solid #999;
+    height: 9px;
+    margin-bottom: 6px;
+    border-radius: 1px;
+  }
+  .bar.w60 { width: 60%; }
+  .bar.w80 { width: 80%; }
+  .bar.w40 { width: 40%; }
+  .bar.w100 { width: 100%; }
+  .bar.thick { height: 16px; }
+  .bar.xthick { height: 26px; }
+
+  .box-x {
+    border: 1px dashed #999;
+    background:
+      linear-gradient(to top left, transparent calc(50% - 0.5px), #bbb, transparent calc(50% + 0.5px)),
+      linear-gradient(to top right, transparent calc(50% - 0.5px), #bbb, transparent calc(50% + 0.5px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 8.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .note {
+    font-size: 8.5px;
+    color: #777;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .label {
+    font-size: 8.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .content-copy {
+    font-size: 9.5px;
+    color: #444;
+    margin: 0 0 4px;
+  }
+
+  .center { text-align: center; }
+  .divider { border: none; border-top: 1px dashed #bbb; margin: 10px 0; }
+
+  /* nav */
+  .nav-frame .frame-inner { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; }
+  .nav-links-mock { display: flex; gap: 14px; }
+  .nav-links-mock span { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.05em; color: #555; }
+  .pill {
+    border: 1px solid #999;
+    border-radius: 20px;
+    padding: 3px 8px;
+    font-size: 8px;
+    color: #555;
+  }
+
+  /* hero */
+  .hero-frame .frame-inner { text-align: center; padding: 30px 14px; }
+  .hero-frame .bar { margin-left: auto; margin-right: auto; }
+  .stitch-mock {
+    width: 60%;
+    height: 14px;
+    margin: 10px auto 14px;
+    border-bottom: 1.5px dashed #999;
+  }
+
+  /* ribbon */
+  .ribbon-frame { border-style: solid; border-width: 1.5px; }
+  .ribbon-frame .frame-inner { padding: 8px 14px; text-align: center; background: repeating-linear-gradient(-45deg, #f2f2f2, #f2f2f2 5px, #fff 5px, #fff 10px); }
+  .ribbon-frame .content-copy { margin: 0; font-size: 9px; }
+
+  /* grid cards */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .card {
+    border: 1px solid #999;
+    padding: 10px 8px;
+    text-align: left;
+  }
+  .circle {
+    width: 20px; height: 20px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+
+  /* ledger table */
+  .ledger-mock { width: 100%; border-collapse: collapse; }
+  .ledger-mock td { border-bottom: 1px dashed #ccc; padding: 6px 4px; vertical-align: top; }
+  .ledger-mock td:first-child { width: 30%; }
+
+  /* locations */
+  .city-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding: 5px 0; font-size: 9.5px; }
+  .city-row span:last-child { color: #888; font-size: 8.5px; text-transform: uppercase; }
+
+  /* footer */
+  .footer-frame .frame-inner { background: #f4f4f4; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 14px; }
+
+  .page-break { page-break-before: always; }
+
+  .annot {
+    font-size: 8px;
+    color: #999;
+    text-align: right;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>carmina.com — landing wireframe (bridge page)</h1>
+    <div class="meta">Visibilidadon<br/>2026-07-14 · v1 · EN global</div>
+  </div>
+
+  <!-- NAV -->
+  <div class="frame nav-frame">
+    <span class="tag">01 · Nav</span>
+    <div class="frame-inner">
+      <div class="bar w40" style="height:10px; width:70px; margin:0;"></div>
+      <div class="nav-links-mock">
+        <span>Heritage</span><span>Craft</span><span>Locations</span><span>Contact</span>
+      </div>
+      <div class="pill">EN — Global</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="frame hero-frame">
+    <span class="tag">02 · Hero</span>
+    <div class="frame-inner">
+      <div class="bar w40" style="height:8px; width:180px;"></div>
+      <div class="bar xthick w80" style="width:70%;"></div>
+      <div class="bar w60" style="width:45%;"></div>
+      <div class="stitch-mock"></div>
+      <div class="bar w40" style="width:220px;"></div>
+      <div class="note">H1 (marca) + tagline itálica + línea de continuidad "carmina.com es la nueva casa global"</div>
+    </div>
+  </div>
+
+  <!-- RIBBON -->
+  <div class="frame ribbon-frame">
+    <span class="tag">03 · Transition ribbon</span>
+    <div class="frame-inner">
+      <p class="content-copy">"Shopping now? We're building our global store here — in the meantime, shop at carminashoemaker.com →"</p>
+    </div>
+  </div>
+
+  <!-- HERITAGE -->
+  <div class="frame">
+    <span class="tag">04 · Heritage</span>
+    <div class="frame-inner row">
+      <div class="col" style="flex:0.8; text-align:center; border-right:1px dashed #ccc; padding-right:10px;">
+        <div style="font-size:28px; font-weight:bold; color:#bbb;">1866</div>
+        <div class="bar w80" style="margin:8px auto 0; width:90%;"></div>
+      </div>
+      <div class="col" style="flex:1.2;">
+        <span class="label">H2 — Our heritage</span>
+        <div class="bar w100"></div>
+        <div class="bar w100"></div>
+        <div class="bar w80"></div>
+        <div class="bar w100" style="margin-top:8px;"></div>
+        <div class="bar w60"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CRAFT GRID -->
+  <div class="frame">
+    <span class="tag">05 · What we make (4 tag cards)</span>
+    <div class="frame-inner">
+      <div class="grid-4">
+        <div class="card"><div class="circle"></div><div class="bar w60"></div><div class="bar w80" style="height:6px;"></div><div class="bar w60" style="height:6px;"></div></div>
+        <div class="card"><div class="circle"></div><div class="bar w60"></div><div class="bar w80" style="height:6px;"></div><div class="bar w60" style="height:6px;"></div></div>
+        <div class="card"><div class="circle"></div><div class="bar w60"></div><div class="bar w80" style="height:6px;"></div><div class="bar w60" style="height:6px;"></div></div>
+        <div class="card"><div class="circle"></div><div class="bar w60"></div><div class="bar w80" style="height:6px;"></div><div class="bar w60" style="height:6px;"></div></div>
+      </div>
+      <div class="note">Men's / Women's / Made-to-Order / Cordovan &amp; Exotics — monograma + título + 1 línea de descripción</div>
+    </div>
+  </div>
+
+  <!-- SPEC STRIP -->
+  <div class="frame">
+    <span class="tag">06 · Craftsmanship (ledger list)</span>
+    <div class="frame-inner">
+      <table class="ledger-mock">
+        <tr><td><div class="bar w80" style="height:6px;"></div></td><td><div class="bar w100" style="height:6px;"></div></td></tr>
+        <tr><td><div class="bar w80" style="height:6px;"></div></td><td><div class="bar w80" style="height:6px;"></div></td></tr>
+        <tr><td><div class="bar w80" style="height:6px;"></div></td><td><div class="bar w100" style="height:6px;"></div></td></tr>
+        <tr><td><div class="bar w80" style="height:6px;"></div></td><td><div class="bar w60" style="height:6px;"></div></td></tr>
+      </table>
+      <div class="note">Construction / Lasting / Leather / Made-to-order / Production — formato ficha técnica de 2 columnas</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- LOCATIONS -->
+  <div class="frame">
+    <span class="tag">07 · Where to find us</span>
+    <div class="frame-inner">
+      <div class="box-x" style="height:44px; margin-bottom:10px;">HQ / Workshop block — icon + 2 lines</div>
+      <div class="city-row"><span><div class="bar w40" style="height:6px; width:100px; margin:0;"></div></span><span>Country</span></div>
+      <div class="city-row"><span><div class="bar w40" style="height:6px; width:100px; margin:0;"></div></span><span>Country</span></div>
+      <div class="city-row"><span><div class="bar w40" style="height:6px; width:100px; margin:0;"></div></span><span>Country</span></div>
+      <div class="city-row"><span><div class="bar w40" style="height:6px; width:100px; margin:0;"></div></span><span>Country</span></div>
+      <div class="note">Lista de ciudades en 2–3 columnas (responsive), formato índice</div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="frame">
+    <span class="tag">08 · Contact</span>
+    <div class="frame-inner row" style="align-items:center;">
+      <div class="col"><div class="bar" style="width:160px; height:14px;"></div></div>
+      <div class="col" style="flex:0; display:flex; gap:8px;">
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="frame footer-frame">
+    <span class="tag">09 · Footer</span>
+    <div class="frame-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="bar w40" style="height:9px; width:80px;"></div>
+          <div class="bar w100" style="height:6px;"></div>
+          <div class="bar w80" style="height:6px;"></div>
+        </div>
+        <div>
+          <span class="label" style="font-size:7.5px;">Explore</span>
+          <div class="bar w60" style="height:6px;"></div>
+          <div class="bar w60" style="height:6px;"></div>
+          <div class="bar w60" style="height:6px;"></div>
+        </div>
+        <div>
+          <span class="label" style="font-size:7.5px;">Legal</span>
+          <div class="bar w60" style="height:6px;"></div>
+          <div class="bar w60" style="height:6px;"></div>
+          <div class="bar w60" style="height:6px;"></div>
+        </div>
+      </div>
+      <hr class="divider" />
+      <div class="row" style="justify-content:space-between;">
+        <div class="bar w40" style="height:6px; width:140px;"></div>
+        <div class="bar w40" style="height:6px; width:80px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annot">Wireframe estructural — sin estilo final. Ver mockup visual publicado aparte.</div>
+
+</body>
+</html>
