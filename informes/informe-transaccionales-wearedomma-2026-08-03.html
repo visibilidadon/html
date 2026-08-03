@@ -22,7 +22,6 @@
     --hairline: #e4e3e1;
     --hairline-strong: #d4d3d0;
     --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
-    --font-mono: 'Poppins', system-ui, sans-serif;
   }
 
   * { box-sizing: border-box; }
@@ -31,13 +30,13 @@
 
   .brand-bar { display: flex; align-items: center; gap: 10px; }
   .brand-bar svg { height: 22px; width: auto; }
-  .brand-bar span { font-family: var(--font-body); font-weight: 600; font-size: 13px; color: var(--ink-secondary); letter-spacing: 0.02em; }
+  .brand-bar span { font-weight: 600; font-size: 13px; color: var(--ink-secondary); letter-spacing: 0.02em; }
 
   .doc-header { border: 1px solid var(--hairline); border-radius: 14px; background: linear-gradient(135deg, var(--brand-blue-soft), #ffffff 60%); padding: 32px 32px 26px; display: flex; flex-direction: column; gap: 16px; }
-  .eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-blue); display: flex; align-items: center; gap: 8px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-blue); display: flex; align-items: center; gap: 8px; }
   .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-teal); display: inline-block; }
-  h1 { font-family: var(--font-body); font-weight: 600; font-size: 32px; line-height: 1.2; margin: 0; letter-spacing: -0.01em; color: var(--ink); }
-  .doc-sub { font-size: 15.5px; color: var(--ink-secondary); margin: 0; max-width: 66ch; line-height: 1.55; }
+  h1 { font-weight: 600; font-size: 30px; line-height: 1.2; margin: 0; letter-spacing: -0.01em; color: var(--ink); }
+  .doc-sub { font-size: 15px; color: var(--ink-secondary); margin: 0; max-width: 66ch; line-height: 1.55; }
   .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding-top: 14px; border-top: 1px solid var(--hairline); font-size: 12px; }
   .meta-item dt { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px; font-weight: 600; }
   .meta-item dd { margin: 0; color: var(--ink); font-size: 13px; font-weight: 500; }
@@ -51,16 +50,19 @@
   .kpi-delta.good { color: var(--good); }
   .kpi-delta.neutral { color: var(--ink-muted); }
 
-  section.block { display: flex; flex-direction: column; gap: 16px; }
-  .vertical-head { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--ink); border-radius: 12px; }
-  .vertical-head .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--brand-teal); padding: 4px 10px; border-radius: 20px; }
-  .vertical-head h2 { font-family: var(--font-body); font-size: 20px; font-weight: 600; margin: 0; color: #ffffff; }
-  .block-head { display: flex; gap: 14px; align-items: baseline; }
-  .block-num { font-size: 13px; font-weight: 700; color: var(--brand-blue); padding-top: 3px; flex: none; }
-  .block-title-wrap { flex: 1; }
-  h2.section-title { font-family: var(--font-body); font-size: 20px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
-  .block-text { font-size: 14.5px; line-height: 1.6; color: var(--ink-secondary); max-width: 70ch; margin: 0; }
-  .block-text strong { color: var(--ink); font-weight: 600; }
+  .two-col-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .intro-card { border: 1px solid var(--hairline); border-radius: 12px; padding: 18px 20px; background: var(--surface-2); }
+  .intro-card .n { font-size: 28px; font-weight: 700; color: var(--brand-blue); }
+  .intro-card .lbl { font-size: 13px; font-weight: 600; color: var(--ink); margin-top: 2px; }
+  .intro-card .sub { font-size: 12px; color: var(--ink-secondary); margin-top: 4px; line-height: 1.4; }
+
+  section.vertical-block { display: flex; flex-direction: column; gap: 16px; }
+  .vertical-head { display: flex; align-items: center; gap: 12px; padding: 16px 22px; background: var(--ink); border-radius: 12px; }
+  .vertical-head .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--brand-teal); padding: 5px 12px; border-radius: 20px; flex: none; }
+  .vertical-head h2 { font-size: 21px; font-weight: 600; margin: 0; color: #ffffff; }
+  .vertical-head .count { margin-left: auto; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); }
+  .vertical-intro { font-size: 14px; color: var(--ink-secondary); line-height: 1.6; margin: 0; max-width: 74ch; }
+  .vertical-intro strong { color: var(--ink); font-weight: 600; }
   .block-body { display: flex; flex-direction: column; gap: 16px; }
 
   .table-card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 18px 18px 8px; }
@@ -90,11 +92,14 @@
   .reco-title { font-size: 14px; font-weight: 600; margin: 0 0 3px; color: var(--ink); }
   .reco-desc { font-size: 13px; color: var(--ink-secondary); margin: 0; line-height: 1.5; }
 
+  h2.plain-title { font-size: 20px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
+
   footer { border-top: 1px solid var(--hairline); padding-top: 18px; font-size: 11px; color: var(--ink-muted); line-height: 1.7; }
 
   @media (max-width: 640px) {
     .meta-row { grid-template-columns: repeat(2, 1fr); }
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col-intro { grid-template-columns: 1fr; }
     h1 { font-size: 24px; }
   }
 </style>
@@ -109,7 +114,7 @@
   <header class="doc-header">
     <div class="eyebrow">Search Console · Palabras clave transaccionales</div>
     <h1>wearedomma.com está ganando terreno en búsquedas comerciales</h1>
-    <p class="doc-sub">Comparativa de posición media (abril → julio 2026), organizada por las dos verticales de producto — Deseo y Sofocos — separando búsquedas de marca y genéricas.</p>
+    <p class="doc-sub">Comparativa de posición media (abril → julio 2026), dividida en las dos verticales de producto: <strong style="color:var(--ink)">líbido y sequedad</strong>, y <strong style="color:var(--ink)">sofocos</strong>.</p>
     <dl class="meta-row">
       <div class="meta-item"><dt>Propiedad</dt><dd>sc-domain:wearedomma.com</dd></div>
       <div class="meta-item"><dt>Periodo comparado</dt><dd>abr. 2026 vs jul. 2026</dd></div>
@@ -118,55 +123,31 @@
     </dl>
   </header>
 
-  <div class="kpi-row">
-    <div class="kpi-tile">
-      <div class="kpi-label">Posición media de marca</div>
-      <div class="kpi-value">Top 3</div>
-      <div class="kpi-delta neutral">2,9 → 3,5 — sigue siendo excelente</div>
+  <div class="two-col-intro">
+    <div class="intro-card">
+      <div class="n">75</div>
+      <div class="lbl">Palabras clave — Líbido y sequedad</div>
+      <div class="sub">4 de marca, 71 sin marca. Vertical con más volumen y más mejoras de posición.</div>
     </div>
-    <div class="kpi-tile highlight">
-      <div class="kpi-label">Cobertura sin marca (con visibilidad)</div>
-      <div class="kpi-value">66 → 95</div>
-      <div class="kpi-delta good">↑ +29 palabras clave nuevas con impresiones</div>
-    </div>
-    <div class="kpi-tile highlight">
-      <div class="kpi-label">Mejor progreso — vertical Deseo</div>
-      <div class="kpi-value">48 → 11,2</div>
-      <div class="kpi-delta good">"vitaminas para aumentar la libido femenina"</div>
-    </div>
-    <div class="kpi-tile highlight">
-      <div class="kpi-label">Palabras clave sin marca que mejoran posición</div>
-      <div class="kpi-value">25 de 91</div>
-      <div class="kpi-delta good">con datos en ambos meses</div>
+    <div class="intro-card">
+      <div class="n">25</div>
+      <div class="lbl">Palabras clave — Sofocos</div>
+      <div class="sub">5 de marca, 20 sin marca. Marca muy consolidada (top 2 en "domma equilibrio").</div>
     </div>
   </div>
 
-  <section class="block">
-    <div class="block-head">
-      <span class="block-num">•</span>
-      <div class="block-title-wrap">
-        <h2 class="section-title">La foto general</h2>
-        <p class="block-text">La posición media de marca se mantiene en <strong>el podio (top 3)</strong> y la de búsquedas genéricas apenas se mueve — pero detrás de esa estabilidad hay una buena noticia: <strong>29 palabras clave transaccionales que no tenían ninguna visibilidad en abril, la tienen en julio</strong>. El sitio está ampliando el número de búsquedas comerciales donde aparece, especialmente en la vertical de Deseo.</p>
-      </div>
-    </div>
-    <div class="block-body">
-      <div class="callout">
-        <span class="callout-mark">✓</span>
-        <span>25 palabras clave sin marca mejoran su posición entre abril y julio, varias con saltos muy grandes ("vitaminas para aumentar la libido femenina" pasa de la página 5 a la página 2; "ácido hialurónico vagina" de la página 3 a la página 1).</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
+  <section class="vertical-block">
     <div class="vertical-head">
-      <span class="tag">Vertical</span>
-      <h2>Deseo — líbido, deseo y sequedad</h2>
+      <span class="tag">Vertical 1</span>
+      <h2>Líbido y sequedad</h2>
+      <span class="count">75 palabras clave</span>
     </div>
+    <p class="vertical-intro">Incluye búsquedas de líbido, deseo, afrodisíacos, sequedad vulvar/vaginal e hidratación íntima. Es la vertical con más movimiento positivo: <strong>22 de 71 palabras clave sin marca mejoran posición</strong>, con saltos grandes como "vitaminas para aumentar la libido femenina" (48→11,2) o "ácido hialurónico vagina" (30→5,3).</p>
     <div class="block-body">
       
       <div class="table-card">
         <div class="table-card-head">
-          <span class="table-title">Marca — Deseo</span>
+          <span class="table-title">Marca</span>
           
         </div>
         <table class="data-table">
@@ -183,7 +164,7 @@
       
       <div class="table-card">
         <div class="table-card-head">
-          <span class="table-title">Sin marca — Deseo</span>
+          <span class="table-title">Sin marca</span>
           <span class="table-sub">71 palabras clave</span>
         </div>
         <table class="data-table">
@@ -267,16 +248,18 @@
     </div>
   </section>
 
-  <section class="block">
+  <section class="vertical-block">
     <div class="vertical-head">
-      <span class="tag">Vertical</span>
+      <span class="tag">Vertical 2</span>
       <h2>Sofocos</h2>
+      <span class="count">25 palabras clave</span>
     </div>
+    <p class="vertical-intro">Incluye búsquedas de sofocos, calores, bochornos y los productos "equilibrio" y "descanso". La marca está muy bien posicionada (<strong>"domma equilibrio" en posición 1-1,5</strong>) y varias búsquedas genéricas ganan visibilidad nueva en julio, como "remedios caseros para los bochornos nocturnos" o "que tomar para los sofocos de la menopausia".</p>
     <div class="block-body">
       
       <div class="table-card">
         <div class="table-card-head">
-          <span class="table-title">Marca — Sofocos</span>
+          <span class="table-title">Marca</span>
           
         </div>
         <table class="data-table">
@@ -294,7 +277,7 @@
       
       <div class="table-card">
         <div class="table-card-head">
-          <span class="table-title">Sin marca — Sofocos</span>
+          <span class="table-title">Sin marca</span>
           <span class="table-sub">20 palabras clave</span>
         </div>
         <table class="data-table">
@@ -327,57 +310,13 @@
     </div>
   </section>
 
-  <section class="block">
-    <div class="block-head">
-      <span class="block-num">•</span>
-      <div class="block-title-wrap">
-        <h2 class="section-title">Marca — términos generales</h2>
-        <p class="block-text">Búsquedas de marca que no están ligadas a una vertical concreta (home, marca genérica). "Domma" a secas ya se lleva 161 clics en posición 1,8 — la marca está muy bien consolidada.</p>
-      </div>
-    </div>
+  <section class="vertical-block">
     <div class="block-body">
-      
-      <div class="table-card">
-        <div class="table-card-head">
-          <span class="table-title">Marca — términos generales</span>
-          <span class="table-sub">no ligados a una vertical concreta</span>
-        </div>
-        <table class="data-table">
-          <thead><tr><th>Palabra clave</th><th>Clicks*</th><th>Pos. abril</th><th>Pos. julio</th><th>Variación</th></tr></thead>
-          <tbody>
-<tr><td>domma</td><td class='num'>161</td><td class='num'>1,9</td><td class='num'>1,8</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma menopausia</td><td class='num'>19</td><td class='num'>1,1</td><td class='num'>1,4</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>donma</td><td class='num'>11</td><td class='num'>1,7</td><td class='num'>2,9</td><td class="var-cell watch">▼ 1.2 posiciones</td></tr>
-<tr><td>wearedomma</td><td class='num'>7</td><td class='num'>1,0</td><td class='num'>1,0</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>dooma</td><td class='num'>3</td><td class='num'>3,3</td><td class='num'>4,2</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma en forma</td><td class='num'>2</td><td class='num'>1,0</td><td class='num'>1,8</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma se vende en farmacias</td><td class='num'>2</td><td class='num'>4,7</td><td class='num'>6,6</td><td class="var-cell watch">▼ 1.9 posiciones</td></tr>
-<tr><td>la domma</td><td class='num'>2</td><td class='num'>1,7</td><td class='num'>1,6</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma amazon</td><td class='num'>0</td><td class='num'>6,8</td><td class='num'>8,9</td><td class="var-cell watch">▼ 2.1 posiciones</td></tr>
-<tr><td>domma menopausia donde comprar</td><td class='num'>0</td><td class='num'>1,0</td><td class='num'>1,0</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma efectos secundarios</td><td class='num'>0</td><td class='num'>2,0</td><td class='num'>1,3</td><td class="var-cell muted">≈ estable</td></tr>
-<tr><td>domma menopausia opiniones</td><td class='num'>—</td><td class='num'>1,2</td><td class='num'>—</td><td class="var-cell muted">Sin datos en julio</td></tr>
-<tr><td>domma opiniones</td><td class='num'>—</td><td class='num'>4,8</td><td class='num'>4,9</td><td class="var-cell muted">≈ estable</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="block-head">
-      <span class="block-num">•</span>
-      <div class="block-title-wrap">
-        <h2 class="section-title">Próximos pasos</h2>
-        <p class="block-text">Para seguir capitalizando el impulso de estos últimos tres meses.</p>
-      </div>
-    </div>
-    <div class="block-body">
+      <h2 class="plain-title">Próximos pasos</h2>
       <div class="reco-list">
         <div class="reco-item">
           <span class="reco-pri">🚀</span>
-          <div><p class="reco-title">Reforzar "vitaminas para aumentar la libido femenina" y "ácido hialurónico vagina"</p><p class="reco-desc">Los dos saltos más grandes del periodo. Un poco de enlazado interno adicional desde el blog puede consolidar estas posiciones antes de que se estabilicen.</p></div>
+          <div><p class="reco-title">Reforzar "vitaminas para aumentar la libido femenina" y "ácido hialurónico vagina"</p><p class="reco-desc">Los dos saltos más grandes de la vertical Líbido y sequedad. Un poco de enlazado interno adicional desde el blog puede consolidar estas posiciones antes de que se estabilicen.</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">🎯</span>
@@ -385,18 +324,18 @@
         </div>
         <div class="reco-item">
           <span class="reco-pri">📈</span>
-          <div><p class="reco-title">Aprovechar las 29 palabras clave con nueva visibilidad</p><p class="reco-desc">Son candidatas ideales para contenido y enlazado interno adicional mientras la competencia aún no ha reaccionado.</p></div>
+          <div><p class="reco-title">Aprovechar las palabras clave con nueva visibilidad en Sofocos</p><p class="reco-desc">Varias búsquedas de esa vertical pasan de cero impresiones a tener presencia en julio — buen momento para reforzarlas con contenido antes de que la competencia reaccione.</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">👀</span>
-          <div><p class="reco-title">Seguir de cerca el clúster "sofocos" y "aumentar libido"</p><p class="reco-desc">Algunas variantes de cola larga pierden posiciones puntualmente sin que la vertical se resienta en conjunto — vale la pena revisarlas el próximo trimestre para confirmar la tendencia.</p></div>
+          <div><p class="reco-title">Seguir de cerca "equilibrio de estrés y hormonas barato/con descuento"</p><p class="reco-desc">Es la variante que más posiciones pierde dentro de Sofocos — vale la pena revisarla el próximo trimestre para confirmar si es algo puntual o una tendencia.</p></div>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    Fuente: Search Console API (searchAnalytics.query), propiedad sc-domain:wearedomma.com, cuenta Von3 · Comparativa de posición media sobre mes completo abril 2026 vs mes completo julio 2026 · Palabras clave clasificadas por vertical (Deseo / Sofocos) según contenido semántico; términos de marca sin vertical específica agrupados aparte · *Clicks de referencia según export aportado por el cliente; "—" = sin dato de clicks o sin impresiones ese mes · Informe generado el 3 ago 2026.
+    Fuente: Search Console API (searchAnalytics.query), propiedad sc-domain:wearedomma.com, cuenta Von3 · Comparativa de posición media sobre mes completo abril 2026 vs mes completo julio 2026 · Palabras clave divididas en dos verticales — Líbido y sequedad, Sofocos — según contenido semántico; dentro de cada una se separan búsquedas de marca y genéricas · *Clicks de referencia según export aportado por el cliente; "—" = sin dato de clicks o sin impresiones ese mes · Informe generado el 3 ago 2026.
   </footer>
 
 </div>
