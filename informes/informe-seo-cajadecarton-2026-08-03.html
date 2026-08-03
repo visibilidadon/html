@@ -438,7 +438,7 @@
   <header class="doc-header">
     <div class="eyebrow">Revisión Search Console · Logicommerce</div>
     <h1>Revisión SEO — cajadecarton.es</h1>
-    <p class="doc-sub">Diagnóstico de los últimos 90 días de Google Search Console: qué está cayendo, por qué, y qué oportunidades de posición 4-15 se están dejando sobre la mesa.</p>
+    <p class="doc-sub">Diagnóstico de los últimos 90 días de Google Search Console — con comparativa interanual para separar estacionalidad de problemas reales — y qué oportunidades de posición 4-15 se están dejando sobre la mesa.</p>
     <dl class="meta-row">
       <div class="meta-item"><dt>Propiedad</dt><dd>sc-domain:cajadecarton.es</dd></div>
       <div class="meta-item"><dt>Periodo comparado</dt><dd>4-31 jul vs 6 jun-3 jul 2026</dd></div>
@@ -506,8 +506,45 @@
     <div class="block-head">
       <span class="block-num">02</span>
       <div class="block-title-wrap">
-        <h2>Dónde se concentra la pérdida de clics</h2>
-        <p class="block-text">Las 10 páginas con mayor pérdida absoluta son en su mayoría contenido de "manualidades" (casas, coches y guitarras de cartón) donde <strong>caen las impresiones y la posición se mantiene casi igual</strong> — parece pérdida de demanda/estacionalidad, no un problema de ranking. Hay una excepción que rompe el patrón.</p>
+        <h2>Contexto: es estacionalidad, no una tendencia negativa</h2>
+        <p class="block-text">Comparando el <strong>mismo periodo calendario del año anterior</strong> (4-31 jul. 2025 vs 4-31 jul. 2026, propiedad www) el panorama cambia por completo: los clics suben <strong>+9,5% interanual</strong> y la posición media mejora de <strong>16,89 a 10,51</strong>. Julio es el valle estacional en ambos años — junio y agosto lo bracketan por encima, tanto en 2025 como en lo que se perfila en 2026. La caída de −12,1% que vimos en la sección 01 es la variación mes a mes dentro de ese valle habitual, no una tendencia de fondo.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics mensuales — abr. 2025 a jul. 2026 (propiedad www.cajadecarton.es)</span>
+          <div class="chart-legend">
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--critical)"></span>Salto de posición sep-oct 2025</span>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chart-monthly-yoy"></div>
+      </div>
+      <div class="stat-mini-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Clics, 4-31 jul. — interanual</div>
+          <div class="kpi-value">6.460</div>
+          <div class="kpi-delta" style="color:var(--accent-strong)">↑ +9,5% vs 4-31 jul. 2025 (5.901)</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-label">Posición media, 4-31 jul. — interanual</div>
+          <div class="kpi-value">10,51</div>
+          <div class="kpi-delta" style="color:var(--accent-strong)">↑ mejora +6,4 puntos vs 2025 (16,89)</div>
+        </div>
+      </div>
+      <div class="callout ok">
+        <span class="callout-mark">✓</span>
+        <span>Entre agosto y octubre de 2025 la posición media pasa de <strong>15,3 a 7,7</strong> — una mejora estructural grande que se mantiene desde entonces (9-10,5 en 2026). No sabemos qué la causó con los datos de GSC únicamente; merece revisarse qué cambió en el sitio o el catálogo en esas fechas para intentar replicarlo (ver recomendaciones).</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <div class="block-title-wrap">
+        <h2>Dónde se concentra la pérdida de clics (mes a mes)</h2>
+        <p class="block-text">Las 10 páginas con mayor pérdida absoluta en 28 días son en su mayoría contenido de "manualidades". Pero al cruzar cada una con el interanual, no todas cuentan la misma historia — varias están en realidad <strong>muy por encima de hace un año</strong> y su caída de 28 días es ruido dentro de una tendencia positiva.</p>
       </div>
     </div>
     <div class="block-body">
@@ -520,9 +557,22 @@
           </div>
         </div>
         <div id="dumbbell-rows"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Las mismas páginas, vistas con el interanual (jul. 2025 vs jul. 2026)</span></div>
+        <div class="data-table-wrap">
+          <table class="data-table" id="table-yoy-pages">
+            <thead><tr><th>Página</th><th>MoM 28d</th><th>Interanual jul.</th><th>Lectura</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:12px">
+          <span class="callout-mark">✓</span>
+          <span><code style="font-family:var(--font-mono)">/cajas-para-mudanzas</code> pasa de posición <strong>24,6 a 5,8</strong> en un año, con clics interanuales <strong>+1.376%</strong> (38→561) — es la página que más ha mejorado del sitio. Vale la pena documentar qué se hizo aquí (contenido, enlazado, técnico) para replicarlo en otras categorías.</span>
+        </div>
         <div class="callout" style="margin-top:12px">
           <span class="callout-mark">⚠</span>
-          <span><code style="font-family:var(--font-mono)">/pack-75-cajas-carton-canal-simple-300x200x260mm</code> pierde <strong>90% de sus impresiones</strong> (112→11) pese a que su posición <strong>mejora</strong> (4,4→3,5) — eso descarta caída de ranking. Verificado con petición HTTP directa el 3 ago 2026: la página devuelve <strong>200 OK</strong>, está indexable (<code>index, follow</code>) y el canonical es correcto. No es un problema técnico ni de indexación — hay que revisar manualmente en el panel de Logicommerce si el producto sigue en stock, visible en su categoría y con el precio correcto.</span>
+          <span><code style="font-family:var(--font-mono)">/pack-75-cajas-carton-canal-simple-300x200x260mm</code>: revisando el interanual, julio de 2025 también tuvo un volumen bajo (24 impresiones) — el nivel actual (11) no es tan atípico como parecía en la comparativa de 28 días. El verdadero valor atípico es el <strong>pico de 112 impresiones en junio de 2026</strong>, no la caída de julio. Sigue siendo técnicamente sano (200 OK, indexable, canonical correcto); baja prioridad de revisión.</span>
         </div>
       </div>
     </div>
@@ -530,7 +580,7 @@
 
   <section class="block">
     <div class="block-head">
-      <span class="block-num">03</span>
+      <span class="block-num">04</span>
       <div class="block-title-wrap">
         <h2>Oportunidades desaprovechadas (posición 4-15)</h2>
         <p class="block-text">Consultas con volumen alto (≥300 impresiones/mes) rankeando en posición 4-15 pero con CTR muy por debajo de lo esperable para ese rango — algunas por debajo del <strong>0,2%</strong>. El snippet (title/meta description) probablemente no conecta con la intención de búsqueda, o la página que rankea no es la más adecuada para esa consulta.</p>
@@ -546,7 +596,7 @@
 
   <section class="block">
     <div class="block-head">
-      <span class="block-num">04</span>
+      <span class="block-num">05</span>
       <div class="block-title-wrap">
         <h2>Canibalización interna</h2>
         <p class="block-text">Típico en catálogos Logicommerce con home + categoría + variantes de producto compitiendo por la misma consulta. En varios casos la <strong>home rankea peor</strong> que la página de categoría dedicada para el mismo término. El caso "bolsas de papel" es el más grave: <strong>9 URLs distintas</strong> compiten, y la página de categoría (<code style="font-family:var(--font-mono)">/bolsas-de-papel</code>) queda en posición 57,7 mientras una variante de producto suelta rankea mejor.</p>
@@ -567,7 +617,7 @@
 
   <section class="block">
     <div class="block-head">
-      <span class="block-num">05</span>
+      <span class="block-num">06</span>
       <div class="block-title-wrap">
         <h2>Páginas con impresiones pero cero clics</h2>
         <p class="block-text">197 páginas reciben impresiones sin generar ni un clic en 28 días. Las de mayor volumen rankean tan bajo (posición 25-80) que son prácticamente invisibles en la práctica. <code style="font-family:var(--font-mono)">/material-embalaje-tienda-online</code> y <code style="font-family:var(--font-mono)">/materiales-de-embalaje</code> tienen nombres casi idénticos — probable canibalización adicional entre ellas.</p>
@@ -588,7 +638,7 @@
 
   <section class="block">
     <div class="block-head">
-      <span class="block-num">06</span>
+      <span class="block-num">07</span>
       <div class="block-title-wrap">
         <h2>Marca vs no-marca</h2>
         <p class="block-text">El tráfico de marca es marginal en volumen pero sano en calidad: posición 1 y CTR 19-33% cuando aparece "cajadecarton" tal cual. El <strong>95%+ del tráfico es no-marca e informacional</strong>, coherente con que las páginas top sean contenido tipo "cómo hacer..." más que fichas comerciales.</p>
@@ -612,25 +662,25 @@
 
   <section class="block">
     <div class="block-head">
-      <span class="block-num">07</span>
+      <span class="block-num">08</span>
       <div class="block-title-wrap">
         <h2>Qué hacer ahora</h2>
-        <p class="block-text">Por prioridad de impacto — primero descartar problemas de stock/catálogo, luego arquitectura interna, luego contenido.</p>
+        <p class="block-text">Con el interanual ya confirmado, la prioridad cambia: primero entender y replicar lo que está funcionando, luego arquitectura interna, y dejar el resto en observación de baja urgencia.</p>
       </div>
     </div>
     <div class="block-body">
       <div class="reco-list">
         <div class="reco-item p1">
           <span class="reco-pri">P1</span>
-          <div><p class="reco-title">Revisar en Logicommerce el pack-75-cajas-carton-canal-simple-300x200x260mm</p><p class="reco-desc">Técnicamente sano (200 OK, indexable, canonical correcto) pero perdió el 90% de sus impresiones con mejor posición — comprobar stock, visibilidad en categoría y precio en el panel.</p></div>
+          <div><p class="reco-title">Investigar el salto de posición de sep-oct 2025 (15,3 → 7,7) para replicarlo</p><p class="reco-desc">Coincide en el tiempo con la gran mejora de /cajas-para-mudanzas (posición 24,6→5,8). Revisar qué cambió entonces en contenido, enlazado interno o técnico — es la palanca de mayor impacto potencial de todo el sitio.</p></div>
         </div>
         <div class="reco-item p1">
           <span class="reco-pri">P1</span>
-          <div><p class="reco-title">Resolver la canibalización de "bolsas de papel" (9 URLs)</p><p class="reco-desc">Consolidar señales hacia una única URL de categoría, revisar enlazado interno y valorar fusionar o canonicalizar <code>/nuevas-bolsas-papel</code> contra <code>/bolsas-de-papel</code>.</p></div>
+          <div><p class="reco-title">Resolver la canibalización de "bolsas de papel" (9 URLs)</p><p class="reco-desc">Consolidar señales hacia una única URL de categoría, revisar enlazado interno y valorar fusionar o canonicalizar <code>/nuevas-bolsas-papel</code> contra <code>/bolsas-de-papel</code>. Es un problema estructural, no estacional.</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">P2</span>
-          <div><p class="reco-title">Reforzar /cajas-de-carton frente a la home</p><p class="reco-desc">Para "cajas de carton", "cajas", "caja de carton" y variantes, la home compite y a menudo pierde contra la categoría dedicada. Ajustar enlazado interno y optimización on-page para concentrar autoridad en la categoría.</p></div>
+          <div><p class="reco-title">Arreglar el CTR de la home, no su ranking</p><p class="reco-desc">El interanual confirma que la home no tiene problema de demanda (impresiones +11%, posición mejora 21,1→15,3) sino de clic (CTR 0,6%). Revisar title/meta description y, en paralelo, reforzar /cajas-de-carton frente a la home en las queries donde compiten.</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">P2</span>
@@ -638,7 +688,7 @@
         </div>
         <div class="reco-item">
           <span class="reco-pri">P3</span>
-          <div><p class="reco-title">Confirmar si la caída en contenido "manualidades" es estacional</p><p class="reco-desc">Coche/guitarra/animales de cartón pierden 30-44% de impresiones con posición estable. Cruzar con datos de años anteriores o Google Trends antes de invertir en recuperarlos.</p></div>
+          <div><p class="reco-title">Vigilar (sin actuar aún) coche-de-carton, medidas-cajas-carton y símbolos-embalaje</p><p class="reco-desc">Estas tres sí caen en ambas comparativas (mes a mes e interanual) con posición estable o mejor — es demanda de búsqueda genuinamente a la baja, no un problema del sitio. No requiere acción técnica inmediata.</p></div>
         </div>
         <div class="reco-item">
           <span class="reco-pri">P3</span>
@@ -649,7 +699,7 @@
   </section>
 
   <footer>
-    Fuente: Search Console API (searchAnalytics.query), propiedad sc-domain:cajadecarton.es, cuenta Von2 · Comparativas "antes/ahora" sobre 4-31 jul 2026 vs 6 jun-3 jul 2026 salvo donde se indique · Estado de /pack-75-cajas-carton-canal-simple-300x200x260mm verificado con petición HTTP directa (curl) el 3 ago 2026 · Datos hasta el 31 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Canibalización calculada sobre dimensiones [query, page] con impresiones totales ≥200 en el periodo actual · Informe generado el 3 ago 2026.
+    Fuente: Search Console API (searchAnalytics.query), propiedad sc-domain:cajadecarton.es (secciones 01, 03-08), cuenta Von2 · Comparativas "antes/ahora" (mes a mes) sobre 4-31 jul 2026 vs 6 jun-3 jul 2026 salvo donde se indique · Comparativa interanual (sección 02-03) calculada sobre la propiedad https://www.cajadecarton.es/, único ámbito con histórico disponible desde mar. 2025 (la propiedad de dominio sc-domain solo tiene datos desde el 26 oct. 2025) · Estado de /pack-75-cajas-carton-canal-simple-300x200x260mm verificado con petición HTTP directa (curl) el 3 ago 2026 · Datos hasta el 31 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Canibalización calculada sobre dimensiones [query, page] con impresiones totales ≥200 en el periodo actual · Informe generado el 3 ago 2026, actualizado el 3 ago 2026 con comparativa interanual.
   </footer>
 
 </div>
@@ -670,6 +720,36 @@
   var zeroClick = [{"page":"/material-embalaje-tienda-online","impressions":3267,"pos":41.0},{"page":"/cinta-adhesiva","impressions":1773,"pos":55.8},{"page":"/materiales-de-embalaje","impressions":1591,"pos":36.8},{"page":"/que-es-paletizar-cuales-son-sus-caracteristicas","impressions":1232,"pos":26.8},{"page":"/empaquetar-embalar-paquete-para-envio","impressions":1091,"pos":25.6},{"page":"/devoluciones-y-cambios","impressions":983,"pos":13.9},{"page":"/nuevas-bolsas-papel","impressions":951,"pos":75.4},{"page":"/tipos-cajas-carton-segun-producto","impressions":846,"pos":19.1},{"page":"/que-es-ecodiseno-ejemplos","impressions":774,"pos":24.5},{"page":"/dispensador-cinta-adhesiva","impressions":748,"pos":17.9}];
 
   var cannibalization = [{"query":"cajas de carton","numUrls":4,"totalImpr":8292,"urls":[{"page":"/","impressions":4655,"pos":8.1},{"page":"/cajas-de-carton","impressions":3635,"pos":4.4}]},{"query":"cajas","numUrls":3,"totalImpr":3981,"urls":[{"page":"/cajas-de-carton","impressions":2251,"pos":6.1},{"page":"/","impressions":1629,"pos":10.2}]},{"query":"cajas para mudanzas","numUrls":2,"totalImpr":2450,"urls":[{"page":"/cajas-para-mudanzas","impressions":1591,"pos":3.2},{"page":"/pack-mudanza-media","impressions":859,"pos":8.7}]},{"query":"caja de carton","numUrls":2,"totalImpr":2178,"urls":[{"page":"/","impressions":1428,"pos":6.2},{"page":"/cajas-de-carton","impressions":750,"pos":2.2}]},{"query":"cajas de carton para mudanzas","numUrls":2,"totalImpr":2154,"urls":[{"page":"/cajas-para-mudanzas","impressions":1288,"pos":3.7},{"page":"/","impressions":866,"pos":13.3}]},{"query":"cajas carton","numUrls":3,"totalImpr":2148,"urls":[{"page":"/cajas-de-carton","impressions":1105,"pos":2.7},{"page":"/","impressions":1040,"pos":9.4}]},{"query":"bolsas de papel","numUrls":9,"totalImpr":2103,"urls":[{"page":"/bolsas-kraft-14x8x21","impressions":1185,"pos":16.9},{"page":"/bolsas-de-papel","impressions":578,"pos":57.7}]},{"query":"cajas personalizadas","numUrls":2,"totalImpr":1802,"urls":[{"page":"/","impressions":1183,"pos":7.5},{"page":"/cajas-embalaje-personalizadas","impressions":619,"pos":8.5}]}];
+
+  var monthlyYoY = [
+    {m:"2025-04", label:"abr 25", clicks:6604, pos:17.5},
+    {m:"2025-05", label:"may 25", clicks:8030, pos:16.1},
+    {m:"2025-06", label:"jun 25", clicks:7856, pos:14.7},
+    {m:"2025-07", label:"jul 25", clicks:6554, pos:17.0},
+    {m:"2025-08", label:"ago 25", clicks:8093, pos:15.3},
+    {m:"2025-09", label:"sep 25", clicks:10228, pos:10.6},
+    {m:"2025-10", label:"oct 25", clicks:11641, pos:7.7},
+    {m:"2025-11", label:"nov 25", clicks:11800, pos:7.8},
+    {m:"2025-12", label:"dic 25", clicks:9605, pos:9.8},
+    {m:"2026-01", label:"ene 26", clicks:9462, pos:9.8},
+    {m:"2026-02", label:"feb 26", clicks:9561, pos:9.1},
+    {m:"2026-03", label:"mar 26", clicks:8753, pos:8.7},
+    {m:"2026-04", label:"abr 26", clicks:8555, pos:9.4},
+    {m:"2026-05", label:"may 26", clicks:9608, pos:9.8},
+    {m:"2026-06", label:"jun 26", clicks:8245, pos:10.0},
+    {m:"2026-07", label:"jul 26", clicks:7236, pos:10.5}
+  ];
+
+  var yoyPages = [
+    {label:"/ (home)", mom:"695 → 644 (−7%)", yoy:"847 → 644 (−24%)", read:"CTR débil (0,6%), no caída de demanda — impr. +11%, posición mejora 21,1→15,3", tag:"ok"},
+    {label:"/cajas-para-mudanzas", mom:"627 → 561 (−11%)", yoy:"38 → 561 (+1.376%)", read:"Gran mejora estructural; el −11% MoM es ruido dentro de una tendencia muy positiva", tag:"win"},
+    {label:"/decorar-cajas-carton", mom:"127 → 81 (−36%)", yoy:"65 → 81 (+25%)", read:"Ruido MoM, tendencia interanual positiva", tag:"ok"},
+    {label:"/animales-de-carton", mom:"133 → 102 (−23%)", yoy:"37 → 102 (+176%)", read:"Ruido MoM, tendencia interanual muy positiva", tag:"win"},
+    {label:"/como-hacer-un-coche-de-carton", mom:"79 → 48 (−39%)", yoy:"120 → 48 (−60%)", read:"Caída de demanda real y consistente en ambas comparativas — estacional, no técnico", tag:"watch"},
+    {label:"/como-reconocer-simbolos-embalaje", mom:"273 → 168 (−38%)", yoy:"449 → 168 (−63%)", read:"Caída de demanda real confirmada; posición mejora (10,3→6,3), no es problema de ranking", tag:"watch"},
+    {label:"/plastico-de-burbujas", mom:"118 → 74 (−37%)", yoy:"169 → 74 (−56%)", read:"Impresiones casi iguales, posición mejor — es caída de CTR, no de demanda ni ranking", tag:"watch"},
+    {label:"/medidas-cajas-carton", mom:"112 → 79 (−29%)", yoy:"166 → 79 (−52%)", read:"Caída de demanda real confirmada en ambas comparativas", tag:"watch"}
+  ];
 
   var NS = "http://www.w3.org/2000/svg";
   function el(tag, attrs) {
@@ -783,6 +863,100 @@
       var c2 = document.createElement("td"); c2.className = "strong"; c2.textContent = fmt(d.clicks);
       var c3 = document.createElement("td"); c3.textContent = fmt(d.impressions);
       var c4 = document.createElement("td"); c4.textContent = d.pos.toFixed(1);
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
+      tbody.appendChild(tr);
+    });
+  })();
+
+  // ---------- Monthly YoY line chart (with event marker) ----------
+  function buildMonthlyChart(containerId, series) {
+    var container = document.getElementById(containerId);
+    var W = 780, H = 200;
+    var padL = 46, padR = 12, padT = 14, padB = 26;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxV = niceMax(Math.max.apply(null, series.map(function (d) { return d.clicks; })) * 1.12);
+    var n = series.length;
+    function xAt(i) { return padL + (plotW * i) / (n - 1); }
+    function yAt(v) { return padT + plotH - (plotH * v) / maxV; }
+
+    var svg = el("svg", { class: "chart-svg", viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "xMidYMid meet" });
+
+    var gridN = 4;
+    for (var g = 0; g <= gridN; g++) {
+      var v = (maxV / gridN) * g;
+      var y = yAt(v);
+      svg.appendChild(el("line", { class: "grid-line", x1: padL, x2: W - padR, y1: y, y2: y }));
+      var t = el("text", { class: "axis-label", x: padL - 8, y: y + 3, "text-anchor": "end" });
+      t.textContent = fmt(Math.round(v));
+      svg.appendChild(t);
+    }
+
+    series.forEach(function (d, i) {
+      if (i % 2 === 0 || i === n - 1) {
+        var t = el("text", { class: "axis-label", x: xAt(i), y: H - 6, "text-anchor": "middle" });
+        t.textContent = d.label;
+        svg.appendChild(t);
+      }
+    });
+
+    var idx = series.findIndex(function (d) { return d.m === "2025-09"; });
+    if (idx > -1) {
+      var ex = xAt(idx) - (plotW / (n - 1)) / 2;
+      svg.appendChild(el("line", { class: "event-line", x1: ex, x2: ex, y1: padT, y2: padT + plotH }));
+      var lbl = el("text", { class: "event-label", x: ex + 6, y: padT + 12 });
+      lbl.textContent = "sep 25 →";
+      svg.appendChild(lbl);
+    }
+
+    var linePts = series.map(function (d, i) { return xAt(i) + "," + yAt(d.clicks); }).join(" L ");
+    svg.appendChild(el("path", { class: "series-line", d: "M " + linePts }));
+    var areaD = "M " + xAt(0) + "," + (padT + plotH) + " L " + linePts + " L " + xAt(n - 1) + "," + (padT + plotH) + " Z";
+    svg.appendChild(el("path", { class: "series-area", d: areaD }));
+
+    var lastX = xAt(n - 1), lastY = yAt(series[n - 1].clicks);
+    svg.appendChild(el("circle", { class: "end-dot", cx: lastX, cy: lastY, r: 4 }));
+
+    var hoverX = el("line", { class: "hover-x", x1: 0, x2: 0, y1: padT, y2: padT + plotH });
+    var hoverDot = el("circle", { class: "hover-dot", r: 4 });
+    svg.appendChild(hoverX);
+    svg.appendChild(hoverDot);
+    var overlay = el("rect", { x: padL, y: padT, width: plotW, height: plotH, fill: "transparent" });
+    svg.appendChild(overlay);
+
+    function onMove(evt) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = W / rect.width;
+      var px = (evt.clientX - rect.left) * scaleX;
+      var i = Math.round(((px - padL) / plotW) * (n - 1));
+      i = Math.max(0, Math.min(n - 1, i));
+      var d = series[i];
+      var x = xAt(i), y = yAt(d.clicks);
+      hoverX.setAttribute("x1", x); hoverX.setAttribute("x2", x);
+      hoverX.style.opacity = 1;
+      hoverDot.setAttribute("cx", x); hoverDot.setAttribute("cy", y);
+      hoverDot.style.opacity = 1;
+      var html = '<div class="t-label">' + d.label + '</div><div class="t-value">' + fmt(d.clicks) + ' clics</div><div class="t-label">Posición media: ' + d.pos + '</div>';
+      showTip(evt.clientX, rect.top, html);
+    }
+    overlay.addEventListener("pointermove", onMove);
+    overlay.addEventListener("pointerleave", function () { hoverX.style.opacity = 0; hoverDot.style.opacity = 0; hideTip(); });
+
+    container.appendChild(svg);
+  }
+  buildMonthlyChart("chart-monthly-yoy", monthlyYoY);
+
+  // ---------- YoY pages table ----------
+  (function () {
+    var tbody = document.querySelector("#table-yoy-pages tbody");
+    if (!tbody) return;
+    yoyPages.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.label;
+      var c2 = document.createElement("td"); c2.textContent = d.mom;
+      var c3 = document.createElement("td");
+      c3.textContent = d.yoy;
+      c3.className = d.tag === "win" ? "strong" : (d.tag === "watch" ? "crit" : "");
+      var c4 = document.createElement("td"); c4.style.textAlign = "left"; c4.style.whiteSpace = "normal"; c4.style.maxWidth = "260px"; c4.textContent = d.read;
       tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
       tbody.appendChild(tr);
     });
