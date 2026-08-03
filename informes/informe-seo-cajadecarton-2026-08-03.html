@@ -1,0 +1,905 @@
+<title>Revisión SEO — cajadecarton.es</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eceef2;
+    --ink: #10131a;
+    --ink-secondary: #545b66;
+    --ink-muted: #8a8f99;
+    --accent: #2a78d6;
+    --accent-soft: #cde2fb;
+    --accent-mid: #6da7ec;
+    --accent-strong: #184f95;
+    --critical: #d03b3b;
+    --critical-soft: rgba(208, 59, 59, 0.10);
+    --critical-ink: #a32d2d;
+    --hairline: rgba(16, 19, 26, 0.12);
+    --hairline-strong: rgba(16, 19, 26, 0.22);
+    --font-head: ui-serif, Georgia, "Times New Roman", serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15181c;
+      --surface: #1d2126;
+      --surface-2: #262a30;
+      --ink: #f2f3f5;
+      --ink-secondary: #a7aebb;
+      --ink-muted: #6f7680;
+      --accent: #4c93e8;
+      --accent-soft: rgba(76, 147, 232, 0.16);
+      --accent-mid: #6da7ec;
+      --accent-strong: #a9cbf5;
+      --critical: #e6706f;
+      --critical-soft: rgba(230, 112, 111, 0.14);
+      --critical-ink: #f0a4a3;
+      --hairline: rgba(255, 255, 255, 0.12);
+      --hairline-strong: rgba(255, 255, 255, 0.22);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15181c;
+    --surface: #1d2126;
+    --surface-2: #262a30;
+    --ink: #f2f3f5;
+    --ink-secondary: #a7aebb;
+    --ink-muted: #6f7680;
+    --accent: #4c93e8;
+    --accent-soft: rgba(76, 147, 232, 0.16);
+    --accent-mid: #6da7ec;
+    --accent-strong: #a9cbf5;
+    --critical: #e6706f;
+    --critical-soft: rgba(230, 112, 111, 0.14);
+    --critical-ink: #f0a4a3;
+    --hairline: rgba(255, 255, 255, 0.12);
+    --hairline-strong: rgba(255, 255, 255, 0.22);
+  }
+  :root[data-theme="light"] {
+    --paper: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eceef2;
+    --ink: #10131a;
+    --ink-secondary: #545b66;
+    --ink-muted: #8a8f99;
+    --accent: #2a78d6;
+    --accent-soft: #cde2fb;
+    --accent-mid: #6da7ec;
+    --accent-strong: #184f95;
+    --critical: #d03b3b;
+    --critical-soft: rgba(208, 59, 59, 0.10);
+    --critical-ink: #a32d2d;
+    --hairline: rgba(16, 19, 26, 0.12);
+    --hairline-strong: rgba(16, 19, 26, 0.22);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .doc-header {
+    border: 1px solid var(--hairline-strong);
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 28px 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .doc-sub {
+    font-size: 16px;
+    color: var(--ink-secondary);
+    margin: 0;
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+  .meta-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .meta-item dt {
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10.5px;
+    margin-bottom: 4px;
+  }
+  .meta-item dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 13px;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .kpi-tile {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kpi-label {
+    font-size: 12.5px;
+    color: var(--ink-secondary);
+    line-height: 1.35;
+    min-height: 32px;
+  }
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .kpi-delta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .kpi-delta.bad { color: var(--critical-ink); }
+  .kpi-delta.neutral { color: var(--ink-muted); }
+
+  section.block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .block-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+  }
+  .block-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    padding-top: 3px;
+    flex: none;
+  }
+  .block-title-wrap { flex: 1; }
+  h2 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .block-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+    max-width: 66ch;
+    margin: 0;
+  }
+  .block-text strong { color: var(--ink); font-weight: 600; }
+  .block-body { padding-left: 27px; display: flex; flex-direction: column; gap: 14px; }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 20px 20px 14px;
+  }
+  .chart-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .chart-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .chart-legend {
+    display: flex;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-secondary);
+  }
+  .legend-key { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 12px; height: 2px; border-radius: 1px; display: inline-block; }
+
+  .chart-wrap { position: relative; }
+  svg.chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .grid-line { stroke: var(--hairline); stroke-width: 1; }
+  .axis-label { fill: var(--ink-muted); font-family: var(--font-mono); font-size: 10px; }
+  .series-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .series-area { fill: var(--accent); opacity: 0.10; }
+  .event-line { stroke: var(--critical); stroke-width: 1.4; stroke-dasharray: 4 3; }
+  .event-label {
+    fill: var(--critical-ink);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .end-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+  .direct-label { fill: var(--ink); font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+  .hover-x { stroke: var(--ink-muted); stroke-width: 1; opacity: 0; pointer-events: none; }
+  .hover-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; opacity: 0; pointer-events: none; }
+
+  .tooltip {
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+    padding: 8px 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    transition: opacity 0.08s ease;
+    white-space: nowrap;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip .t-value { color: #ffffff; font-weight: 700; }
+  .tooltip .t-label { color: var(--ink-muted); }
+
+  details.data-toggle { margin-top: 8px; }
+  details.data-toggle > summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.03em;
+    list-style: none;
+    padding: 6px 0;
+    user-select: none;
+  }
+  details.data-toggle > summary::-webkit-details-marker { display: none; }
+  details.data-toggle > summary::before { content: "▸ "; }
+  details.data-toggle[open] > summary::before { content: "▾ "; }
+  .data-table-wrap { overflow-x: auto; }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  table.data-table th, table.data-table td {
+    text-align: right;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--hairline);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table.data-table th:first-child, table.data-table td:first-child { text-align: left; white-space: normal; }
+  table.data-table th { color: var(--ink-muted); font-weight: 500; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+  table.data-table td { color: var(--ink-secondary); }
+  table.data-table td.strong { color: var(--ink); font-weight: 600; }
+  table.data-table td.crit { color: var(--critical-ink); font-weight: 600; }
+
+  .dumbbell-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 128px;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .dumbbell-row:last-child { border-bottom: none; }
+  .dumbbell-label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--ink);
+    line-height: 1.3;
+    word-break: break-word;
+  }
+  .dumbbell-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-top: 3px;
+    background: var(--surface-2);
+    color: var(--ink-muted);
+  }
+  .dumbbell-tag.orphan { background: var(--critical-soft); color: var(--critical-ink); }
+  .dumbbell-track { position: relative; height: 20px; }
+  .dumbbell-vals {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-align: right;
+    color: var(--ink-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .dumbbell-vals .delta { color: var(--critical-ink); font-weight: 600; display: block; font-size: 11px; }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 190px 1fr 84px;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .bar-country { font-size: 12.5px; color: var(--ink); font-family: var(--font-mono); }
+  .bar-track { position: relative; height: 16px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); border-radius: 3px; }
+  .bar-value { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+
+  .callout {
+    display: flex;
+    gap: 12px;
+    background: var(--critical-soft);
+    border: 1px solid rgba(208, 59, 59, 0.25);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .callout.ok { background: var(--accent-soft); border-color: rgba(42, 120, 214, 0.3); }
+  .callout-mark { font-family: var(--font-mono); color: var(--critical-ink); font-weight: 700; flex: none; }
+  .callout.ok .callout-mark { color: var(--accent-strong); }
+
+  .reco-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; background: var(--surface); }
+  .reco-item { display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
+  .reco-item:last-child { border-bottom: none; }
+  .reco-pri {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    padding-top: 2px;
+  }
+  .reco-item.p1 .reco-pri { color: var(--critical-ink); }
+  .reco-title { font-size: 14px; font-weight: 600; margin: 0 0 3px; color: var(--ink); }
+  .reco-desc { font-size: 13px; color: var(--ink-secondary); margin: 0; line-height: 1.5; }
+
+  .stat-mini-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .meta-row { grid-template-columns: repeat(2, 1fr); }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .stat-mini-row { grid-template-columns: 1fr; }
+    .dumbbell-row { grid-template-columns: 140px 1fr 92px; }
+    .dumbbell-label { font-size: 10.5px; }
+    .bar-row { grid-template-columns: 120px 1fr 70px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="doc-header">
+    <div class="eyebrow">Revisión Search Console · Logicommerce</div>
+    <h1>Revisión SEO — cajadecarton.es</h1>
+    <p class="doc-sub">Diagnóstico de los últimos 90 días de Google Search Console: qué está cayendo, por qué, y qué oportunidades de posición 4-15 se están dejando sobre la mesa.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Propiedad</dt><dd>sc-domain:cajadecarton.es</dd></div>
+      <div class="meta-item"><dt>Periodo comparado</dt><dd>4-31 jul vs 6 jun-3 jul 2026</dd></div>
+      <div class="meta-item"><dt>Cuenta GSC</dt><dd>Von2</dd></div>
+      <div class="meta-item"><dt>Fecha del informe</dt><dd>3 ago 2026</dd></div>
+    </dl>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi-tile">
+      <div class="kpi-label">Clics, últimos 28 días</div>
+      <div class="kpi-value">6.460</div>
+      <div class="kpi-delta bad">↓ −12,1% vs 28 días anteriores (7.353)</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">Impresiones, últimos 28 días</div>
+      <div class="kpi-value">795.297</div>
+      <div class="kpi-delta bad">↓ −9,6% vs 28 días anteriores (879.269)</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">CTR medio</div>
+      <div class="kpi-value">0,81%</div>
+      <div class="kpi-delta bad">↓ desde 0,84%</div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-label">Posición media</div>
+      <div class="kpi-value">10,51</div>
+      <div class="kpi-delta bad">↓ empeora desde 10,15</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">01</span>
+      <div class="block-title-wrap">
+        <h2>Qué está pasando</h2>
+        <p class="block-text">No es una caída puntual: es una <strong>erosión progresiva de 90 días</strong>. En mayo los picos diarios rondaban 400-430 clics; en julio ya no superan los 320, con varios días por debajo de 150-170 (18-19 y 25-26 de julio). La posición media también empeora ligeramente, de ~9-9,5 en mayo a ~10-11 en julio.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics diarios — 1 may. a 31 jul. 2026</span>
+        </div>
+        <div class="chart-wrap" id="chart-daily-clicks"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Impresiones diarias — misma ventana</span>
+        </div>
+        <div class="chart-wrap" id="chart-daily-impr"></div>
+        <details class="data-toggle"><summary>Ver datos diarios</summary>
+          <div class="data-table-wrap">
+            <table class="data-table" id="table-daily">
+              <thead><tr><th>Fecha</th><th>Clics</th><th>Impresiones</th><th>Posición</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">02</span>
+      <div class="block-title-wrap">
+        <h2>Dónde se concentra la pérdida de clics</h2>
+        <p class="block-text">Las 10 páginas con mayor pérdida absoluta son en su mayoría contenido de "manualidades" (casas, coches y guitarras de cartón) donde <strong>caen las impresiones y la posición se mantiene casi igual</strong> — parece pérdida de demanda/estacionalidad, no un problema de ranking. Hay una excepción que rompe el patrón.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head">
+          <span class="chart-title">Clics por página — 28 días antes vs 28 días ahora, top 10 por pérdida absoluta</span>
+          <div class="chart-legend">
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent-soft)"></span>Antes</span>
+            <span class="legend-key"><span class="legend-swatch" style="background:var(--accent)"></span>Ahora</span>
+          </div>
+        </div>
+        <div id="dumbbell-rows"></div>
+        <div class="callout" style="margin-top:12px">
+          <span class="callout-mark">⚠</span>
+          <span><code style="font-family:var(--font-mono)">/pack-75-cajas-carton-canal-simple-300x200x260mm</code> pierde <strong>90% de sus impresiones</strong> (112→11) pese a que su posición <strong>mejora</strong> (4,4→3,5) — eso descarta caída de ranking. Verificado con petición HTTP directa el 3 ago 2026: la página devuelve <strong>200 OK</strong>, está indexable (<code>index, follow</code>) y el canonical es correcto. No es un problema técnico ni de indexación — hay que revisar manualmente en el panel de Logicommerce si el producto sigue en stock, visible en su categoría y con el precio correcto.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">03</span>
+      <div class="block-title-wrap">
+        <h2>Oportunidades desaprovechadas (posición 4-15)</h2>
+        <p class="block-text">Consultas con volumen alto (≥300 impresiones/mes) rankeando en posición 4-15 pero con CTR muy por debajo de lo esperable para ese rango — algunas por debajo del <strong>0,2%</strong>. El snippet (title/meta description) probablemente no conecta con la intención de búsqueda, o la página que rankea no es la más adecuada para esa consulta.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Impresiones vs CTR — consultas posición 4-15</span></div>
+        <div id="opp-bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">04</span>
+      <div class="block-title-wrap">
+        <h2>Canibalización interna</h2>
+        <p class="block-text">Típico en catálogos Logicommerce con home + categoría + variantes de producto compitiendo por la misma consulta. En varios casos la <strong>home rankea peor</strong> que la página de categoría dedicada para el mismo término. El caso "bolsas de papel" es el más grave: <strong>9 URLs distintas</strong> compiten, y la página de categoría (<code style="font-family:var(--font-mono)">/bolsas-de-papel</code>) queda en posición 57,7 mientras una variante de producto suelta rankea mejor.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Consultas con ≥2 URLs propias compitiendo (impresiones totales ≥200)</span></div>
+        <div class="data-table-wrap">
+          <table class="data-table" id="table-cannibal">
+            <thead><tr><th>Consulta</th><th>URLs</th><th>Impr. total</th><th>URL principal</th><th>Pos.</th><th>2ª URL</th><th>Pos.</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">05</span>
+      <div class="block-title-wrap">
+        <h2>Páginas con impresiones pero cero clics</h2>
+        <p class="block-text">197 páginas reciben impresiones sin generar ni un clic en 28 días. Las de mayor volumen rankean tan bajo (posición 25-80) que son prácticamente invisibles en la práctica. <code style="font-family:var(--font-mono)">/material-embalaje-tienda-online</code> y <code style="font-family:var(--font-mono)">/materiales-de-embalaje</code> tienen nombres casi idénticos — probable canibalización adicional entre ellas.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-title">Top 10 páginas zero-click por impresiones</span></div>
+        <div class="data-table-wrap">
+          <table class="data-table" id="table-zeroclick">
+            <thead><tr><th>Página</th><th>Impresiones</th><th>Posición</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">06</span>
+      <div class="block-title-wrap">
+        <h2>Marca vs no-marca</h2>
+        <p class="block-text">El tráfico de marca es marginal en volumen pero sano en calidad: posición 1 y CTR 19-33% cuando aparece "cajadecarton" tal cual. El <strong>95%+ del tráfico es no-marca e informacional</strong>, coherente con que las páginas top sean contenido tipo "cómo hacer..." más que fichas comerciales.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="stat-mini-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Mejor query de marca: "cajadecarton"</div>
+          <div class="kpi-value">Pos. 1,0</div>
+          <div class="kpi-delta neutral">26 clics · 135 impr. · CTR 19,3%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-label">Mejor query de marca: "cajadecarton.es - cajas de cartón..."</div>
+          <div class="kpi-value">Pos. 1,0</div>
+          <div class="kpi-delta neutral">10 clics · 49 impr. · CTR 20,4%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="block-num">07</span>
+      <div class="block-title-wrap">
+        <h2>Qué hacer ahora</h2>
+        <p class="block-text">Por prioridad de impacto — primero descartar problemas de stock/catálogo, luego arquitectura interna, luego contenido.</p>
+      </div>
+    </div>
+    <div class="block-body">
+      <div class="reco-list">
+        <div class="reco-item p1">
+          <span class="reco-pri">P1</span>
+          <div><p class="reco-title">Revisar en Logicommerce el pack-75-cajas-carton-canal-simple-300x200x260mm</p><p class="reco-desc">Técnicamente sano (200 OK, indexable, canonical correcto) pero perdió el 90% de sus impresiones con mejor posición — comprobar stock, visibilidad en categoría y precio en el panel.</p></div>
+        </div>
+        <div class="reco-item p1">
+          <span class="reco-pri">P1</span>
+          <div><p class="reco-title">Resolver la canibalización de "bolsas de papel" (9 URLs)</p><p class="reco-desc">Consolidar señales hacia una única URL de categoría, revisar enlazado interno y valorar fusionar o canonicalizar <code>/nuevas-bolsas-papel</code> contra <code>/bolsas-de-papel</code>.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P2</span>
+          <div><p class="reco-title">Reforzar /cajas-de-carton frente a la home</p><p class="reco-desc">Para "cajas de carton", "cajas", "caja de carton" y variantes, la home compite y a menudo pierde contra la categoría dedicada. Ajustar enlazado interno y optimización on-page para concentrar autoridad en la categoría.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P2</span>
+          <div><p class="reco-title">Revisar title/meta description de queries con CTR &lt;0,3% en posición 4-15</p><p class="reco-desc">"robot de carton", "foam", "papel de burbujas", "bolsas de papel personalizadas" y "sobres" tienen volumen alto y CTR casi nulo — revisar si el snippet conecta con la intención de búsqueda.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P3</span>
+          <div><p class="reco-title">Confirmar si la caída en contenido "manualidades" es estacional</p><p class="reco-desc">Coche/guitarra/animales de cartón pierden 30-44% de impresiones con posición estable. Cruzar con datos de años anteriores o Google Trends antes de invertir en recuperarlos.</p></div>
+        </div>
+        <div class="reco-item">
+          <span class="reco-pri">P3</span>
+          <div><p class="reco-title">Cruzar páginas de "manualidades" con GA4/ventas</p><p class="reco-desc">Search Console no dice si ese tráfico informacional convierte en compra de cajas — antes de priorizar su recuperación, confirmar si aporta ingresos reales.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Fuente: Search Console API (searchAnalytics.query), propiedad sc-domain:cajadecarton.es, cuenta Von2 · Comparativas "antes/ahora" sobre 4-31 jul 2026 vs 6 jun-3 jul 2026 salvo donde se indique · Estado de /pack-75-cajas-carton-canal-simple-300x200x260mm verificado con petición HTTP directa (curl) el 3 ago 2026 · Datos hasta el 31 jul 2026 (últimos 3 días excluidos por retraso habitual de GSC) · Canibalización calculada sobre dimensiones [query, page] con impresiones totales ≥200 en el periodo actual · Informe generado el 3 ago 2026.
+  </footer>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var daily = [{"date":"2026-05-01","clicks":183,"impressions":24264,"pos":9.4},{"date":"2026-05-02","clicks":205,"impressions":26166,"pos":10.4},{"date":"2026-05-03","clicks":231,"impressions":30422,"pos":10.6},{"date":"2026-05-04","clicks":420,"impressions":42176,"pos":9.6},{"date":"2026-05-05","clicks":409,"impressions":48499,"pos":10.5},{"date":"2026-05-06","clicks":401,"impressions":41288,"pos":8.9},{"date":"2026-05-07","clicks":361,"impressions":40394,"pos":9.3},{"date":"2026-05-08","clicks":272,"impressions":33491,"pos":9.7},{"date":"2026-05-09","clicks":204,"impressions":29015,"pos":10.6},{"date":"2026-05-10","clicks":219,"impressions":30428,"pos":11.0},{"date":"2026-05-11","clicks":378,"impressions":39627,"pos":9.2},{"date":"2026-05-12","clicks":385,"impressions":40986,"pos":9.6},{"date":"2026-05-13","clicks":386,"impressions":39313,"pos":9.9},{"date":"2026-05-14","clicks":344,"impressions":37487,"pos":9.7},{"date":"2026-05-15","clicks":287,"impressions":31709,"pos":9.6},{"date":"2026-05-16","clicks":209,"impressions":26591,"pos":10.6},{"date":"2026-05-17","clicks":238,"impressions":29614,"pos":9.7},{"date":"2026-05-18","clicks":434,"impressions":39492,"pos":9.5},{"date":"2026-05-19","clicks":373,"impressions":39173,"pos":8.9},{"date":"2026-05-20","clicks":357,"impressions":39288,"pos":9.4},{"date":"2026-05-21","clicks":354,"impressions":38509,"pos":9.9},{"date":"2026-05-22","clicks":297,"impressions":31958,"pos":9.9},{"date":"2026-05-23","clicks":189,"impressions":26665,"pos":10.5},{"date":"2026-05-24","clicks":246,"impressions":30913,"pos":10.6},{"date":"2026-05-25","clicks":411,"impressions":39290,"pos":9.0},{"date":"2026-05-26","clicks":424,"impressions":41644,"pos":9.4},{"date":"2026-05-27","clicks":351,"impressions":40790,"pos":10.1},{"date":"2026-05-28","clicks":338,"impressions":37518,"pos":9.6},{"date":"2026-05-29","clicks":253,"impressions":31487,"pos":9.9},{"date":"2026-05-30","clicks":190,"impressions":26441,"pos":10.5},{"date":"2026-05-31","clicks":259,"impressions":28775,"pos":9.5},{"date":"2026-06-01","clicks":382,"impressions":38623,"pos":9.1},{"date":"2026-06-02","clicks":369,"impressions":39416,"pos":9.0},{"date":"2026-06-03","clicks":345,"impressions":37899,"pos":8.4},{"date":"2026-06-04","clicks":329,"impressions":38334,"pos":8.8},{"date":"2026-06-05","clicks":243,"impressions":34058,"pos":10.6},{"date":"2026-06-06","clicks":215,"impressions":34363,"pos":12.7},{"date":"2026-06-07","clicks":245,"impressions":29658,"pos":10.3},{"date":"2026-06-08","clicks":366,"impressions":37898,"pos":8.8},{"date":"2026-06-09","clicks":373,"impressions":38156,"pos":9.0},{"date":"2026-06-10","clicks":332,"impressions":37084,"pos":9.6},{"date":"2026-06-11","clicks":358,"impressions":34592,"pos":8.9},{"date":"2026-06-12","clicks":253,"impressions":29639,"pos":10.0},{"date":"2026-06-13","clicks":180,"impressions":25438,"pos":11.0},{"date":"2026-06-14","clicks":226,"impressions":27308,"pos":10.4},{"date":"2026-06-15","clicks":340,"impressions":36573,"pos":9.4},{"date":"2026-06-16","clicks":315,"impressions":37401,"pos":9.4},{"date":"2026-06-17","clicks":337,"impressions":36731,"pos":10.3},{"date":"2026-06-18","clicks":236,"impressions":32076,"pos":9.5},{"date":"2026-06-19","clicks":214,"impressions":28303,"pos":10.1},{"date":"2026-06-20","clicks":134,"impressions":23173,"pos":10.5},{"date":"2026-06-21","clicks":166,"impressions":24091,"pos":10.8},{"date":"2026-06-22","clicks":295,"impressions":31532,"pos":9.3},{"date":"2026-06-23","clicks":290,"impressions":31554,"pos":10.3},{"date":"2026-06-24","clicks":255,"impressions":33086,"pos":11.5},{"date":"2026-06-25","clicks":261,"impressions":31789,"pos":10.0},{"date":"2026-06-26","clicks":238,"impressions":27993,"pos":10.4},{"date":"2026-06-27","clicks":151,"impressions":24148,"pos":11.8},{"date":"2026-06-28","clicks":192,"impressions":26457,"pos":11.5},{"date":"2026-06-29","clicks":293,"impressions":32179,"pos":9.7},{"date":"2026-06-30","clicks":312,"impressions":34026,"pos":9.6},{"date":"2026-07-01","clicks":310,"impressions":33486,"pos":11.0},{"date":"2026-07-02","clicks":261,"impressions":31188,"pos":9.7},{"date":"2026-07-03","clicks":205,"impressions":29347,"pos":10.6},{"date":"2026-07-04","clicks":167,"impressions":26399,"pos":10.4},{"date":"2026-07-05","clicks":190,"impressions":24179,"pos":10.9},{"date":"2026-07-06","clicks":285,"impressions":32004,"pos":10.1},{"date":"2026-07-07","clicks":269,"impressions":42266,"pos":13.0},{"date":"2026-07-08","clicks":274,"impressions":41262,"pos":12.5},{"date":"2026-07-09","clicks":287,"impressions":31314,"pos":9.9},{"date":"2026-07-10","clicks":200,"impressions":27511,"pos":10.9},{"date":"2026-07-11","clicks":156,"impressions":24263,"pos":12.0},{"date":"2026-07-12","clicks":170,"impressions":25541,"pos":11.5},{"date":"2026-07-13","clicks":280,"impressions":31833,"pos":9.8},{"date":"2026-07-14","clicks":282,"impressions":31246,"pos":9.9},{"date":"2026-07-15","clicks":238,"impressions":30519,"pos":10.4},{"date":"2026-07-16","clicks":247,"impressions":28073,"pos":9.8},{"date":"2026-07-17","clicks":178,"impressions":25083,"pos":9.8},{"date":"2026-07-18","clicks":145,"impressions":21025,"pos":10.4},{"date":"2026-07-19","clicks":139,"impressions":20939,"pos":11.3},{"date":"2026-07-20","clicks":240,"impressions":26949,"pos":9.3},{"date":"2026-07-21","clicks":313,"impressions":30626,"pos":9.4},{"date":"2026-07-22","clicks":297,"impressions":30042,"pos":9.4},{"date":"2026-07-23","clicks":228,"impressions":28571,"pos":9.1},{"date":"2026-07-24","clicks":200,"impressions":24665,"pos":10.1},{"date":"2026-07-25","clicks":144,"impressions":21070,"pos":11.5},{"date":"2026-07-26","clicks":159,"impressions":22396,"pos":10.9},{"date":"2026-07-27","clicks":323,"impressions":29752,"pos":9.5},{"date":"2026-07-28","clicks":278,"impressions":30859,"pos":10.3},{"date":"2026-07-29","clicks":268,"impressions":31103,"pos":10.1},{"date":"2026-07-30","clicks":272,"impressions":29837,"pos":10.5},{"date":"2026-07-31","clicks":231,"impressions":25970,"pos":10.7}];
+
+  var dumbbell = [{"label":"/como-reconocer-simbolos-del-embalaje-significado","before":273,"after":168},{"label":"/cajas-para-mudanzas","before":627,"after":561},{"label":"/","before":695,"after":644},{"label":"/decorar-cajas-carton","before":127,"after":81},{"label":"/plastico-de-burbujas","before":118,"after":74},{"label":"/pack-75-cajas-carton-canal-simple-300x200x260mm","before":40,"after":2},{"label":"/como-hacer-una-guitarra-de-juguete-con-cajas-de-carton","before":92,"after":58},{"label":"/medidas-cajas-carton","before":112,"after":79},{"label":"/animales-de-carton","before":133,"after":102},{"label":"/como-hacer-un-coche-de-carton","before":79,"after":48}]
+    .map(function (d) { d.anomaly = d.label.indexOf("pack-75") > -1; return d; });
+
+  var opportunities = [{"q":"cajas de carton","impressions":5162,"clicks":200,"ctr":3.87,"pos":4.6},{"q":"cajas","impressions":2950,"clicks":14,"ctr":0.47,"pos":6.6},{"q":"como hacer una casa de cartón fácil y rápido","impressions":2185,"clicks":22,"ctr":1.01,"pos":6.3},{"q":"cajas mudanza","impressions":2055,"clicks":103,"ctr":5.01,"pos":4.1},{"q":"cajas personalizadas","impressions":1825,"clicks":11,"ctr":0.6,"pos":10.6},{"q":"cajas para mudanzas","impressions":1691,"clicks":60,"ctr":3.55,"pos":4.0},{"q":"carton","impressions":1376,"clicks":8,"ctr":0.58,"pos":7.6},{"q":"cajas de carton para mudanzas","impressions":1358,"clicks":59,"ctr":4.34,"pos":4.3},{"q":"robot de carton","impressions":1356,"clicks":3,"ctr":0.22,"pos":7.0},{"q":"foam","impressions":1197,"clicks":2,"ctr":0.17,"pos":13.5},{"q":"cómo hacer una casa de cartón grande y fácil","impressions":1175,"clicks":12,"ctr":1.02,"pos":5.9},{"q":"papel de burbujas","impressions":1157,"clicks":2,"ctr":0.17,"pos":9.5}];
+
+  var zeroClick = [{"page":"/material-embalaje-tienda-online","impressions":3267,"pos":41.0},{"page":"/cinta-adhesiva","impressions":1773,"pos":55.8},{"page":"/materiales-de-embalaje","impressions":1591,"pos":36.8},{"page":"/que-es-paletizar-cuales-son-sus-caracteristicas","impressions":1232,"pos":26.8},{"page":"/empaquetar-embalar-paquete-para-envio","impressions":1091,"pos":25.6},{"page":"/devoluciones-y-cambios","impressions":983,"pos":13.9},{"page":"/nuevas-bolsas-papel","impressions":951,"pos":75.4},{"page":"/tipos-cajas-carton-segun-producto","impressions":846,"pos":19.1},{"page":"/que-es-ecodiseno-ejemplos","impressions":774,"pos":24.5},{"page":"/dispensador-cinta-adhesiva","impressions":748,"pos":17.9}];
+
+  var cannibalization = [{"query":"cajas de carton","numUrls":4,"totalImpr":8292,"urls":[{"page":"/","impressions":4655,"pos":8.1},{"page":"/cajas-de-carton","impressions":3635,"pos":4.4}]},{"query":"cajas","numUrls":3,"totalImpr":3981,"urls":[{"page":"/cajas-de-carton","impressions":2251,"pos":6.1},{"page":"/","impressions":1629,"pos":10.2}]},{"query":"cajas para mudanzas","numUrls":2,"totalImpr":2450,"urls":[{"page":"/cajas-para-mudanzas","impressions":1591,"pos":3.2},{"page":"/pack-mudanza-media","impressions":859,"pos":8.7}]},{"query":"caja de carton","numUrls":2,"totalImpr":2178,"urls":[{"page":"/","impressions":1428,"pos":6.2},{"page":"/cajas-de-carton","impressions":750,"pos":2.2}]},{"query":"cajas de carton para mudanzas","numUrls":2,"totalImpr":2154,"urls":[{"page":"/cajas-para-mudanzas","impressions":1288,"pos":3.7},{"page":"/","impressions":866,"pos":13.3}]},{"query":"cajas carton","numUrls":3,"totalImpr":2148,"urls":[{"page":"/cajas-de-carton","impressions":1105,"pos":2.7},{"page":"/","impressions":1040,"pos":9.4}]},{"query":"bolsas de papel","numUrls":9,"totalImpr":2103,"urls":[{"page":"/bolsas-kraft-14x8x21","impressions":1185,"pos":16.9},{"page":"/bolsas-de-papel","impressions":578,"pos":57.7}]},{"query":"cajas personalizadas","numUrls":2,"totalImpr":1802,"urls":[{"page":"/","impressions":1183,"pos":7.5},{"page":"/cajas-embalaje-personalizadas","impressions":619,"pos":8.5}]}];
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function fmt(n) { return n.toLocaleString("es-ES"); }
+  function niceMax(v) {
+    var mag = Math.pow(10, Math.floor(Math.log10(v)));
+    var n = v / mag;
+    var step = n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10;
+    return step * mag;
+  }
+
+  var tooltip = document.getElementById("tooltip");
+  function showTip(x, y, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = (y - 12) + "px";
+    tooltip.classList.add("show");
+  }
+  function hideTip() { tooltip.classList.remove("show"); }
+
+  // ---------- Daily line chart (generic) ----------
+  function buildDailyChart(containerId, series, opts) {
+    var container = document.getElementById(containerId);
+    var W = 780, H = 200;
+    var padL = 46, padR = 12, padT = 14, padB = 22;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxV = niceMax(Math.max.apply(null, series.map(function (d) { return d[opts.key]; })) * 1.12);
+    var n = series.length;
+    function xAt(i) { return padL + (plotW * i) / (n - 1); }
+    function yAt(v) { return padT + plotH - (plotH * v) / maxV; }
+
+    var svg = el("svg", { class: "chart-svg", viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "xMidYMid meet" });
+
+    var gridN = 4;
+    for (var g = 0; g <= gridN; g++) {
+      var v = (maxV / gridN) * g;
+      var y = yAt(v);
+      svg.appendChild(el("line", { class: "grid-line", x1: padL, x2: W - padR, y1: y, y2: y }));
+      var t = el("text", { class: "axis-label", x: padL - 8, y: y + 3, "text-anchor": "end" });
+      t.textContent = opts.formatAxis ? opts.formatAxis(v) : fmt(Math.round(v));
+      svg.appendChild(t);
+    }
+
+    var seenMonth = {};
+    var monthNames = {"05":"may","06":"jun","07":"jul"};
+    series.forEach(function (d, i) {
+      var mon = d.date.slice(5,7);
+      if (!seenMonth[mon]) {
+        seenMonth[mon] = true;
+        var t = el("text", { class: "axis-label", x: xAt(i), y: H - 6, "text-anchor": "start" });
+        t.textContent = monthNames[mon] + " " + d.date.slice(8,10);
+        svg.appendChild(t);
+      }
+    });
+
+    var linePts = series.map(function (d, i) { return xAt(i) + "," + yAt(d[opts.key]); }).join(" L ");
+    svg.appendChild(el("path", { class: "series-line", d: "M " + linePts }));
+    var areaD = "M " + xAt(0) + "," + (padT + plotH) + " L " + linePts + " L " + xAt(n - 1) + "," + (padT + plotH) + " Z";
+    svg.appendChild(el("path", { class: "series-area", d: areaD }));
+
+    var lastX = xAt(n - 1), lastY = yAt(series[n - 1][opts.key]);
+    svg.appendChild(el("circle", { class: "end-dot", cx: lastX, cy: lastY, r: 4 }));
+
+    var hoverX = el("line", { class: "hover-x", x1: 0, x2: 0, y1: padT, y2: padT + plotH });
+    var hoverDot = el("circle", { class: "hover-dot", r: 4 });
+    svg.appendChild(hoverX);
+    svg.appendChild(hoverDot);
+    var overlay = el("rect", { x: padL, y: padT, width: plotW, height: plotH, fill: "transparent" });
+    svg.appendChild(overlay);
+
+    function onMove(evt) {
+      var rect = svg.getBoundingClientRect();
+      var scaleX = W / rect.width;
+      var px = (evt.clientX - rect.left) * scaleX;
+      var i = Math.round(((px - padL) / plotW) * (n - 1));
+      i = Math.max(0, Math.min(n - 1, i));
+      var d = series[i];
+      var x = xAt(i), y = yAt(d[opts.key]);
+      hoverX.setAttribute("x1", x); hoverX.setAttribute("x2", x);
+      hoverX.style.opacity = 1;
+      hoverDot.setAttribute("cx", x); hoverDot.setAttribute("cy", y);
+      hoverDot.style.opacity = 1;
+      var html = '<div class="t-label">' + d.date + '</div><div class="t-value">' +
+        (opts.formatAxis ? opts.formatAxis(d[opts.key]) : fmt(d[opts.key])) + ' ' + (opts.unit || "") + '</div>' +
+        '<div class="t-label">Posición media: ' + d.pos + '</div>';
+      showTip(evt.clientX, rect.top, html);
+    }
+    overlay.addEventListener("pointermove", onMove);
+    overlay.addEventListener("pointerleave", function () {
+      hoverX.style.opacity = 0; hoverDot.style.opacity = 0; hideTip();
+    });
+
+    container.appendChild(svg);
+  }
+
+  buildDailyChart("chart-daily-clicks", daily, { key: "clicks", unit: "clics" });
+  buildDailyChart("chart-daily-impr", daily, {
+    key: "impressions", unit: "impr.",
+    formatAxis: function (v) { return v >= 1000 ? Math.round(v / 1000) + "K" : fmt(Math.round(v)); }
+  });
+
+  (function () {
+    var tbody = document.querySelector("#table-daily tbody");
+    daily.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.date;
+      var c2 = document.createElement("td"); c2.className = "strong"; c2.textContent = fmt(d.clicks);
+      var c3 = document.createElement("td"); c3.textContent = fmt(d.impressions);
+      var c4 = document.createElement("td"); c4.textContent = d.pos.toFixed(1);
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3); tr.appendChild(c4);
+      tbody.appendChild(tr);
+    });
+  })();
+
+  // ---------- Dumbbell ----------
+  (function () {
+    var container = document.getElementById("dumbbell-rows");
+    var maxV = Math.max.apply(null, dumbbell.map(function (d) { return d.before; }));
+    dumbbell.forEach(function (d) {
+      var row = document.createElement("div");
+      row.className = "dumbbell-row";
+
+      var labelWrap = document.createElement("div");
+      var labelText = document.createElement("div");
+      labelText.className = "dumbbell-label";
+      labelText.textContent = d.label;
+      var pctChange = Math.round(((d.after - d.before) / d.before) * 100);
+      var tag = document.createElement("span");
+      tag.className = "dumbbell-tag" + (d.anomaly ? " orphan" : "");
+      tag.textContent = d.anomaly ? "anomalía: posición mejora, impr. caen 90%" : pctChange + "% clics";
+      labelWrap.appendChild(labelText);
+      labelWrap.appendChild(tag);
+
+      var track = document.createElement("div");
+      track.className = "dumbbell-track";
+      var svg = el("svg", { width: "100%", height: "20", viewBox: "0 0 400 20", preserveAspectRatio: "none" });
+      var svgWrap = document.createElement("div");
+      svgWrap.style.width = "100%";
+      var x1 = 6 + (388 * d.before) / maxV;
+      var x2 = 6 + (388 * d.after) / maxV;
+      var line = el("line", { x1: 6, x2: x1, y1: 10, y2: 10, stroke: "var(--hairline-strong)", "stroke-width": 2 });
+      var beforeDot = el("circle", { cx: x1, cy: 10, r: 5, fill: "var(--accent-soft)", stroke: "var(--accent-mid)", "stroke-width": 1.5 });
+      var afterDot = el("circle", { cx: x2, cy: 10, r: 5, fill: d.anomaly ? "var(--critical)" : "var(--accent)", stroke: "var(--surface)", "stroke-width": 1.5 });
+      svg.appendChild(line);
+      svg.appendChild(beforeDot);
+      svg.appendChild(afterDot);
+      svgWrap.appendChild(svg);
+      track.appendChild(svgWrap);
+
+      track.addEventListener("pointermove", function (evt) {
+        var rect = track.getBoundingClientRect();
+        showTip(evt.clientX, rect.top, '<div class="t-label">Antes (28d)</div><div class="t-value">' + fmt(d.before) + ' clics</div><div class="t-label">Ahora (28d)</div><div class="t-value">' + fmt(d.after) + ' clics</div>');
+      });
+      track.addEventListener("pointerleave", hideTip);
+
+      var vals = document.createElement("div");
+      vals.className = "dumbbell-vals";
+      vals.innerHTML = fmt(d.before) + " → " + fmt(d.after) + '<span class="delta">' + pctChange + '%</span>';
+
+      row.appendChild(labelWrap);
+      row.appendChild(track);
+      row.appendChild(vals);
+      container.appendChild(row);
+    });
+  })();
+
+  // ---------- Opportunity bars ----------
+  (function () {
+    var container = document.getElementById("opp-bars");
+    var maxImpr = Math.max.apply(null, opportunities.map(function (d) { return d.impressions; }));
+    opportunities.forEach(function (d) {
+      var row = document.createElement("div");
+      row.className = "bar-row";
+      var name = document.createElement("div");
+      name.className = "bar-country";
+      name.textContent = d.q.length > 26 ? d.q.slice(0, 25) + "…" : d.q;
+      var track = document.createElement("div");
+      track.className = "bar-track";
+      var fill = document.createElement("div");
+      fill.className = "bar-fill";
+      fill.style.width = (d.impressions / maxImpr) * 100 + "%";
+      track.appendChild(fill);
+      track.addEventListener("pointermove", function (evt) {
+        var rect = track.getBoundingClientRect();
+        showTip(evt.clientX, rect.top, '<div class="t-label">' + d.q + '</div><div class="t-value">' + fmt(d.impressions) + ' impr. · CTR ' + d.ctr + '%</div><div class="t-label">Posición ' + d.pos + ' · ' + d.clicks + ' clics</div>');
+      });
+      track.addEventListener("pointerleave", hideTip);
+      var val = document.createElement("div");
+      val.className = "bar-value";
+      val.textContent = "CTR " + d.ctr + "%";
+      row.appendChild(name);
+      row.appendChild(track);
+      row.appendChild(val);
+      container.appendChild(row);
+    });
+  })();
+
+  // ---------- Cannibalization table ----------
+  (function () {
+    var tbody = document.querySelector("#table-cannibal tbody");
+    cannibalization.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.query;
+      var c2 = document.createElement("td"); c2.className = d.numUrls >= 4 ? "crit" : "strong"; c2.textContent = d.numUrls;
+      var c3 = document.createElement("td"); c3.textContent = fmt(d.totalImpr);
+      var c4 = document.createElement("td"); c4.textContent = d.urls[0].page;
+      var c5 = document.createElement("td"); c5.textContent = d.urls[0].pos.toFixed(1);
+      var c6 = document.createElement("td"); c6.textContent = d.urls[1] ? d.urls[1].page : "—";
+      var c7 = document.createElement("td"); c7.textContent = d.urls[1] ? d.urls[1].pos.toFixed(1) : "—";
+      [c1,c2,c3,c4,c5,c6,c7].forEach(function(c){ tr.appendChild(c); });
+      tbody.appendChild(tr);
+    });
+  })();
+
+  // ---------- Zero-click table ----------
+  (function () {
+    var tbody = document.querySelector("#table-zeroclick tbody");
+    zeroClick.forEach(function (d) {
+      var tr = document.createElement("tr");
+      var c1 = document.createElement("td"); c1.textContent = d.page;
+      var c2 = document.createElement("td"); c2.className = "strong"; c2.textContent = fmt(d.impressions);
+      var c3 = document.createElement("td"); c3.className = d.pos > 30 ? "crit" : ""; c3.textContent = d.pos.toFixed(1);
+      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3);
+      tbody.appendChild(tr);
+    });
+  })();
+
+})();
+</script>
