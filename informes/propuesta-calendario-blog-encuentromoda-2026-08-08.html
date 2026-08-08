@@ -1,0 +1,360 @@
+<title>Propuesta: Calendario de blog — Encuentro Moda</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f4f6f8;
+    --ink: #1a1d24;
+    --ink-secondary: #5b6270;
+    --ink-muted: #98a0ab;
+    --brand-blue: #4a66ae;
+    --brand-blue-soft: #eaeef8;
+    --brand-teal: #12b0bf;
+    --brand-teal-soft: #e4f7f9;
+    --hairline: #e4e3e1;
+    --hairline-strong: #d4d3d0;
+    --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+  .page { max-width: 980px; margin: 0 auto; padding: 40px 24px 96px; display: flex; flex-direction: column; gap: 40px; }
+
+  .brand-bar { display: flex; align-items: center; gap: 10px; }
+  .brand-bar svg { height: 22px; width: auto; }
+  .brand-bar span { font-weight: 600; font-size: 13px; color: var(--ink-secondary); letter-spacing: 0.02em; }
+
+  .doc-header { border: 1px solid var(--hairline); border-radius: 14px; background: linear-gradient(135deg, var(--brand-blue-soft), #ffffff 60%); padding: 32px 32px 26px; display: flex; flex-direction: column; gap: 16px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-blue); display: flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-teal); display: inline-block; }
+  h1 { font-weight: 600; font-size: 30px; line-height: 1.2; margin: 0; letter-spacing: -0.01em; color: var(--ink); }
+  .doc-sub { font-size: 15px; color: var(--ink-secondary); margin: 0; max-width: 68ch; line-height: 1.55; }
+  .meta-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding-top: 14px; border-top: 1px solid var(--hairline); font-size: 12px; }
+  .meta-item dt { color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 4px; font-weight: 600; }
+  .meta-item dd { margin: 0; color: var(--ink); font-size: 13px; font-weight: 500; }
+
+  .two-col-intro { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .intro-card { border: 1px solid var(--hairline); border-radius: 12px; padding: 20px 22px; background: var(--surface-2); }
+  .intro-card .lbl { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .intro-card .sub { font-size: 13px; color: var(--ink-secondary); margin-top: 6px; line-height: 1.55; }
+
+  h2.plain-title { font-size: 20px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
+  p.section-sub { font-size: 14px; color: var(--ink-secondary); line-height: 1.6; margin: 0 0 6px; max-width: 74ch; }
+
+  .month-block { display: flex; flex-direction: column; gap: 14px; }
+  .month-head { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--ink); border-radius: 12px; }
+  .month-head .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; background: var(--brand-teal); padding: 5px 12px; border-radius: 20px; flex: none; }
+  .month-head h3 { font-size: 18px; font-weight: 600; margin: 0; color: #ffffff; }
+  .month-head .season { margin-left: auto; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); text-align: right; }
+
+  .cards { display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 18px 20px; display: grid; grid-template-columns: 1.9fr 1fr; gap: 18px; align-items: start; }
+  .card h4 { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .card .angle { font-size: 13px; color: var(--ink-secondary); margin: 0; line-height: 1.55; }
+  .card .side { display: flex; flex-direction: column; gap: 10px; }
+  .kw-label, .link-label { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; display: block; }
+  .kw-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .kw-tag { font-size: 11.5px; background: var(--brand-teal-soft); color: #0c7d88; border: 1px solid rgba(18,176,191,0.25); padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .link-target { font-size: 11.5px; color: var(--brand-blue); background: var(--brand-blue-soft); border: 1px solid rgba(74,102,174,0.2); padding: 4px 9px; border-radius: 6px; display: inline-block; word-break: break-word; }
+
+  .reco-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .reco-item { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 15px 18px; border-bottom: 1px solid var(--hairline); }
+  .reco-item:last-child { border-bottom: none; }
+  .reco-pri { font-size: 16px; }
+  .reco-title { font-size: 14px; font-weight: 600; margin: 0 0 3px; color: var(--ink); }
+  .reco-desc { font-size: 13px; color: var(--ink-secondary); margin: 0; line-height: 1.5; }
+
+  footer { border-top: 1px solid var(--hairline); padding-top: 18px; font-size: 11px; color: var(--ink-muted); line-height: 1.7; }
+
+  @media (max-width: 640px) {
+    .meta-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col-intro { grid-template-columns: 1fr; }
+    .card { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+  }
+
+</style>
+
+<div class="page">
+
+  <div class="brand-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" data-name="Capa 1" viewBox="0 0 632.38 236.06"><defs><style>      .cls-1 {        fill: #12b0bf;      }      .cls-2 {        fill: #4a66ae;      }    </style></defs><g><path class="cls-2" d="M83.77,46.63l36.62,111.16,36.62-111.16h38.97l-53.62,144.9h-44.47L44.53,46.63h39.23Z"></path><path class="cls-2" d="M281.03,191.53c-40.53,0-71.18-28.37-71.18-72.45s31.66-72.45,72.2-72.45,72.2,28.12,72.2,72.45-32.43,72.45-73.21,72.45ZM281.03,160.62c18.75,0,36.74-13.68,36.74-41.55s-17.48-41.55-36.23-41.55-35.72,13.42-35.72,41.55,16.21,41.55,35.21,41.55Z"></path><path class="cls-2" d="M485.02,111.49c0-23.28-12.82-35.83-32.17-35.83s-32.7,12.55-32.7,35.83v80.04h-36.61V46.63h36.61v18.05c9.42-12.3,25.11-20.14,43.68-20.14,33.74,0,57.8,21.97,57.8,61.99v85.01h-36.62v-80.04Z"></path></g><path class="cls-1" d="M543.31,169.26c0-12.49,9.32-22.27,22.27-22.27s22.27,9.78,22.27,22.27-9.58,22.27-22.27,22.27-22.27-9.78-22.27-22.27Z"></path></svg>
+    <span>visibilidadon</span>
+  </div>
+
+  <header class="doc-header">
+    <div class="eyebrow">Encuentro Moda · Propuesta de contenido</div>
+    <h1>Calendario de blog para el lanzamiento de septiembre</h1>
+    <p class="doc-sub">Propuesta de las primeras 16 publicaciones del blog de Encuentro Moda, a razón de 4 artículos al mes. Cada artículo enlaza con una categoría de la tienda para dirigir a la lectora desde el contenido hacia la compra.</p>
+    <dl class="meta-row">
+      <div class="meta-item"><dt>Cliente</dt><dd>Encuentro Moda</dd></div>
+      <div class="meta-item"><dt>Lanzamiento</dt><dd>Septiembre 2026</dd></div>
+      <div class="meta-item"><dt>Cadencia</dt><dd>4 artículos / mes</dd></div>
+      <div class="meta-item"><dt>Alcance</dt><dd>Sept.–dic. 2026 · 16 piezas</dd></div>
+    </dl>
+  </header>
+
+  <div class="two-col-intro">
+    <div class="intro-card">
+      <div class="lbl">Por qué un blog</div>
+      <div class="sub">Un blog abre la puerta a Google Discover y a las búsquedas de una lectora que todavía no busca un producto concreto, sino inspiración e ideas de estilo. Es una vía de entrada nueva, complementaria a las páginas de categoría.</div>
+    </div>
+    <div class="intro-card">
+      <div class="lbl">Cómo conecta con la tienda</div>
+      <div class="sub">Los artículos hablan de la temporada real que vive la lectora cada mes y enlazan de forma natural hacia la categoría de producto correspondiente, guiando la navegación del contenido a la compra.</div>
+    </div>
+  </div>
+
+  <section class="month-block">
+    <h2 class="plain-title">Calendario — septiembre a diciembre 2026</h2>
+    <p class="section-sub">16 artículos organizados por mes, con las palabras clave objetivo y la categoría de la tienda a la que enlaza cada uno.</p>
+  </section>
+
+  <section class="month-block">
+    <div class="month-head">
+      <span class="tag">Septiembre</span>
+      <h3>Vuelta a la rutina</h3>
+      <span class="season">Transición verano–otoño</span>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div>
+          <h4>Cómo hacer la transición de tu armario de verano a otoño sin gastar de más</h4>
+          <p class="angle">Guía de entretiempo: qué piezas de verano siguen sirviendo y qué 3-4 prendas nuevas cierran el armario.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">ropa entretiempo mujer</span><span class="kw-tag">cómo vestir en septiembre</span><span class="kw-tag">armario cápsula otoño</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Prendas</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Vuelta a la oficina: 5 outfits con blusas y camisas que no pasan de moda</h4>
+          <p class="angle">Combinaciones concretas, no solo consejos, para retomar la rutina de oficina en septiembre.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">blusas mujer oficina</span><span class="kw-tag">outfits vuelta al trabajo</span><span class="kw-tag">camisas tendencia 2026</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Blusas y camisas</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Burdeos y marrón: los colores que dominarán este otoño (y cómo combinarlos)</h4>
+          <p class="angle">Contenido de tendencia de color con enlace directo a una categoría ya existente en el catálogo.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">color burdeos moda</span><span class="kw-tag">tonos marrones otoño</span><span class="kw-tag">combinar burdeos y marrón</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Burdeos y marrón</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Guía de tallas: cómo elegir vaqueros que sientan bien a cualquier cuerpo</h4>
+          <p class="angle">Apoya la propuesta inclusiva de la categoría de denim del sitio, pensada para todos los cuerpos.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">vaqueros mujer tallas</span><span class="kw-tag">cómo elegir vaqueros según tu cuerpo</span><span class="kw-tag">denim tallas grandes</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Denim</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="month-block">
+    <div class="month-head">
+      <span class="tag">Octubre</span>
+      <h3>Pleno otoño</h3>
+      <span class="season">Previa de Black Friday</span>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div>
+          <h4>Cómo combinar jerséis y cardigans para no pasar frío sin perder estilo</h4>
+          <p class="angle">Guía práctica de capas ahora que baja la temperatura de verdad.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">jerséis mujer</span><span class="kw-tag">cardigans tendencia</span><span class="kw-tag">cómo combinar jersey</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Jerséis y cardigans</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Guía para preparar tu lista de deseos antes del Black Friday</h4>
+          <p class="angle">Contenido informacional que precalienta la intención de compra un mes antes del evento.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">black friday ropa mujer</span><span class="kw-tag">qué comprar en black friday</span><span class="kw-tag">lista de deseos moda</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Rebajas</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Animal print en otoño: cómo llevarlo sin parecer disfraz</h4>
+          <p class="angle">Desmonta la principal objeción de estilo de esta categoría ya presente en el catálogo.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">animal print tendencia</span><span class="kw-tag">cómo combinar animal print</span><span class="kw-tag">animal print otoño 2026</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Animal print</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Faldas midi en otoño: los looks que puedes hacer con una sola prenda</h4>
+          <p class="angle">Formato «una prenda, cinco looks», fácil de fotografiar y reutilizar en redes.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">falda midi otoño</span><span class="kw-tag">cómo combinar falda midi</span><span class="kw-tag">outfits falda midi mujer</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Faldas</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="month-block">
+    <div class="month-head">
+      <span class="tag">Noviembre</span>
+      <h3>Black Friday</h3>
+      <span class="season">Primeras compras de fiesta</span>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div>
+          <h4>Black Friday en Encuentro Moda: cómo aprovechar las rebajas sin comprar de más</h4>
+          <p class="angle">Pieza ancla del mes: capta la búsqueda de marca y evento, con enlace directo a rebajas.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">black friday encuentro moda</span><span class="kw-tag">ofertas ropa mujer noviembre</span><span class="kw-tag">consejos comprar en rebajas</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Rebajas</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Primeros looks de fiesta: cómo empezar a planear tu outfit de Navidad en noviembre</h4>
+          <p class="angle">Adelanta la intención de búsqueda de diciembre sin repetir el contenido de fiesta del mes siguiente.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">outfit fiesta navidad</span><span class="kw-tag">ropa fiesta mujer</span><span class="kw-tag">looks navideños</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Vestidos y monos</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Sudaderas que no parecen sudadera: cómo llevarlas a la oficina o a un plan informal</h4>
+          <p class="angle">Reposiciona una prenda de precio medio como pieza versátil, no solo de andar por casa.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">sudaderas mujer elegantes</span><span class="kw-tag">cómo combinar sudadera</span><span class="kw-tag">sudadera oficina</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Sudaderas</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Pantalones de vestir para mujer: la prenda que sustituye a los vaqueros esta temporada</h4>
+          <p class="angle">Contenido de tendencia con comparación directa frente al denim, ya cubierto en septiembre.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">pantalones vestir mujer</span><span class="kw-tag">pantalón sastre tendencia</span><span class="kw-tag">cómo combinar pantalón de vestir</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Pantalones</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="month-block">
+    <div class="month-head">
+      <span class="tag">Diciembre</span>
+      <h3>Fiestas</h3>
+      <span class="season">San Valentín en el horizonte</span>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div>
+          <h4>Qué ponerte en Nochevieja: 4 estilos de vestido para cada tipo de fiesta</h4>
+          <p class="angle">La pieza de mayor intención comercial del mes: formato «elige tu estilo» con enlace directo a vestidos.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">vestido nochevieja</span><span class="kw-tag">qué ponerse fin de año</span><span class="kw-tag">vestidos de fiesta mujer</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Vestidos y monos</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Ideas de regalo con ropa de Encuentro Moda para estas navidades</h4>
+          <p class="angle">Contenido de regalo que cruza varias categorías, buen candidato para enlazar varias fichas de producto.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">ideas regalo moda mujer</span><span class="kw-tag">regalos navidad ropa</span><span class="kw-tag">qué regalar navidad mujer</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Accesorios</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>Cómo combinar accesorios para elevar un look sencillo en Navidad</h4>
+          <p class="angle">Impulsa el ticket medio vía cross-sell, apoyando directamente la categoría de accesorios.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">accesorios navidad mujer</span><span class="kw-tag">cómo combinar accesorios</span><span class="kw-tag">complementos fiesta mujer</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Accesorios</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <h4>San Valentín 2027: primeras ideas de outfit romántico con looks que ya tienes en el armario</h4>
+          <p class="angle">Cierra el año adelantando San Valentín, la fecha comercial más próxima tras las fiestas.</p>
+        </div>
+        <div class="side">
+          <div><span class="kw-label">Palabras clave</span><div class="kw-tags"><span class="kw-tag">outfit san valentín</span><span class="kw-tag">qué ponerse san valentín</span><span class="kw-tag">ropa san valentín mujer</span></div></div>
+          <div><span class="link-label">Enlaza a</span><span class="link-target">Blusas y camisas</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="month-block">
+    <div class="reco-list">
+      <h2 class="plain-title" style="padding: 15px 18px 0;">Próximos pasos</h2>
+      <div class="reco-item">
+        <span class="reco-pri">✅</span>
+        <div><p class="reco-title">Validar el calendario</p><p class="reco-desc">Confirmar el orden y los temas propuestos antes de empezar la redacción.</p></div>
+      </div>
+      <div class="reco-item">
+        <span class="reco-pri">✍️</span>
+        <div><p class="reco-title">Asignar autoría al blog</p><p class="reco-desc">Firmar los artículos con una persona o equipo de Encuentro Moda refuerza la confianza de marca.</p></div>
+      </div>
+      <div class="reco-item">
+        <span class="reco-pri">📅</span>
+        <div><p class="reco-title">Planificar el siguiente ciclo</p><p class="reco-desc">Ampliar el calendario a enero-abril 2027 siguiendo el mismo criterio de temporada real.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Propuesta de contenido editorial para el blog de Encuentro Moda · Cadencia de 4 artículos al mes · 16 piezas para el periodo septiembre-diciembre 2026 · VisibilidadON.
+  </footer>
+
+</div>
